@@ -212,10 +212,8 @@ body {
     max-width: 400px;
     margin: 0 auto;
     display: block;
-    z-index: 1000; /* Ensure it stays on top of other elements */
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-    animation: float 2s infinite; /* Add animation */
-}
+    animation: float 3s infinite; 
 
 /* Keyframes for float animation */
 @keyframes float {
@@ -223,7 +221,7 @@ body {
         transform: translate(-50%, 0);
     }
     50% {
-        transform: translate(-50%, -10px); /* Adjust the value to control the float height */
+        transform: translate(-50%, -10px);
     }
 }
 
