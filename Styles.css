@@ -31,8 +31,8 @@ body {
 }
 
 .close-button i {
-    font-size: 2.00rem; /* Match the font size of navbar-toggler */
-    color: #f8f7f7; /* Change to desired color */
+    font-size: 2.00rem; 
+    color: #d6d6d6; 
 }
 
 /* Menu Container */
