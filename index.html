@@ -6,13 +6,13 @@
     <title>Byte de Sabor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
-    <link href="styles.css" rel="stylesheet">
+    <link href="Assets/Styles/Styles.css" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-dark">
         <div class="container">
             <a class="navbar-brand mb-0 h1" href="#">
-                <img src="assets/logo.png" alt="Byte de Sabor" height="50">
+                <img src="assets/Images/Logo.png" alt="Byte de Sabor" height="50">
             </a>            <button id="navbar-toggler" class="navbar-toggler" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -155,11 +155,11 @@
     </div>
 
     <div class="order-button-container">
-        <button class="btn order-button text-white">
-            Realizar Pedido <span class="badge bg-white text-dark ms-2">3</span>
+        <button class="btn order-button text-white" style="display: none;">
+            Realizar Pedido <span class="badge bg-white text-dark ms-2" id="order-count">0</span>
         </button>
     </div>
-    <script src="menu-script.js"></script>
+    <script src="Assets/Scripts/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
