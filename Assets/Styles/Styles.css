@@ -195,8 +195,6 @@ body {
     background-color: #8A5C8C;
 }
 
-
-
 /* Order Button */
 .order-button {
     position: fixed;
@@ -214,6 +212,10 @@ body {
     display: none; /* Initially hidden */
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
     animation: float 3s infinite; 
+}
+
+.order-button:hover{
+    background-color: #ad7caf;
 }
 
 /* Keyframes for float animation */
@@ -280,4 +282,36 @@ body {
 
 .product-card {
     animation: fadeIn 0.3s ease-out;
+}
+
+
+/*nav link hover - index.html*/
+.nav-link {
+    padding: 8px 16px;
+    border-radius: 5px; 
+    transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+/* Pedidos - Contêiner de Pedidos */
+#orders-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/*cart header*/
+.fas.fa-shopping-cart{
+    color: white;
+    font-size: 24px;
+}
+
+a{
+    color: white;
+    text-decoration: none;
 }
