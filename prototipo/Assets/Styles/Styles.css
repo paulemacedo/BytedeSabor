@@ -6,6 +6,11 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
 /* Estilo do navbar-toggler */
 .navbar-toggler {
     padding: 0.25rem 0.75rem;
@@ -23,16 +28,18 @@ body {
     font-size: 1.25rem;
     line-height: 1;
     background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Same border as navbar-toggler */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Same border as navbar-toggler */
     border-radius: 0.25rem;
     cursor: pointer;
-    z-index: 1001; /* Ensure it stays on top of other elements */
+    z-index: 1001;
+    /* Ensure it stays on top of other elements */
     transition: box-shadow 0.15s ease-in-out;
 }
 
 .close-button i {
-    font-size: 2.00rem; 
-    color: #d6d6d6; 
+    font-size: 2.00rem;
+    color: #d6d6d6;
 }
 
 /* Menu Container */
@@ -45,11 +52,13 @@ body {
     background-color: #2D1B3E;
     z-index: 1000;
     animation: slideIn 0.3s ease-out;
-    display: none; /* Initially hidden */
+    display: none;
+    /* Initially hidden */
 }
 
 .menu-container.active {
-    display: block; /* Show when active */
+    display: block;
+    /* Show when active */
 }
 
 /* Menu Header */
@@ -84,25 +93,30 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
 }
+
 .menu-item i {
     font-size: 1rem;
     opacity: 0.7;
 }
+
 /* Animations */
 @keyframes slideIn {
     from {
         transform: translateX(-100%);
     }
+
     to {
         transform: translateX(0);
     }
 }
+
 /* Media Queries */
 @media (min-width: 768px) {
     .menu-container {
         max-width: 400px;
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
     }
+
     .menu-nav {
         padding: 30px;
     }
@@ -154,7 +168,8 @@ body {
 
 .product-info {
     flex-grow: 1;
-    min-width: 0; /* Prevents flex item from overflowing */
+    min-width: 0;
+    /* Prevents flex item from overflowing */
 }
 
 .product-info h5 {
@@ -198,7 +213,8 @@ body {
 /* Order Button */
 .order-button {
     position: fixed;
-    bottom: 5px; /* Adjusted to give some space from the bottom */
+    bottom: 5px;
+    /* Adjusted to give some space from the bottom */
     left: 50%;
     transform: translateX(-50%);
     background-color: #9B6B9D;
@@ -209,20 +225,24 @@ body {
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
-    display: none; /* Initially hidden */
+    display: none;
+    /* Initially hidden */
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-    animation: float 3s infinite; 
+    animation: float 3s infinite;
 }
 
-.order-button:hover{
+.order-button:hover {
     background-color: #ad7caf;
 }
 
 /* Keyframes for float animation */
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(-50%, 0);
     }
+
     50% {
         transform: translate(-50%, -10px);
     }
@@ -274,6 +294,7 @@ body {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -288,7 +309,7 @@ body {
 /*nav link hover - index.html*/
 .nav-link {
     padding: 8px 16px;
-    border-radius: 5px; 
+    border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
@@ -297,7 +318,7 @@ body {
 }
 
 
-/* Pedidos - Contêiner de Pedidos */
+/* Pedidos.html - Contêiner de Pedidos */
 #orders-container {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
@@ -305,13 +326,83 @@ body {
     margin-top: 20px;
 }
 
-/*cart header*/
-.fas.fa-shopping-cart{
-    color: white;
-    font-size: 24px;
+
+/*perfil.html*/
+/* Form Container */
+.card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-a{
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+    background-color: #00000046;
+    letter-spacing: 1px;
+    border-bottom: none;
+    text-transform: uppercase;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+/* Input Fields */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: white;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: #9B6B9D;
+    color: white;
+    box-shadow: 0 0 8px rgba(155, 107, 157, 0.6);
+}
+
+.form-label {
+    color: white;
+    font-weight: 700;
+}
+
+#form-title {
+    font-weight: 600;
+    margin: 0 auto;
+}
+
+/* Buttons */
+.btn {
+    background-color: #9B6B9D;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #8A5C8C;
+}
+
+/* Toggle Link */
+#toggle-link a {
+    color: #9B6B9D;
+    font-weight: bold;
     text-decoration: none;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+#toggle-link a:hover {
+    color: #ad7caf;
+}
+
+#toggle-link-pass {
+    cursor: pointer;
+    color: white;
 }
