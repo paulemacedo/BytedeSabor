@@ -1,7 +1,7 @@
 
 const Pedidos = () => {
     return (
-        <p>Pedidos.</p>
+        <p>Em manutenção por conta da união das páginas Pedidos e Carrinho...</p>
     )
 };
 
