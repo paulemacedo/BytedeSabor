@@ -28,7 +28,7 @@ const App = () => {
           <Link to="/" onClick={toggleMenu}>Home</Link>
           <Link to="/pedidos" onClick={toggleMenu}>Pedidos</Link>
           <Link to="/login" onClick={toggleMenu}>Login</Link>
-          <Link to="/carrinho" onClick={toggleMenu}>Carrinho</Link>
+          {/* <Link to="/carrinho" onClick={toggleMenu}>Carrinho</Link> */}
         </nav>
       </header>
 
