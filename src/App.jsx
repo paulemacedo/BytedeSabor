@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Pedidos from "./pages/Pedidos";
 import Login from "./pages/Login";
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import Logo from './Assets/Img/Logo.svg';
 
 const App = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <Router>
       <header>
-        <nav style={{ display: "flex", gap: "1rem", padding: "1rem", background: "#ddd" }}>
-          <Link to="/">Home</Link>
-          <Link to="/pedidos">Pedidos</Link>
-          <Link to="/login">Login</Link>
+        <div className="logo">
+          <img src={Logo} alt="Logo" />
+        </div>
+        <div className="hamburger" onClick={toggleMenu}>
+          <i className={isOpen ? "bi bi-x" : "bi bi-list"}></i>
+        </div>
+        <nav className={isOpen ? "active" : ""}>
+          <Link to="/" onClick={toggleMenu}>Home</Link>
+          <Link to="/pedidos" onClick={toggleMenu}>Pedidos</Link>
+          <Link to="/login" onClick={toggleMenu}>Login</Link>
         </nav>
       </header>
 
