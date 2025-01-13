@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Pedidos from "./pages/Pedidos";
 import Login from "./pages/Login";
+import Carrinho from "./pages/Carrinho";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Logo from './Assets/Img/Logo.svg';
 
@@ -27,6 +28,7 @@ const App = () => {
           <Link to="/" onClick={toggleMenu}>Home</Link>
           <Link to="/pedidos" onClick={toggleMenu}>Pedidos</Link>
           <Link to="/login" onClick={toggleMenu}>Login</Link>
+          <Link to="/carrinho" onClick={toggleMenu}>Carrinho</Link>
         </nav>
       </header>
 
@@ -35,6 +37,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/pedidos" element={<Pedidos />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/carrinho" element={<Carrinho />} />
         </Routes>
       </main>
     </Router>
