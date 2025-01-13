@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #ddd;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 100px;
+  padding-right: 100px;
+  background-color: #371443;
+  position: relative; /* Adicionado para posicionamento do hamburger */
+}
+
+.logo img {
+  width: 66px;
+  height: auto;
+  margin-top: -12px;
+  margin-bottom: -12px;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+nav a {
+  font-size: 1.6rem;
+  text-decoration: none;
+  padding-left: 20px;
+  color: #fff;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  position: fixed; /* Alterado para fixed */
+  right: 20px; /* Posição fixa à direita */
+  top: 20px; /* Posição fixa ao topo */
+  z-index: 1000; /* Aumentado para ficar acima do menu */
+  background: none;
+  border: none;
+  padding: 10px;
+}
+
+.hamburger i {
+  font-size: 2rem;
+  color: #000; /* Cor padrão para o ícone do menu */
+}
+
+/* Estilo específico para o X quando o menu está aberto */
+.hamburger i.bi-x {
+  color: #fff; /* Cor branca para o X quando o menu está aberto */
+}
+
+@media (max-width: 768px) {
+  header {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  nav {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    position: fixed; /* Alterado para fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Altura total da viewport */
+    background: rgba(0, 0, 0, 0.9); /* Fundo um pouco mais escuro */
+    justify-content: center;
+    align-items: center;
+  }
+
+  nav.active {
+    display: flex;
+  }
+
+  nav a {
+    color: white;
+    font-size: 2rem;
+    padding: 1rem;
+    transition: color 0.3s ease; /* Transição suave para hover */
+  }
+
+  nav a:hover {
+    color: #ddd; /* Cor mais clara no hover */
+  }
+
+  .hamburger {
+    display: block;
+  }
+}

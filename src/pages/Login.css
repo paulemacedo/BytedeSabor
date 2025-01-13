@@ -1,0 +1,152 @@
+/* Container styles */
+.login-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 9px;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Classe específica para botão de login */
+.login-btn {
+    min-width: 90%;  /* Usando min-width ao invés de width */
+    padding: 0.75rem 2rem;  /* Adicionando padding horizontal */
+}
+
+/* Classe para centralização */
+.center-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Form styles */
+form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #666;
+}
+
+
+/* Link styles */
+.text-center {
+    text-align: center;
+}
+
+.link-container {
+    margin-top: 1rem;
+}
+
+a {
+    color: #af89bb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Utility classes */
+.d-none {
+    display: none;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.mt-3 {
+    margin-top: 1rem;
+}
+
+/* Title styles */
+#form-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .login-container {
+        max-width: 100%;
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .form-input {
+        padding: 0.5rem;
+    }
+
+    .login-btn {
+        min-width: 95%;
+    }
+
+    .btn {
+        padding: 0.5rem;
+    }
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+    .login-container {
+        margin: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    #form-title {
+        font-size: 1.25rem;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+    }
+
+    .form-input {
+        font-size: 0.9rem;
+    }
+
+    .login-btn {
+        min-width: 100%;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+    }
+}
