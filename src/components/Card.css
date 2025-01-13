@@ -2,7 +2,8 @@
     display: flex;
     align-items: center;
     padding: 16px;
-    border: 1px solid #ddd;
+    border: 2px solid #8d528d;
+    background-color: #371443;
     border-radius: 8px;
     text-align: left;
     height: 100%;
@@ -39,10 +40,8 @@
 .card-link {
     display: inline-block;
     margin-top: 8px;
+    width: auto;
+    padding: 8px 16px;
     text-decoration: none;
-    color: #007bff;
-}
-
-.card-link:hover {
-    text-decoration: underline;
+    transition: background-color 0.3s ease;
 }

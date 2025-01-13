@@ -9,7 +9,7 @@ const Card = ({ nome, imagem, descricao, preco }) => {
                 <h2 className="card-title">{nome}</h2>
                 <p className="card-description">{descricao}</p>
                 <p className="card-price">{preco}</p>
-                <a className="card-link" href="#">
+                <a className="card-link btn" href="#">
                     <i className="bi bi-cart"></i> Adicionar ao carrinho
                 </a>
             </div>

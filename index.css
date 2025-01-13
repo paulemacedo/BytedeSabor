@@ -1,0 +1,22 @@
+/* CSS gerais */
+
+ body {
+    background-color: #2e2133;
+    color: #FFF;
+}
+
+/* Button styles */
+.btn {
+    padding: 0.75rem;
+    color: white;
+    background-color: transparent;
+    border: solid 2px #af89bb;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #af89bb;
+}
+
