@@ -10,9 +10,7 @@
 </p>
 
 <p align="center">
-    <a href="https://bytedesabor.vercel.app">
-        <img src="https://img.shields.io/website-up-down-green-red/http/paulemacedo.vercel.app.svg?style=flat-square" alt="Site Status" />
-    </a>
+    <img src="https://img.shields.io/website-up-down-green-red/http/paulemacedo.vercel.app.svg?style=flat-square" alt="Site Status" />
     <img src="https://img.shields.io/badge/Made%20with%20-❤️-20232A?style=flat-square" alt="Love" />
 </p>
 
