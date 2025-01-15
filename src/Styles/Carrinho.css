@@ -1,0 +1,154 @@
+/* Container principal */
+.cart-container {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Título do carrinho */
+.cart-title {
+    color: #af89bb;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Mensagem de carrinho vazio */
+.cart-empty {
+    color: #ffffff;
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+/* Item do carrinho */
+.cart-item {
+    background-color: #2D1B3E;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.cart-item:hover {
+    transform: translateY(-2px);
+}
+
+/* Layout do item */
+.cart-item-layout {
+    display: flex;
+    align-items: center;
+}
+
+/* Container da imagem */
+.cart-item-image-wrapper {
+    width: 120px;
+    padding: 1rem;
+    flex-shrink: 0;
+}
+
+.cart-item-image {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Conteúdo do item */
+.cart-item-content {
+    flex: 1;
+    padding: 1rem;
+}
+
+.cart-item-details {
+    color: #ffffff;
+}
+
+.cart-item-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.cart-item-description {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.5rem;
+}
+
+.cart-item-info {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+/* Resumo do carrinho */
+.cart-summary {
+    background-color: #2D1B3E;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+.cart-total {
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.cart-checkout-button {
+    padding: 0.75rem;
+    color: white;
+    background-color: transparent;
+    border: solid 2px #af89bb;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.cart-checkout-button:hover {
+    background-color: #af89bb;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .cart-container {
+        padding: 1rem;
+    }
+
+    .cart-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .cart-item-image-wrapper {
+        width: 100px;
+        padding: 0.75rem;
+    }
+
+    .cart-item-image {
+        height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-title {
+        font-size: 1.25rem;
+    }
+
+    .cart-item-image-wrapper {
+        width: 80px;
+        padding: 0.5rem;
+    }
+
+    .cart-item-image {
+        height: 60px;
+    }
+
+    .cart-item-content {
+        padding: 0.75rem;
+    }
+
+    .cart-summary {
+        padding: 1rem;
+    }
+
+    .cart-checkout-button {
+        width: 100%;
+    }
+}

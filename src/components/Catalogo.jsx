@@ -1,12 +1,15 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import Card from './Card.jsx';
 import Produtos from '../back-end/Produtos.jsx';
-import { addToCart } from '../back-end/CartManager.jsx';
-import './Catalogo.css';
+import { addToCart } from '../redux/cartSlice';
+import '../Styles/Catalogo.css';
 
 const Catalogo = () => {
+    const dispatch = useDispatch();
+
     const handleAddToCart = (product) => {
-        addToCart(product);
+        dispatch(addToCart(product));
     };
 
     return (
