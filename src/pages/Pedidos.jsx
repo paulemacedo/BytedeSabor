@@ -29,8 +29,7 @@ const Pedidos = () => {
                                     </li>
                                 ))}
                             </ul>
-                            <p className="order-total">Total: R$ {order.total.toFixed(2)}</p>
-                        </div>
+                            <p className="order-total">Total: R$ {order.total ? order.total.toFixed(2) : '0.00'}</p>                        </div>
                     ))
                 )}
             </div>
