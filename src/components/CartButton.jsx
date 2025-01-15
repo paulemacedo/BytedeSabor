@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadCart } from '../redux/cartSlice';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './CartButton.css';
 
 const CartButton = () => {
-    const [cartCount, setCartCount] = useState(0);
+    const cartCount = useSelector((state) => state.cart.count);
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        setCartCount(cart.length);
-    }, []);
+    React.useEffect(() => {
+        dispatch(loadCart());
+    }, [dispatch]);
 
     return (
         <Link to="/carrinho" className="cart-button">
