@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './Card.css';
+import '../Styles/Card.css';
 
 const Card = ({ nome, imagem, descricao, preco, onAddToCart }) => {
     return (

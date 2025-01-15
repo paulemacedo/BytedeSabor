@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadOrders, selectAllOrders } from '../redux/ordersSlice';
-import './Pedidos.css';
+import '../Styles/Pedidos.css';
 
 const Pedidos = () => {
     const dispatch = useDispatch();

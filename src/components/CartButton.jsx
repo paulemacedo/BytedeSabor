@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadCart } from '../redux/cartSlice';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './CartButton.css';
+import '../Styles/CartButton.css';
 
 const CartButton = () => {
     const cartCount = useSelector((state) => state.cart.count);

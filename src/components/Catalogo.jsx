@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Card from './Card.jsx';
 import Produtos from '../back-end/Produtos.jsx';
 import { addToCart } from '../redux/cartSlice';
-import './Catalogo.css';
+import '../Styles/Catalogo.css';
 
 const Catalogo = () => {
     const dispatch = useDispatch();

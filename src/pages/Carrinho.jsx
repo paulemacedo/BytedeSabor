@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCart, loadCart, getTotalPrice } from '../redux/cartSlice';
 import { addOrder } from '../redux/ordersSlice';
-import './Carrinho.css';
+import '../Styles/Carrinho.css';
 
 const Carrinho = () => {
     const cart = useSelector((state) => state.cart.items);
