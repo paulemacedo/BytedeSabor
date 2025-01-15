@@ -43,3 +43,8 @@ npm i
 npm run dev
 ```
 
+#  Thanks to all contributors ❤
+
+ <a href = "https://github.com/paulemacedo/bytedesabor/graphs/contributors">
+   <img src = "https://contrib.rocks/image?repo=paulemacedo/bytedesabor" alt="Bernardo mariga, Paule Macedo e Maria eduarda"/>
+ </a>
