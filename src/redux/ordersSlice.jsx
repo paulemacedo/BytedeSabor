@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 
 const ordersSlice = createSlice({
     name: 'orders',
@@ -7,7 +8,12 @@ const ordersSlice = createSlice({
     },
     reducers: {
         addOrder: (state, action) => {
-            state.items.push(action.payload);
+            const newOrder = {
+                id: uuidv4(),
+                status: 'Pagamento executado com sucesso',
+                ...action.payload,
+            };
+            state.items.push(newOrder);
         },
         clearOrders: (state) => {
             state.items = [];

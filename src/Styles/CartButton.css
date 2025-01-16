@@ -1,8 +1,10 @@
 .cart-button {
     position: fixed;
     bottom: 70px;
-    right: 20px;
-    background-color: #A17FB8;
+    right: 20px;;
+    border: 1px solid #A17FB8;
+    background-color: #2c0a31;
+    z-index: 5;
     color: white;
     border: none;
     border-radius: 50%;

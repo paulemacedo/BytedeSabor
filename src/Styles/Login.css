@@ -1,11 +1,13 @@
 /* Container styles */
 .login-container {
-    max-width: 400px;
+    max-width: 500px;
     margin: 2rem auto;
     padding: 2rem;
     border-radius: 9px;
-    justify-content: center;
-    align-items: center;
+    display: flex; /* Adicione esta linha */
+    flex-direction: column; /* Adicione esta linha */
+    /* justify-content: center;
+    align-items: center; */
 }
 
 .login-form {
@@ -17,8 +19,12 @@
 
 /* Classe específica para botão de login */
 .login-btn {
-    min-width: 90%;  /* Usando min-width ao invés de width */
-    padding: 0.75rem 2rem;  /* Adicionando padding horizontal */
+    min-width: 90%;
+    padding: 0.75rem 2rem;  
+}
+
+.login:hover {
+    background-color: #af89bb;
 }
 
 /* Classe para centralização */
@@ -26,6 +32,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-left: 0.9rem;
     width: 100%;
     margin-top: 1rem;
 }
@@ -105,9 +112,12 @@ a:hover {
 /* Responsive styles */
 @media (max-width: 768px) {
     .login-container {
-        max-width: 100%;
-        margin: 1rem;
+        max-width: 400px;
+        margin: 1rem auto;
         padding: 1rem;
+        border-radius: 9px;
+        justify-content: center;
+        align-items: center;
     }
 
     .form-input {
@@ -126,8 +136,12 @@ a:hover {
 /* Small screens */
 @media (max-width: 480px) {
     .login-container {
-        margin: 0.5rem;
+        max-width: 300px;
+        margin: 0.5rem auto;
         padding: 0.5rem;
+        border-radius: 9px;
+        justify-content: center;
+        align-items: center;
     }
 
     #form-title {

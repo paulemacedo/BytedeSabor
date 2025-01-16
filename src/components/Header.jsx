@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import Logo from '../Assets/Img/Logo.svg'; // Corrija o caminho se necessário
+import Logo from '../Assets/Img/icon.svg';
 import '../Styles/Header.css';
 
 const Header = () => {

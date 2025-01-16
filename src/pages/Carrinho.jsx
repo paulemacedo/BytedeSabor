@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearCart, loadCart, getTotalPrice } from '../redux/cartSlice';
+import { clearCart, loadCart, getTotalPrice, addToCart, removeFromCart } from '../redux/cartSlice';
 import { addOrder } from '../redux/ordersSlice';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../Styles/Carrinho.css';
 
 const Carrinho = () => {
@@ -28,39 +29,36 @@ const Carrinho = () => {
         dispatch(clearCart());
     };
 
+    const handleIncreaseQuantity = (item) => {
+        dispatch(addToCart(item));
+    };
+
+    const handleDecreaseQuantity = (item) => {
+        dispatch(removeFromCart(item));
+    };
+
     return (
         <div className="cart-container">
             <h1 className="cart-title">Meu Carrinho</h1>
-            <div className="cart-items">
-                {cart.length === 0 ? (
-                    <p className="cart-empty">Seu carrinho está vazio.</p>
-                ) : (
-                    cart.map((item, index) => (
-                        <div key={index} className="cart-item">
-                            <div className="cart-item-layout">
-                                <div className="cart-item-image-wrapper">
-                                    <img src={item.imagem} className="cart-item-image" alt={item.nome} />
-                                </div>
-                                <div className="cart-item-content">
-                                    <div className="cart-item-details">
-                                        <h5 className="cart-item-title">{item.nome}</h5>
-                                        <p className="cart-item-info">Preço Unitario: R$ {item.preco.toFixed(2)}</p>
-                                        <p className="cart-item-info">Quantidade: {item.quantity}</p>
-                                    </div>
-                                </div>
+            {cart.length === 0 ? (
+                <p className="cart-empty">Seu carrinho está vazio.</p>
+            ) : (
+                cart.map((item) => (
+                    <div key={item.nome} className="cart-item">
+                        <div className="cart-item-content">
+                            <p className="cart-item-title">{item.quantity}x {item.nome}</p>
+                            <div className="cart-item-controls">
+                                <i className="bi bi-dash-circle cart-item-icon" onClick={() => handleDecreaseQuantity(item)}></i>
+                                <i className="bi bi-plus-circle cart-item-icon" onClick={() => handleIncreaseQuantity(item)}></i>
                             </div>
                         </div>
-                    ))
-                )}
-            </div>
-            {cart.length > 0 && (
-                <div className="cart-summary">
-                    <h3 className="cart-total">Total: R$ {totalPrice}</h3>
-                    <button className="cart-checkout-button" onClick={handleCheckout}>
-                        Finalizar Pedido
-                    </button>
-                </div>
+                    </div>
+                ))
             )}
+            <div className="cart-summary">
+                <p className="cart-total">Total: R$ {totalPrice}</p>
+                <button className="cart-checkout-button" onClick={handleCheckout}>Finalizar Pedido</button>
+            </div>
         </div>
     );
 };

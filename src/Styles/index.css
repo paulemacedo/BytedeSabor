@@ -1,8 +1,36 @@
 /* CSS gerais */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
  body {
     background-color: #2e2133;
     color: #FFF;
+}
+h1 {
+    font-size: 3rem;
+    margin: 16px 0;
+    margin-bottom: 10px;
+    font-family: 'VT323', monospace;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin: 16px 0;
+    font-family: Jura, sans-serif;
+}
+i {
+    font-size: 1.5rem;
+    margin: 16px 0;
+    font-family: Jura, sans-serif;
+}
+
+p {
+    font-size: 1rem;
+    margin: 8px 0;
+    font-family: Jura, sans-serif;
+}
+
+span {
+    font-weight: bold;
 }
 
 /* Button styles */
