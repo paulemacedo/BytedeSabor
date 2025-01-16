@@ -30,7 +30,8 @@ p {
 }
 
 span {
-    font-weight: bold;
+    font-weight:bold;
+    color: #c17ed8;
 }
 
 /* Button styles */
@@ -48,3 +49,18 @@ span {
     background-color: #af89bb;
 }
 
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.25rem;
+    }
+    p {
+        font-size: 0.9rem;
+    }
+    .btn {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+}

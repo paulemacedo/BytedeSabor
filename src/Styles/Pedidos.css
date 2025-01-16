@@ -29,7 +29,6 @@
 .order-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 .order-date {
@@ -59,4 +58,34 @@
     font-size: 1.2rem;
     font-weight: bold;
     color: #FFF;
+}
+
+@media (max-width: 768px) {
+    .order-header {
+        flex-direction: column;
+    }
+
+    .pedidos-container {
+        padding: 10px;
+    }
+
+    .order-item {
+        padding: 10px;
+    }
+
+    .order-date {
+        font-size: 0.9rem;
+    }
+
+    .order-status {
+        font-size: 0.9rem;
+    }
+
+    .order-detail {
+        font-size: 0.9rem;
+    }
+
+    .order-total {
+        font-size: 1rem;
+    }
 }

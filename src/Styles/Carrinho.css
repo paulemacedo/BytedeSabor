@@ -26,11 +26,7 @@
 }
 
 /* Título do carrinho */
-.cart-title {
-    color: #af89bb;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-}
+
 
 /* Mensagem de carrinho vazio */
 .cart-empty {
@@ -135,10 +131,6 @@
         padding: 1rem;
     }
 
-    .cart-title {
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
 
     .cart-item-image-wrapper {
         width: 100px;
@@ -156,9 +148,7 @@
         flex-direction: column;
         gap: 0.5rem;
     }
-    .cart-title {
-        font-size: 1.25rem;
-    }
+
 
     .cart-item-image-wrapper {
         width: 80px;

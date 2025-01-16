@@ -23,7 +23,7 @@ const Pedidos = () => {
                         <div key={order.id} className="order-item">
                             <div className="order-header">
                                 <h2 className="order-title">Pedido #{order.id}</h2>
-                                <p className="order-date">{new Date(order.date).toLocaleDateString('pt-BR')}</p>
+                                <span><h2 className="order-date">{new Date(order.date).toLocaleDateString('pt-BR')}</h2></span>
                             </div>
                             <ul className="order-details">
                                 {order.items.map((item, idx) => (
