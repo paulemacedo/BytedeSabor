@@ -5,8 +5,8 @@ import CartButton from '../components/CartButton.jsx';
 const Home = () => {
     return (
         <>
+            <CartButton />   
             <Catalogo />
-            <CartButton />
         </>
     );
 };

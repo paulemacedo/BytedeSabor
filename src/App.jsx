@@ -1,24 +1,28 @@
-import React from "react";
-import './Styles/App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Pedidos from "./pages/Pedidos";
 import Login from "./pages/Login";
 import Carrinho from "./pages/Carrinho";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Home from "./pages/Home"; 
+import './Styles/App.css'; 
 
 const App = () => {
   return (
       <Router>
-        <Header />
-        <main style={{ padding: "1rem" }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/pedidos" element={<Pedidos />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/carrinho" element={<Carrinho />} />
-          </Routes>
-        </main>
+        <div className="app-wrapper">
+          <Header />
+          <main className="content" style={{ padding: "1rem" }}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/pedidos" element={<Pedidos />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/carrinho" element={<Carrinho />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
       </Router>
   );
 };

@@ -19,17 +19,21 @@ const Pedidos = () => {
                 {orders.length === 0 ? (
                     <p className="no-orders">Você ainda não fez nenhum pedido.</p>
                 ) : (
-                    orders.map((order, index) => (
-                        <div key={index} className="order-item">
-                            <h2 className="order-title">Pedido #{index + 1}</h2>
+                    orders.map((order) => (
+                        <div key={order.id} className="order-item">
+                            <div className="order-header">
+                                <h2 className="order-title">Pedido #{order.id}</h2>
+                                <span><h2 className="order-date">{new Date(order.date).toLocaleDateString('pt-BR')}</h2></span>
+                            </div>
                             <ul className="order-details">
                                 {order.items.map((item, idx) => (
                                     <li key={idx} className="order-detail">
-                                        {item.nome} - Quantidade: {item.quantity} - Preço: R$ {item.preco.toFixed(2)}
+                                        {item.quantity}x {item.nome}
                                     </li>
                                 ))}
                             </ul>
-                            <p className="order-total">Total: R$ {order.total ? order.total.toFixed(2) : '0.00'}</p>                        </div>
+                            <p className="order-total">Total: R$ {order.total ? order.total.toFixed(2) : '0.00'}</p>
+                        </div>
                     ))
                 )}
             </div>
