@@ -31,7 +31,6 @@ p {
 
 span {
     font-weight:bold;
-    color: #c17ed8;
 }
 
 /* Button styles */
@@ -47,6 +46,7 @@ span {
 
 .btn:hover {
     background-color: #af89bb;
+    text-decoration: none;
 }
 
 @media (max-width: 768px) {

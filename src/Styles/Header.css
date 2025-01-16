@@ -88,11 +88,11 @@ nav a {
         color: #bd93c1;
         font-size: 3rem;
         padding: 1rem;
-        transition: color 0.3s ease; /* Transição suave para hover */
+        transition: color 0.3s ease;
     }
 
     nav a:hover {
-        color: #ddd; /* Cor mais clara no hover */
+        color: #ddd;
     }
 
     .hamburger {
