@@ -92,9 +92,9 @@
 /* Resumo do carrinho */
 .cart-summary {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-around;
     align-items: center;
-    background-color: #2c0a31;
+    /* background-color: #2c0a31; */
     padding: 1.5rem;
     border-radius: 8px;
     margin-top: 2rem;
@@ -102,7 +102,9 @@
 
 .cart-total {
     color: #ffffff;
+    font-weight: bolder;
     margin-bottom: 1rem;
+    font-size: 1.25rem;
 }
 
 .cart-checkout-button {
