@@ -2,7 +2,11 @@ import acai300 from "../Assets/Img/produtos/acai300.png";
 import acai500 from "../Assets/Img/produtos/acai500.png";
 import acai700 from "../Assets/Img/produtos/acai700.png";
 import acai1000 from "../Assets/Img/produtos/acai1000.png";
-import picoleFruta from "../Assets/Img/produtos/picole-fruta.jpg";
+import picoleBanana from "../Assets/Img/produtos/picole-banana.jpg";
+import picoleChocolate from "../Assets/Img/produtos/picole-chocolate.jpg";
+import picoleCoco from "../Assets/Img/produtos/picole-coco.jpg";
+import picoleFramboesa from "../Assets/Img/produtos/picole-framboesa.jpg";
+import picoleMorango from "../Assets/Img/produtos/picole-morango.jpg";
 import picoleTrufado from "../Assets/Img/produtos/picole-trufado.jpg";
 
 const Produtos = [
@@ -29,10 +33,38 @@ const Produtos = [
   },
   {
     tipo: "picole",
-    nome: "Picolé de frutas",
-    imagem: picoleFruta,
-    descricao: "Picolé refrescante feito com uma mistura de frutas tropicais, ideal para os dias quentes.",
+    nome: "Picolé de banana",
+    imagem: picoleBanana,
+    descricao: "Picolé refrescante feito com banana, ideal para os dias quentes.",
     preco: 5.00
+  },
+  {
+    tipo: "picole",
+    nome: "Picolé de chocolate",
+    imagem: picoleChocolate,
+    descricao: "Picolé delicioso feito com chocolate, perfeito para os chocólatras.",
+    preco: 6.00
+  },
+  {
+    tipo: "picole",
+    nome: "Picolé de coco",
+    imagem: picoleCoco,
+    descricao: "Picolé refrescante feito com coco, ideal para os dias quentes.",
+    preco: 5.50
+  },
+  {
+    tipo: "picole",
+    nome: "Picolé de framboesa",
+    imagem: picoleFramboesa,
+    descricao: "Picolé refrescante feito com framboesa, ideal para os dias quentes.",
+    preco: 6.00
+  },
+  {
+    tipo: "picole",
+    nome: "Picolé de morango",
+    imagem: picoleMorango,
+    descricao: "Picolé refrescante feito com morango, ideal para os dias quentes.",
+    preco: 5.50
   },
   {
     tipo: "picole",
@@ -43,7 +75,7 @@ const Produtos = [
   },
   {
     tipo: "açai",
-    nome: "Açaí de 1000ml",
+    nome: "Açaí de 1L",
     imagem: acai1000,
     descricao: "Delicioso açaí, perfeito para refrescar seu dia.",
     preco: 25.00

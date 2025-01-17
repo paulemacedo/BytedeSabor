@@ -57,7 +57,7 @@ const Carrinho = () => {
             )}
             {cart.length > 0 && (
             <div className="cart-summary">                
-                <p className="cart-total">Total: R$ {totalPrice}</p>
+            <p className="cart-total">Total: R$ {totalPrice}</p>
                 <button className="cart-checkout-button" onClick={handleCheckout}>Finalizar Pedido</button>
             </div>
             )}

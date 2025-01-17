@@ -60,7 +60,7 @@ const Catalogo = () => {
                                         <h2 className="card-title">{item.nome}</h2>
                                         <p className="card-description">{item.descricao}</p>
                                         <a 
-                                            className="btn btn:hover flex-container" 
+                                            className="btn flex-container" 
                                             onClick={() => handleAddToCart(item)}
                                         >
                                             <span id='cardPlus'>+</span>

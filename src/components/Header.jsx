@@ -15,7 +15,9 @@ const Header = () => {
     return (
         <header>
             <div className="logo">
-                <img src={Logo} alt="Logo" />
+                <Link to="/" onClick={() => setIsOpen(false)}>
+                    <img src={Logo} alt="Logo" />
+                </Link>
             </div>
             <div className="hamburger" onClick={toggleMenu}>
                 <i className={isOpen ? "bi bi-x" : "bi bi-list"}></i>
