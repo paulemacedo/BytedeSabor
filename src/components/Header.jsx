@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Logo from '../Assets/Img/icon.svg';
 import '../Styles/Header.css';
+import { useSelector } from 'react-redux';
+
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +13,8 @@ const Header = () => {
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+
+    const user = useSelector((state) => state.login.user);
 
     return (
         <header>
@@ -25,7 +29,15 @@ const Header = () => {
             <nav className={isOpen ? "active" : ""}>
                 <Link to="/" onClick={toggleMenu}>Home</Link>
                 <Link to="/pedidos" onClick={toggleMenu}>Pedidos</Link>
-                <Link to="/login" onClick={toggleMenu}>Login</Link>
+                {user ? (
+                    <>
+                        <Link to="/user" onClick={toggleMenu}>
+                            <img src={user.profilePicture} alt="Profile" className="profile-picture" />
+                        </Link>
+                    </>
+                ) : (
+                    <Link to="/login" onClick={toggleMenu}>Login</Link>
+                )}
             </nav>
         </header>
     );
