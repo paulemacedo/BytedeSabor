@@ -12,11 +12,9 @@
 
 .filter-bar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     margin-bottom: 20px;
-    max-width: 900px;
-    margin: 0 auto 20px auto;
 }
 
 .filter-bar select {
@@ -43,8 +41,6 @@
 .filter-bar .btn:hover {
     background-color: #8d528d;
 }
-
-
 
 .form-container {
     display: flex;
@@ -123,7 +119,7 @@
     background-color: transparent;
 }
 
-/* Responsividade */
+/* Responsiveness */
 @media (max-width: 768px) {
     .management-container {
         padding: 10px;
