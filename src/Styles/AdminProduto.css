@@ -31,7 +31,9 @@
 }
 
 .admin-produto-filter-bar .btn {
-    padding: 0px 20px;
+    padding: 20px 10px; /* Reduced padding */
+    font-size: 0.9rem; /* Reduced font size */
+    height: 30px; /* Set a specific height */
     border-radius: 4px;
     display: flex;
     align-items: center;
@@ -120,8 +122,8 @@
 }
 
 .admin-produto-item-image {
-    width: 100%; /* Set the width of the image */
-    height: 70px; /* Set the height of the image */
+    width: 100px; /* Set the width of the image */
+    height: 100px; /* Set the height of the image */
     object-fit: cover; /* Ensure the image covers the area without distortion */
     margin-top: 10px;
 }
