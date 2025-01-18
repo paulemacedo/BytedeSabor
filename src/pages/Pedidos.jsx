@@ -1,15 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadOrders, selectAllOrders } from '../redux/ordersSlice';
+import { selectAllOrders, loadOrders } from '../redux/ordersSlice';
 import '../Styles/Pedidos.css';
 
 const Pedidos = () => {
     const dispatch = useDispatch();
     const orders = useSelector(selectAllOrders);
+    const [selectedOrder, setSelectedOrder] = useState(null);
 
     useEffect(() => {
         dispatch(loadOrders());
     }, [dispatch]);
+
+    const handleViewDetails = (order) => {
+        setSelectedOrder(order);
+    };
+
+    const handleCloseDetails = () => {
+        setSelectedOrder(null);
+    };
 
     return (
         <div className="pedidos-container">
@@ -21,18 +30,46 @@ const Pedidos = () => {
                 ) : (
                     orders.map((order) => (
                         <div key={order.id} className="order-item">
-                            <div className="order-header">
-                                <h2 className="order-title">Pedido #{order.id}</h2>
-                                <span><h2 className="order-date">{new Date(order.date).toLocaleDateString('pt-BR')}</h2></span>
-                            </div>
-                            <ul className="order-details">
-                                {order.items.map((item, idx) => (
-                                    <li key={idx} className="order-detail">
-                                        {item.quantity}x {item.nome}
-                                    </li>
-                                ))}
-                            </ul>
-                            <p className="order-total">Total: R$ {order.total ? order.total.toFixed(2) : '0.00'}</p>
+                            {selectedOrder && selectedOrder.id === order.id ? (
+                                <>
+                                    <div className="order-header">
+                                        <h2 className="order-title">Pedido #{order.id}</h2>
+                                        <span className="order-date">{new Date(order.date).toLocaleDateString('pt-BR')}</span>
+                                    </div>
+                                    <ul className="order-details">
+                                        {selectedOrder.items.map((item, idx) => (
+                                            <li key={`${order.id}-${item.nome}-${idx}`} className="order-detail-item">
+                                                <p>{item.quantity}x {item.nome}</p>
+                                                {item.toppings && item.toppings.length > 0 && (
+                                                    <p>Acompanhamentos: {item.toppings.map(t => t.nome).join(', ')}</p>
+                                                )}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <div className="order-footer">
+                                        <p className="order-total">Total: R$ {order.total ? order.total.toFixed(2) : '0.00'}</p>
+                                        <button className="btn" onClick={handleCloseDetails}>Fechar</button>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="order-header">
+                                        <h2 className="order-title">Pedido #{order.id}</h2>
+                                        <span className="order-date">{new Date(order.date).toLocaleDateString('pt-BR')}</span>
+                                    </div>
+                                    <ul className="order-details">
+                                        {order.items.map((item, idx) => (
+                                            <li key={`${order.id}-${item.nome}-${idx}`} className="order-detail">
+                                                {item.quantity}x {item.nome}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <div className="order-footer">
+                                        <p className="order-total">Total: R$ {order.total ? order.total.toFixed(2) : '0.00'}</p>
+                                        <button className="btn" onClick={() => handleViewDetails(order)}>Ver mais detalhes</button>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     ))
                 )}

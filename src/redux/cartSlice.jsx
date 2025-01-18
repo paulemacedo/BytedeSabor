@@ -8,7 +8,10 @@ const cartSlice = createSlice({
     },
     reducers: {
         addToCart: (state, action) => {
-            const existingProduct = state.items.find(item => item.nome === action.payload.nome);
+            const existingProduct = state.items.find(item => 
+                item.nome === action.payload.nome && 
+                JSON.stringify(item.toppings) === JSON.stringify(action.payload.toppings)
+            );
             if (existingProduct) {
                 existingProduct.quantity += 1;
             } else {
@@ -18,11 +21,17 @@ const cartSlice = createSlice({
             localStorage.setItem('cart', JSON.stringify(state.items));
         },
         removeFromCart: (state, action) => {
-            const existingProduct = state.items.find(item => item.nome === action.payload.nome);
+            const existingProduct = state.items.find(item => 
+                item.nome === action.payload.nome && 
+                JSON.stringify(item.toppings) === JSON.stringify(action.payload.toppings)
+            );
             if (existingProduct && existingProduct.quantity > 1) {
                 existingProduct.quantity -= 1;
             } else {
-                state.items = state.items.filter(item => item.nome !== action.payload.nome);
+                state.items = state.items.filter(item => 
+                    !(item.nome === action.payload.nome && 
+                    JSON.stringify(item.toppings) === JSON.stringify(action.payload.toppings))
+                );
             }
             state.count = state.items.reduce((sum, item) => sum + item.quantity, 0);
             localStorage.setItem('cart', JSON.stringify(state.items));
@@ -43,7 +52,7 @@ const cartSlice = createSlice({
 export const { addToCart, removeFromCart, clearCart, loadCart } = cartSlice.actions;
 
 export const getTotalPrice = (state) => {
-    return state.cart.items.reduce((sum, item) => sum + item.preco * item.quantity, 0).toFixed(2);
+    return state.cart.items.reduce((sum, item) => sum + item.preco * item.quantity, 0);
 };
 
 export default cartSlice.reducer;

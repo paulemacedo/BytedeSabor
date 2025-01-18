@@ -1,7 +1,6 @@
-// Header.jsx
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Logo from '../Assets/Img/icon.svg';
 import '../Styles/Header.css';
 
@@ -11,6 +10,9 @@ const Header = () => {
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+
+    const user = useSelector((state) => state.login.user);
+    const isAdmin = useSelector((state) => state.login.isAdmin);
 
     return (
         <header>
@@ -23,9 +25,26 @@ const Header = () => {
                 <i className={isOpen ? "bi bi-x" : "bi bi-list"}></i>
             </div>
             <nav className={isOpen ? "active" : ""}>
-                <Link to="/" onClick={toggleMenu}>Home</Link>
-                <Link to="/pedidos" onClick={toggleMenu}>Pedidos</Link>
-                <Link to="/login" onClick={toggleMenu}>Login</Link>
+                {isAdmin ? (
+                    <>
+                        <Link to="/admin" onClick={toggleMenu}>Home</Link>
+                        <Link to="/adminproduto" onClick={toggleMenu}>Produtos</Link>
+                        <Link to="/adminpedidos" onClick={toggleMenu}>Pedidos</Link>
+                    </>
+                ) : (
+                    <>
+                        <Link to="/" onClick={toggleMenu}>Home</Link>
+                        <Link to="/pedidos" onClick={toggleMenu}>Pedidos</Link>
+                    </>
+                )}
+                {user ? (
+                    <Link to="/user" className="header-user-info" onClick={toggleMenu}>
+                        <img src={user.profilePicture} alt="Profile" className="header-profile-picture" />
+                        <span>{user.name}</span>
+                    </Link>
+                ) : (
+                    <Link to="/login" onClick={toggleMenu}>Login</Link>
+                )}
             </nav>
         </header>
     );

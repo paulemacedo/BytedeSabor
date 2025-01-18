@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -29,6 +28,7 @@ nav {
     display: flex;
     gap: 1rem;
     margin-left: auto;
+    align-items: center;
 }
 
 nav a {
@@ -39,8 +39,6 @@ nav a {
     padding-left: 20px;
     color: #bd93c1;
 }
-
-
 
 .hamburger {
     display: none;
@@ -56,6 +54,35 @@ nav a {
 .hamburger i {
     font-size: 2rem;
     color: #bd93c1;
+}
+
+.header-profile-picture {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 0.5cqb inset #bd93c1;
+}
+
+.header-user-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #bd93c1;
+}
+
+.header-user-info span {
+    font-size: 1.6rem;
+    font-family: 'VT323', monospace;
+}
+
+#Register {
+    background-color: #A082AE;
+    color: #282a36;
+    padding: 5px 20px;
+    margin-left: 35px;
+    border-radius: 5px;
 }
 
 @media (max-width: 768px) {
@@ -97,5 +124,17 @@ nav a {
 
     .hamburger {
         display: block;
+    }
+
+    .header-login {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .header-login #Register {
+        margin-left: 0;
     }
 }
