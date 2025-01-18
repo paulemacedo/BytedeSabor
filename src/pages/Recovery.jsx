@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setEmail, requestRecovery, recoverySuccess, recoveryFailure, resetState } from '../redux/RecoverySlice.jsx';
 import '../Styles/LoginForms.css';
 
-const PasswordRecovery = () => {
+const Recovery = () => {
     const [email, setEmailState] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -134,4 +134,4 @@ const PasswordRecovery = () => {
     );
 };
 
-export default PasswordRecovery;
+export default Recovery;

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const passwordRecoverySlice = createSlice({
+const recoverySlice = createSlice({
     name: 'passwordRecovery',
     initialState: {
         email: '',
@@ -29,6 +29,6 @@ const passwordRecoverySlice = createSlice({
     },
 });
 
-export const { setEmail, requestRecovery, recoverySuccess, recoveryFailure, resetState } = passwordRecoverySlice.actions;
+export const { setEmail, requestRecovery, recoverySuccess, recoveryFailure, resetState } = recoverySlice.actions;
 
-export default passwordRecoverySlice.reducer;
+export default recoverySlice.reducer;

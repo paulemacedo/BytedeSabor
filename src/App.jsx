@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Register from './pages/Register';
 import Carrinho from "./pages/Carrinho";
 import User from './pages/User';
-import PasswordRecovery from './pages/PasswordRecovery';
+import Recovery from './pages/Recovery.jsx';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home"; 
@@ -24,7 +24,7 @@ const App = () => {
               <Route path="/carrinho" element={<Carrinho />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/password-recovery" element={<PasswordRecovery />} />
+              <Route path="/password-recovery" element={<Recovery />} />
               <Route path="/user" element={<User />} />
             </Routes>
           </main>

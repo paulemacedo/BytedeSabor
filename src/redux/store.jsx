@@ -3,7 +3,7 @@ import cartReducer from './cartSlice';
 import ordersReducer from './ordersSlice';
 import loginReducer from './loginSlice';
 import registerReducer from './registerSlice';
-import passwordRecoveryReducer from './passwordRecoverySlice';
+import passwordRecoveryReducer from './RecoverySlice.jsx';
 
 const store = configureStore({
     reducer: {
