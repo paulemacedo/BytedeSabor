@@ -16,6 +16,9 @@
 .admin-pedidos-filter-bar select {
     padding: 10px;
     font-size: 16px;
+    background-color: #2C0A31;
+    color: #ffffff;
+    border-radius: 9px;
 }
 
 .admin-pedidos-orders-grid {
@@ -76,6 +79,9 @@
     font-size: 14px;
     align-self: flex-end;
     margin-top: auto;
+    background-color: #2C0A31;
+    color: #ffffff;
+    border-radius: 9px;
 }
 
 .admin-pedidos-no-orders {

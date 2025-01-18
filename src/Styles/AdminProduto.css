@@ -22,7 +22,7 @@
     border: 1px solid #ccc;
     background-color: #2c0a31a6;
     color: #ffffff;
-    border-radius: 4px;
+    border-radius: 7px;
 }
 
 .admin-produto-filter-buttons {
@@ -31,8 +31,10 @@
 }
 
 .admin-produto-filter-bar .btn {
-    padding: 0px 20px;
-    border-radius: 4px;
+    padding: 20px 10px; /* Reduced padding */
+    font-size: 0.9rem; /* Reduced font size */
+    height: 30px; /* Set a specific height */
+    border-radius: 7px;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -57,7 +59,7 @@
     border: 1px solid #ccc;
     background-color: #2c0a31a6;
     color: #ffffff;
-    border-radius: 4px;
+    border-radius: 7px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -81,10 +83,22 @@
 .admin-produto-item-card {
     position: relative;
     padding: 15px;
-    border-radius: 4px;
+    border-radius: 7px;
     background-color: #3E1A47;
     display: flex;
     flex-direction: column;
+}
+
+.admin-produto-item-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.admin-produto-item-title {
+    font-size: 1.2rem;
+    margin: 0;
 }
 
 .admin-produto-item-card-content {
@@ -92,9 +106,6 @@
 }
 
 .admin-produto-item-card-actions {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     display: flex;
     gap: 10px;
 }
@@ -121,8 +132,9 @@
 
 .admin-produto-item-image {
     width: 100%; /* Set the width of the image */
-    height: 70px; /* Set the height of the image */
+    height: 100px; /* Set the height of the image */
     object-fit: cover; /* Ensure the image covers the area without distortion */
+    border-radius: 7px;
     margin-top: 10px;
 }
 
@@ -144,7 +156,6 @@
     }
 
     .admin-produto-item-card-actions {
-        position: static;
         justify-content: flex-end;
     }
 }

@@ -122,20 +122,22 @@ const AdminProduto = () => {
                 <div className="admin-produto-items-list">
                     {filteredProducts.map(item => (
                         <div key={item.id} className="admin-produto-item-card">
-                            <div className="admin-produto-item-card-actions">
-                                <button className="btn admin-produto-edit-btn" onClick={() => handleEditItem(item)}>
-                                    <i className="bi bi-pencil"></i>
-                                </button>
-                                <button className="btn admin-produto-delete-btn" onClick={() => handleDeleteItem(item.id)}>
-                                    <i className="bi bi-trash"></i>
-                                </button>
+                            <div className="admin-produto-item-card-header">
+                                <h2 className="admin-produto-item-title">{item.nome}</h2>
+                                <div className="admin-produto-item-card-actions">
+                                    <button className="btn admin-produto-edit-btn" onClick={() => handleEditItem(item)}>
+                                        <i className="bi bi-pencil"></i>
+                                    </button>
+                                    <button className="btn admin-produto-delete-btn" onClick={() => handleDeleteItem(item.id)}>
+                                        <i className="bi bi-trash"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div className="admin-produto-item-card-content">
                                 <p><strong>Tipo:</strong> {item.tipo}</p>
-                                <p><strong>Nome:</strong> {item.nome}</p>
-                                <p><strong>Descrição:</strong> {item.descricao}</p>
                                 <p><strong>Preço:</strong> R$ {typeof item.preco === 'number' && !isNaN(item.preco) ? item.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 'N/A'}</p>
                                 <p><strong>Status:</strong> {item.status}</p>
+                                <p><strong>Descrição:</strong> {item.descricao}</p>
                                 <img src={item.imagem} alt={item.nome} className="admin-produto-item-image" />
                             </div>
                         </div>
