@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginSuccess, loginFailure } from '../redux/loginSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../Styles/LoginForms.css';
+import profPicture from '../Assets/Img/profilePicture.jpg';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // Simulação de login
         if (email === 'user@example.com' && password === 'password') {
-            dispatch(loginSuccess({ email, profilePicture: 'path/to/profilePicture.jpg' }));
+            dispatch(loginSuccess({ email, name: 'Anonimo', profilePicture: profPicture }));
+            navigate('/user');
         } else {
             dispatch(loginFailure('Invalid credentials'));
         }
@@ -51,7 +54,7 @@ const Login = () => {
                 <Link to="/password-recovery">Esqueci minha senha</Link>
             </div>
             <div className="center-btn">
-                <button type="submit" className="btn login-btn">Entrar</button>
+                <button type="submit" className="btn form-btn">Entrar</button>
             </div>
             <div className="link-container">
                 Não tem uma conta? <Link to="/register">Cadastre-se</Link>

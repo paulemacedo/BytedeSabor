@@ -1,11 +1,9 @@
-// Header.jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Logo from '../Assets/Img/icon.svg';
 import '../Styles/Header.css';
 import { useSelector } from 'react-redux';
-
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +30,7 @@ const Header = () => {
                 {user ? (
                     <>
                         <Link to="/user" onClick={toggleMenu}>
-                            <img src={user.profilePicture} alt="Profile" className="profile-picture" />
+                            <img src={user.profilePicture} alt="Profile" className="header-profile-picture" />
                         </Link>
                     </>
                 ) : (

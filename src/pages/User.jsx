@@ -12,17 +12,15 @@ const User = () => {
     };
 
     if (!user) {
-        return <div>Loading...</div>;
-        window.location.href = '/login';
+        return <div>Usuario não esta logado.</div>;
     }
 
     return (
         <div className="user-container">
-            <h2>Welcome, {user.name}</h2>
-            <img src={user.profilePicture} alt="Profile" />
-            <p>Email: {user.email}</p>
-            {/* Adicione mais informações do usuário conforme necessário */}
-            <button className="btn" onClick={handleLogout}>Logout</button>
+            <h2>Bem vindo, {user.name}</h2>
+            <img src={user.profilePicture} alt="Profile" className="profile-picture" />
+            <p>{user.email}</p>
+            <button className="btn" onClick={handleLogout}>Deslogar</button>
         </div>
     );
 };

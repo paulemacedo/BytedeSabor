@@ -39,16 +39,13 @@ form {
 }
 
 /* Specific button styles */
-.login-btn, .register-btn {
+.form-btn {
     min-width: 90%;
     padding: 0.75rem 2rem;
     background-color: #af89bb;
     border: none;
 }
 
-.login-btn, .register-btn:hover {
-    background-color: #9b78a3;
-}
 
 /* Center button */
 .center-btn {
@@ -115,7 +112,7 @@ a:hover {
         padding: 0.5rem;
     }
 
-    .login-btn, .register-btn {
+    .login-btn .register-btn {
         min-width: 95%;
         padding: 0.5rem;
         font-size: 0.9rem;
@@ -145,7 +142,7 @@ a:hover {
         font-size: 0.9rem;
     }
 
-    .login-btn, .register-btn {
+    .login-btn .register-btn {
         min-width: 100%;
         font-size: 0.9rem;
     }

@@ -33,10 +33,10 @@ const Register = () => {
 
     return (
         <div className="container">
-            <h2 id="form-title">Register</h2>
+            <h2 id="form-title">Cadastre-se</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Name</label>
+                    <label htmlFor="name" className="form-label">Nome</label>
                     <input 
                         type="text" 
                         className="form-input" 
@@ -44,7 +44,7 @@ const Register = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="Enter your name"
+                        placeholder="Digite seu nome"
                         required
                     />
                 </div>
@@ -57,12 +57,12 @@ const Register = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="Enter your email"
+                        placeholder="Digite seu email"
                         required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
+                    <label htmlFor="password" className="form-label">Senha</label>
                     <input 
                         type="password" 
                         className="form-input" 
@@ -70,12 +70,12 @@ const Register = () => {
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        placeholder="Enter your password"
+                        placeholder="Digite sua senha"
                         required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                    <label htmlFor="confirmPassword" className="form-label">Confirme a Senha</label>
                     <input 
                         type="password" 
                         className="form-input" 
@@ -83,12 +83,12 @@ const Register = () => {
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleChange}
-                        placeholder="Confirm your password"
+                        placeholder="Confirme sua senha"
                         required
                     />
                 </div>
                 <div className="center-btn">
-                    <button type="submit" className="btn register-btn">Register</button>
+                    <button type="submit" className="btn form-btn">Cadastrar</button>
                 </div>
                 <div className="link-container">
                    Já possui uma conta? <Link to="/login">Faça login</Link>
