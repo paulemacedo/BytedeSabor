@@ -14,9 +14,7 @@
 </p>
 
 ## 📖 Sobre
-Byte de Sabor é um projeto fictício de uma loja de açaí, onde o usuário pode escolher o tamanho do açaí, adicionar complementos e finalizar o pedido.
-
-
+Byte de Sabor é um projeto fictício de uma loja de açaí, onde o usuário pode escolher o tamanho do açaí, adicionar complementos e finalizar o pedido. O administrador pode visualizar os pedidos e marcar como entregue.
 
 ## 🚀 Tecnologias
 - [React](https://reactjs.org/)
