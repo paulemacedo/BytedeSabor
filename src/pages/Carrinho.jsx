@@ -14,6 +14,10 @@ const Carrinho = () => {
         dispatch(loadCart());
     }, [dispatch]);
 
+    useEffect(() => {
+        console.log('Total Price:', totalPrice);
+    }, [totalPrice]);
+
     const handleCheckout = () => {
         const order = {
             id: new Date().getTime(),
@@ -44,9 +48,14 @@ const Carrinho = () => {
                 <p className="cart-empty">Seu carrinho está vazio.</p>
             ) : (
                 cart.map((item) => (
-                    <div key={item.nome} className="cart-item">
+                    <div key={`${item.nome}-${JSON.stringify(item.toppings)}`} className="cart-item">
                         <div className="cart-item-content">
-                            <p className="cart-item-title">{item.quantity}x {item.nome}</p>
+                            <div className="cart-content">
+                                <p className="cart-item-title">{item.quantity}x {item.nome}</p>
+                                {item.toppings && item.toppings.length > 0 && (
+                                    <p className="cart-item-toppings">{item.toppings.map(t => t.nome).join(', ')}</p>
+                                )}
+                            </div>
                             <div className="cart-item-controls">
                                 <i className="bi bi-dash-circle cart-item-icon" onClick={() => handleDecreaseQuantity(item)}></i>
                                 <i className="bi bi-plus-circle cart-item-icon" onClick={() => handleIncreaseQuantity(item)}></i>
@@ -56,10 +65,10 @@ const Carrinho = () => {
                 ))
             )}
             {cart.length > 0 && (
-            <div className="cart-summary">                
-            <p className="cart-total">Total: R$ {totalPrice}</p>
-                <button className="cart-checkout-button" onClick={handleCheckout}>Finalizar Pedido</button>
-            </div>
+                <div className="cart-summary">
+                    <p className="cart-total">Total: R$ {Number(totalPrice).toFixed(2)}</p>
+                    <button className="cart-checkout-button btn" onClick={handleCheckout}>Finalizar Pedido</button>
+                </div>
             )}
         </div>
     );

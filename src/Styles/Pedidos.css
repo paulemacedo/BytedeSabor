@@ -6,6 +6,10 @@
     color: #FFF;
 }
 
+.pedidos-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
 
 .pedidos-description {
     font-size: 1.2rem;
@@ -36,12 +40,6 @@
     color: #CCC;
 }
 
-.order-status {
-    font-size: 1rem;
-    color: #CCC;
-    margin-bottom: 10px;
-}
-
 .order-details {
     list-style-type: none;
     padding: 0;
@@ -60,6 +58,19 @@
     color: #FFF;
 }
 
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.order-detail-item {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #CCC;
+}
+
 @media (max-width: 768px) {
     .order-header {
         flex-direction: column;
@@ -74,10 +85,6 @@
     }
 
     .order-date {
-        font-size: 0.9rem;
-    }
-
-    .order-status {
         font-size: 0.9rem;
     }
 
