@@ -90,12 +90,6 @@ a:hover {
 
 .mb-3 {
     margin-bottom: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.mt-3 {
     margin-top: 1rem;
 }
 

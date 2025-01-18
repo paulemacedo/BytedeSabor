@@ -14,7 +14,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Simulação de login
-        if (email === 'user@example.com' && password === 'password') {
+        if (email =Email== 'user@example.com' && password === 'password') {
             dispatch(loginSuccess({ email, name: 'Anonimo', profilePicture: profPicture }));
             navigate('/user');
         } else {

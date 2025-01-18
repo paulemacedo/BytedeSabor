@@ -34,7 +34,10 @@ const Header = () => {
                         </Link>
                     </>
                 ) : (
-                    <Link to="/login" onClick={toggleMenu}>Login</Link>
+                    <div className="header-login">
+                        <Link to="/login" onClick={toggleMenu}>Login</Link>
+                        <Link id="Register" to="/register" onClick={toggleMenu}>Cadastre-se</Link>
+                    </div>
                 )}
             </nav>
         </header>
