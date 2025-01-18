@@ -25,9 +25,9 @@ const Login = () => {
     return (
     <div className="container">
         <h2 id="form-title">Login</h2>
-        <form id="login-form" onSubmit={handleSubmit}>
+        <form id="form" onSubmit={handleSubmit}>
+            <label htmlFor="email" className="form-label">E-mail</label>
             <div className="mb-3">
-                <label htmlFor="email" className="form-label">E-mail</label>
                 <input 
                     type="email" 
                     className="form-input" 
@@ -38,8 +38,9 @@ const Login = () => {
                     required
                 />
             </div>
+            <label htmlFor="password" className="form-label">Senha</label>
+
             <div className="mb-3">
-                <label htmlFor="password" className="form-label">Senha</label>
                 <input 
                     type="password" 
                     className="form-input" 
