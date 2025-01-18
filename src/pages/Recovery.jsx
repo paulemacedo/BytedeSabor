@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEmail, requestRecovery, recoverySuccess, recoveryFailure, resetState } from '../redux/passwordRecoverySlice';
+import { setEmail, requestRecovery, recoverySuccess, recoveryFailure, resetState } from '../redux/RecoverySlice.jsx';
 import '../Styles/LoginForms.css';
 
 const PasswordRecovery = () => {
