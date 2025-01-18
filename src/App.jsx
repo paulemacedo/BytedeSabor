@@ -9,6 +9,7 @@ import Recovery from './pages/Recovery.jsx';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home"; 
+import Management from './pages/Management.jsx';
 import './Styles/App.css'; 
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/password-recovery" element={<Recovery />} />
               <Route path="/user" element={<User />} />
+              <Route path="/management" element={<Management />} />
             </Routes>
           </main>
           <Footer />

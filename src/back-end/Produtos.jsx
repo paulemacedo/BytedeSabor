@@ -11,6 +11,7 @@ import picoleTrufado from "../Assets/Img/produtos/picole-trufado.jpg";
 
 const Produtos = [
   {
+    id: 100,
     tipo: "açai",
     nome: "Açaí de 300ml",
     imagem: acai300,
@@ -18,6 +19,7 @@ const Produtos = [
     preco: 10.00
   },
   {
+    id: 101,
     tipo: "açai",
     nome: "Açaí de 500ml",
     imagem: acai500,
@@ -25,6 +27,7 @@ const Produtos = [
     preco: 15.00
   },
   {
+    id: 102,
     tipo: "açai",
     nome: "Açaí de 700ml",
     imagem: acai700,
@@ -32,6 +35,7 @@ const Produtos = [
     preco: 20.00
   },
   {
+    id: 103,
     tipo: "picole",
     nome: "Picolé de banana",
     imagem: picoleBanana,
@@ -39,6 +43,7 @@ const Produtos = [
     preco: 5.00
   },
   {
+    id: 104,
     tipo: "picole",
     nome: "Picolé de chocolate",
     imagem: picoleChocolate,
@@ -46,6 +51,7 @@ const Produtos = [
     preco: 6.00
   },
   {
+    id: 105,
     tipo: "picole",
     nome: "Picolé de coco",
     imagem: picoleCoco,
@@ -53,6 +59,7 @@ const Produtos = [
     preco: 5.50
   },
   {
+    id: 106,
     tipo: "picole",
     nome: "Picolé de framboesa",
     imagem: picoleFramboesa,
@@ -60,6 +67,7 @@ const Produtos = [
     preco: 6.00
   },
   {
+    id: 107,
     tipo: "picole",
     nome: "Picolé de morango",
     imagem: picoleMorango,
@@ -67,6 +75,7 @@ const Produtos = [
     preco: 5.50
   },
   {
+    id: 108,
     tipo: "picole",
     nome: "Picolé trufado",
     imagem: picoleTrufado,
@@ -74,6 +83,7 @@ const Produtos = [
     preco: 7.00
   },
   {
+    id: 109,
     tipo: "açai",
     nome: "Açaí de 1L",
     imagem: acai1000,
