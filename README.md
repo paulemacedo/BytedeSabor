@@ -3,12 +3,9 @@
 <p align="center">
     <img src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
     <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React" />
+    <img src="https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white" alt="Redux" />
     <img src="https://img.shields.io/badge/javascript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
     <img src="https://img.shields.io/badge/Bootstrap%20Icons-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap" />
-
-[//]: # (    <img src="https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white" alt="Redux" /> )
-[//]: # (    <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white" alt="React Router" />)
-
 </p>
 
 <p align="center">
@@ -43,8 +40,16 @@ npm i
 npm run dev
 ```
 
-#  Thanks to all contributors ❤
+## 👥 Entre como cliente
+- **Email:** user@example.com
+- **Senha:** password
 
- <a href = "https://github.com/paulemacedo/bytedesabor/graphs/contributors">
-   <img src = "https://contrib.rocks/image?repo=paulemacedo/bytedesabor" alt="Bernardo mariga, Paule Macedo e Maria eduarda"/>
- </a>
+## 👤 Entre como administrador
+- **Email:** admin@byte.com
+- **Senha:** admin
+ 
+## 🙏 Agradecimentos aos Contribuidores ❤
+
+<a href="https://github.com/paulemacedo/bytedesabor/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=paulemacedo/bytedesabor" alt="Bernardo Mariga, Paule Macedo e Maria Eduarda"/>
+</a>

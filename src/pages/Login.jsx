@@ -14,54 +14,56 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Simulação de login
-        if (email =Email== 'user@example.com' && password === 'password') {
-            dispatch(loginSuccess({ email, name: 'Anonimo', profilePicture: profPicture }));
+        if (email === 'user@example.com' && password === 'password') {
+            dispatch(loginSuccess({ user: { email, name: 'Anonimo', profilePicture: profPicture }, isAdmin: false }));
             navigate('/user');
+        } else if (email === 'admin@byte.com' && password === 'admin') {
+            dispatch(loginSuccess({ user: { email, name: 'Admin', profilePicture: profPicture }, isAdmin: true }));
+            navigate('/admin');
         } else {
             dispatch(loginFailure('Invalid credentials'));
         }
     };
 
     return (
-    <div className="container">
-        <h2 id="form-title">Login</h2>
-        <form id="form" onSubmit={handleSubmit}>
-            <label htmlFor="email" className="form-label">E-mail</label>
-            <div className="mb-3">
-                <input 
-                    type="email" 
-                    className="form-input" 
-                    id="email" 
-                    placeholder="Digite seu e-mail"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-            </div>
-            <label htmlFor="password" className="form-label">Senha</label>
-
-            <div className="mb-3">
-                <input 
-                    type="password" 
-                    className="form-input" 
-                    id="password" 
-                    placeholder="Digite sua senha"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </div>
-            <div className="link-container">
-                <Link to="/password-recovery">Esqueci minha senha</Link>
-            </div>
-            <div className="center-btn">
-                <button type="submit" className="btn form-btn">Entrar</button>
-            </div>
-            <div className="link-container">
-                Não tem uma conta? <Link to="/register">Cadastre-se</Link>
-            </div>
-        </form>
-    </div>
+        <div className="container">
+            <h2 id="form-title">Login</h2>
+            <form id="form" onSubmit={handleSubmit}>
+                <label htmlFor="email" className="form-label">E-mail</label>
+                <div className="mb-3">
+                    <input 
+                        type="email" 
+                        className="form-input" 
+                        id="email" 
+                        placeholder="Digite seu e-mail"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+                <label htmlFor="password" className="form-label">Senha</label>
+                <div className="mb-3">
+                    <input 
+                        type="password" 
+                        className="form-input" 
+                        id="password" 
+                        placeholder="Digite sua senha"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="link-container">
+                    <Link to="/password-recovery">Esqueci minha senha</Link>
+                </div>
+                <div className="center-btn">
+                    <button type="submit" className="btn form-btn">Entrar</button>
+                </div>
+                <div className="link-container">
+                    Não tem uma conta? <Link to="/register">Cadastre-se</Link>
+                </div>
+            </form>
+        </div>
     );
 };
 

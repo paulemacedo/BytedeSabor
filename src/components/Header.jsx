@@ -13,6 +13,7 @@ const Header = () => {
     };
 
     const user = useSelector((state) => state.login.user);
+    const isAdmin = useSelector((state) => state.login.isAdmin);
 
     return (
         <header>
@@ -27,6 +28,9 @@ const Header = () => {
             <nav className={isOpen ? "active" : ""}>
                 <Link to="/" onClick={toggleMenu}>Home</Link>
                 <Link to="/pedidos" onClick={toggleMenu}>Pedidos</Link>
+                {isAdmin && (
+                    <Link to="/management" onClick={toggleMenu}>Produtos</Link>
+                )}
                 {user ? (
                     <>
                         <Link to="/user" onClick={toggleMenu}>
