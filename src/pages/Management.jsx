@@ -62,16 +62,6 @@ const Management = () => {
             </div>
             {mode === 'add' && (
                 <div className="form-container">
-                    <select
-                        name="tipo"
-                        value={form.tipo}
-                        onChange={handleInputChange}
-                    >
-                        <option value="">Selecione o tipo</option>
-                        <option value="açai">Açaí</option>
-                        <option value="picole">Picolé</option>
-                        <option value="topping">Acompanhamento</option>
-                    </select>
                     <div className="form-row">
                         <input
                             type="text"
@@ -80,13 +70,26 @@ const Management = () => {
                             value={form.nome}
                             onChange={handleInputChange}
                         />
-                        <input
-                            type="text"
-                            name="preco"
-                            placeholder="Preço"
-                            value={isNaN(form.preco) ? '' : form.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        <div className="price-input">
+                            <input
+                                type="text"
+                                name="preco"
+                                placeholder="Preço"
+                                value={isNaN(form.preco) ? '' : `R$ ${form.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                                onChange={handleInputChange}
+                                className="price-field"
+                            />
+                        </div>
+                        <select
+                            name="tipo"
+                            value={form.tipo}
                             onChange={handleInputChange}
-                        />
+                        >
+                            <option value="">Selecione o tipo</option>
+                            <option value="açai">Açaí</option>
+                            <option value="picole">Picolé</option>
+                            <option value="topping">Acompanhamento</option>
+                        </select>
                     </div>
                     <textarea
                         name="descricao"
@@ -122,16 +125,6 @@ const Management = () => {
             )}
             {mode === 'edit' && (
                 <div className="form-container">
-                    <select
-                        name="tipo"
-                        value={form.tipo}
-                        onChange={handleInputChange}
-                    >
-                        <option value="">Selecione o tipo</option>
-                        <option value="açai">Açaí</option>
-                        <option value="picole">Picolé</option>
-                        <option value="topping">Acompanhamento</option>
-                    </select>
                     <div className="form-row">
                         <input
                             type="text"
@@ -140,13 +133,26 @@ const Management = () => {
                             value={form.nome}
                             onChange={handleInputChange}
                         />
-                        <input
-                            type="text"
-                            name="preco"
-                            placeholder="Preço"
-                            value={isNaN(form.preco) ? '' : form.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        <div className="price-input">
+                            <input
+                                type="text"
+                                name="preco"
+                                placeholder="Preço"
+                                value={isNaN(form.preco) ? '' : `R$ ${form.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                                onChange={handleInputChange}
+                                className="price-field"
+                            />
+                        </div>
+                        <select
+                            name="tipo"
+                            value={form.tipo}
                             onChange={handleInputChange}
-                        />
+                        >
+                            <option value="">Selecione o tipo</option>
+                            <option value="açai">Açaí</option>
+                            <option value="picole">Picolé</option>
+                            <option value="topping">Acompanhamento</option>
+                        </select>
                     </div>
                     <textarea
                         name="descricao"

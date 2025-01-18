@@ -15,6 +15,8 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    max-width: 900px;
+    margin: 0 auto 20px auto;
 }
 
 .filter-bar select {
@@ -42,11 +44,14 @@
     background-color: #8d528d;
 }
 
+
+
 .form-container {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 20px;
+    max-width: 900px;
+    margin: 0 auto 20px auto;
 }
 
 .form-container select,
@@ -66,13 +71,14 @@
     gap: 10px;
 }
 
-.form-row input {
+.form-row input,
+.form-row select {
     flex: 1;
 }
 
 .items-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
 }
 
@@ -81,6 +87,8 @@
     padding: 15px;
     border-radius: 4px;
     background-color: #3E1A47;
+    display: flex;
+    flex-direction: column;
 }
 
 .item-card-content {
@@ -128,11 +136,6 @@
     }
 
     .filter-bar {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .item-card {
         flex-direction: column;
         gap: 10px;
     }

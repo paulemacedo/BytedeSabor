@@ -12,6 +12,8 @@ import Home from "./pages/Home";
 import Management from './pages/Management.jsx';
 import './Styles/App.css'; 
 
+
+
 const App = () => {
   return (
       <Router>
