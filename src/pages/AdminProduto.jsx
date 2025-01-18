@@ -4,13 +4,13 @@ import { addProduct, updateProduct, deleteProduct, selectAllProducts } from '../
 import '../Styles/AdminProduto.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-const Management = () => {
+const AdminProduto = () => {
     const dispatch = useDispatch();
     const products = useSelector(selectAllProducts);
     const [editingItem, setEditingItem] = useState(null);
-    const [form, setForm] = useState({ tipo: '', nome: '', descricao: '', preco: 0 });
+    const [form, setForm] = useState({ tipo: '', nome: '', descricao: '', preco: 0, imagem: '', status: 'Em stock' });
     const [filter, setFilter] = useState('');
-    const [mode, setMode] = useState('view'); // 'view', 'add', 'edit'
+    const [mode, setMode] = useState('add'); // Default mode set to 'add'
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -19,7 +19,7 @@ const Management = () => {
 
     const handleAddItem = () => {
         dispatch(addProduct({ ...form, id: products.length + 100 }));
-        setForm({ tipo: '', nome: '', descricao: '', preco: 0 });
+        setForm({ tipo: '', nome: '', descricao: '', preco: 0, imagem: '', status: 'Em stock' });
     };
 
     const handleEditItem = (item) => {
@@ -31,8 +31,8 @@ const Management = () => {
     const handleUpdateItem = () => {
         dispatch(updateProduct({ ...form, preco: parseFloat(form.preco) }));
         setEditingItem(null);
-        setForm({ tipo: '', nome: '', descricao: '', preco: 0 });
-        setMode('view');
+        setForm({ tipo: '', nome: '', descricao: '', preco: 0, imagem: '', status: 'Em stock' });
+        setMode('add'); // Reset to 'add' mode after updating
     };
 
     const handleDeleteItem = (id) => {
@@ -49,14 +49,14 @@ const Management = () => {
                     <option value="">Todos</option>
                     <option value="açai">Açaí</option>
                     <option value="picole">Picolé</option>
-                    <option value="topping">Acompanhamento</option>
+                    <option value="acompanhamento">Acompanhamento</option>
                 </select>
                 <div className="admin-produto-filter-buttons">
                     <button className="btn" onClick={() => setMode('add')}>
                         <i className="bi bi-plus-circle"></i> Adicionar
                     </button>
                     <button className="btn" onClick={() => setMode('manage')}>
-                        <i className="bi bi-gear"></i> Gerenciar                    
+                        <i className="bi bi-gear"></i> Gerenciar
                     </button>
                 </div>
             </div>
@@ -70,16 +70,25 @@ const Management = () => {
                             value={form.nome}
                             onChange={handleInputChange}
                         />
-                        <div className="price-input">
-                            <input
-                                type="text"
-                                name="preco"
-                                placeholder="Preço"
-                                value={isNaN(form.preco) ? '' : `R$ ${form.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-                                onChange={handleInputChange}
-                                className="price-field"
-                            />
-                        </div>
+                    </div>
+                    <div className="admin-produto-form-row">
+                        <input
+                            type="text"
+                            name="preco"
+                            placeholder="Preço"
+                            value={isNaN(form.preco) ? '' : `R$ ${form.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                            onChange={handleInputChange}
+                            className="price-field"
+                        />
+                        <input
+                            type="text"
+                            name="imagem"
+                            placeholder="URL da Imagem"
+                            value={form.imagem}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="admin-produto-form-row">
                         <select
                             name="tipo"
                             value={form.tipo}
@@ -88,7 +97,15 @@ const Management = () => {
                             <option value="">Selecione o tipo</option>
                             <option value="açai">Açaí</option>
                             <option value="picole">Picolé</option>
-                            <option value="topping">Acompanhamento</option>
+                            <option value="acompanhamento">Acompanhamento</option>
+                        </select>
+                        <select
+                            name="status"
+                            value={form.status}
+                            onChange={handleInputChange}
+                        >
+                            <option value="Em stock">Em stock</option>
+                            <option value="Fora de stock">Fora de stock</option>
                         </select>
                     </div>
                     <textarea
@@ -118,6 +135,8 @@ const Management = () => {
                                 <p><strong>Nome:</strong> {item.nome}</p>
                                 <p><strong>Descrição:</strong> {item.descricao}</p>
                                 <p><strong>Preço:</strong> R$ {typeof item.preco === 'number' && !isNaN(item.preco) ? item.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 'N/A'}</p>
+                                <p><strong>Status:</strong> {item.status}</p>
+                                <img src={item.imagem} alt={item.nome} className="admin-produto-item-image" />
                             </div>
                         </div>
                     ))}
@@ -133,16 +152,25 @@ const Management = () => {
                             value={form.nome}
                             onChange={handleInputChange}
                         />
-                        <div className="price-input">
-                            <input
-                                type="text"
-                                name="preco"
-                                placeholder="Preço"
-                                value={isNaN(form.preco) ? '' : `R$ ${form.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-                                onChange={handleInputChange}
-                                className="price-field"
-                            />
-                        </div>
+                    </div>
+                    <div className="admin-produto-form-row">
+                        <input
+                            type="text"
+                            name="preco"
+                            placeholder="Preço"
+                            value={isNaN(form.preco) ? '' : `R$ ${form.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                            onChange={handleInputChange}
+                            className="price-field"
+                        />
+                        <input
+                            type="text"
+                            name="imagem"
+                            placeholder="URL da Imagem"
+                            value={form.imagem}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="admin-produto-form-row">
                         <select
                             name="tipo"
                             value={form.tipo}
@@ -151,7 +179,15 @@ const Management = () => {
                             <option value="">Selecione o tipo</option>
                             <option value="açai">Açaí</option>
                             <option value="picole">Picolé</option>
-                            <option value="topping">Acompanhamento</option>
+                            <option value="acompanhamento">Acompanhamento</option>
+                        </select>
+                        <select
+                            name="status"
+                            value={form.status}
+                            onChange={handleInputChange}
+                        >
+                            <option value="Em stock">Em stock</option>
+                            <option value="Fora de stock">Fora de stock</option>
                         </select>
                     </div>
                     <textarea
@@ -168,4 +204,4 @@ const Management = () => {
     );
 };
 
-export default Management;
+export default AdminProduto;

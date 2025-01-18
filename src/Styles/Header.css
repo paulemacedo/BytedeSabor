@@ -62,6 +62,7 @@ nav a {
     border-radius: 50%;
     object-fit: cover;
     margin-right: 10px;
+    border: 0.5cqb inset #bd93c1;
 }
 
 .header-user-info {

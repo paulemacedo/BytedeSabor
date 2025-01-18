@@ -119,6 +119,13 @@
     background-color: transparent;
 }
 
+.admin-produto-item-image {
+    width: 100%; /* Set the width of the image */
+    height: 70px; /* Set the height of the image */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+    margin-top: 10px;
+}
+
 /* Responsiveness */
 @media (max-width: 768px) {
     .admin-produto-container {
