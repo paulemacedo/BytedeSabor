@@ -15,10 +15,10 @@ const Login = () => {
         e.preventDefault();
         // Simulação de login
         if (email === 'user@example.com' && password === 'password') {
-            dispatch(loginSuccess({ user: { email, name: 'Anonimo', profilePicture: profPicture }, isAdmin: false }));
+            dispatch(loginSuccess({ user: { email, name: 'Anonimo', profilePicture: profPicture, address: 'Rua Ficticia' }, isAdmin: false }));
             navigate('/user');
         } else if (email === 'admin@byte.com' && password === 'admin') {
-            dispatch(loginSuccess({ user: { email, name: 'Admin', profilePicture: profPicture }, isAdmin: true }));
+            dispatch(loginSuccess({ user: { email, name: 'Admin', profilePicture: profPicture, address: 'Admin Address' }, isAdmin: true }));
             navigate('/admin');
         } else {
             dispatch(loginFailure('Invalid credentials'));
@@ -28,7 +28,7 @@ const Login = () => {
     return (
         <div className="container">
             <h2 id="form-title">Login</h2>
-            <form id="form" onSubmit={handleSubmit}>
+            <form id="forrm" onSubmit={handleSubmit}>
                 <label htmlFor="email" className="form-label">E-mail</label>
                 <div className="mb-3">
                     <input 

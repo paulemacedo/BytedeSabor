@@ -8,6 +8,7 @@ import '../Styles/Carrinho.css';
 const Carrinho = () => {
     const cart = useSelector((state) => state.cart.items);
     const totalPrice = useSelector((state) => getTotalPrice(state));
+    const user = useSelector((state) => state.login.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -19,11 +20,20 @@ const Carrinho = () => {
     }, [totalPrice]);
 
     const handleCheckout = () => {
+        if (!user) {
+            alert('Você precisa estar logado para finalizar o pedido.');
+            return;
+        }
+
         const order = {
             id: new Date().getTime(),
             date: new Date().toLocaleString(),
             items: cart,
             total: parseFloat(totalPrice),
+            user: {
+                name: user.name,
+                address: user.address || 'user@example.com',
+            },
         };
 
         dispatch(addOrder(order));

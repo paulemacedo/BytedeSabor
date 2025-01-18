@@ -10,22 +10,34 @@ const ordersSlice = createSlice({
         addOrder: (state, action) => {
             const newOrder = {
                 id: uuidv4(),
-                status: 'Pagamento executado com sucesso',
+                status: 'Aguardando Confirmação',
                 ...action.payload,
             };
             state.items.push(newOrder);
         },
+        syncToStorage: (state) => {
+            localStorage.setItem('orders', JSON.stringify(state.items));
+        },
         clearOrders: (state) => {
             state.items = [];
+            localStorage.setItem('orders', JSON.stringify(state.items));
         },
         loadOrders: (state) => {
             const orders = JSON.parse(localStorage.getItem('orders')) || [];
             state.items = orders;
         },
+        updateOrderStatus: (state, action) => {
+            const { orderId, status } = action.payload;
+            const order = state.items.find(order => order.id === orderId);
+            if (order) {
+                order.status = status;
+                localStorage.setItem('orders', JSON.stringify(state.items));
+            }
+        },
     },
 });
 
-export const { addOrder, clearOrders, loadOrders } = ordersSlice.actions;
+export const { addOrder, clearOrders, loadOrders, updateOrderStatus } = ordersSlice.actions;
 
 export const selectAllOrders = (state) => state.orders.items;
 

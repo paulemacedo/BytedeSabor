@@ -16,6 +16,8 @@ const loginSlice = createSlice({
             state.user = action.payload.user;
             state.isAdmin = action.payload.isAdmin;
             state.error = null;
+            localStorage.setItem('user', JSON.stringify(action.payload.user));
+            localStorage.setItem('isAdmin', JSON.stringify(action.payload.isAdmin));
         },
         loginFailure: (state, action) => {
             state.isLoggedIn = false;
@@ -28,9 +30,21 @@ const loginSlice = createSlice({
             state.user = null;
             state.isAdmin = false;
             state.error = null;
+            localStorage.removeItem('user');
+            localStorage.removeItem('isAdmin');
+        },
+        loadUserFromStorage: (state) => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const isAdmin = JSON.parse(localStorage.getItem('isAdmin'));
+            if (user) {
+                state.isLoggedIn = true;
+                state.user = user;
+                state.isAdmin = isAdmin;
+                state.error = null;
+            }
         },
     },
 });
 
-export const { loginSuccess, loginFailure, logout } = loginSlice.actions;
+export const { loginSuccess, loginFailure, logout, loadUserFromStorage } = loginSlice.actions;
 export default loginSlice.reducer;

@@ -32,13 +32,13 @@ const Pedidos = () => {
                         <div key={order.id} className="order-item">
                             {selectedOrder && selectedOrder.id === order.id ? (
                                 <>
-                                     <div className="order-header">
+                                    <div className="order-header">
                                         <h2 className="order-title">Pedido #{order.id}</h2>
-                                        <span><h2 className="order-date">{new Date(order.date).toLocaleDateString('pt-BR')}</h2></span>
+                                        <span className="order-date">{new Date(order.date).toLocaleDateString('pt-BR')}</span>
                                     </div>
                                     <ul className="order-details">
                                         {selectedOrder.items.map((item, idx) => (
-                                            <li key={idx} className="order-detail-item">
+                                            <li key={`${order.id}-${item.nome}-${idx}`} className="order-detail-item">
                                                 <p>{item.quantity}x {item.nome}</p>
                                                 {item.toppings && item.toppings.length > 0 && (
                                                     <p>Acompanhamentos: {item.toppings.map(t => t.nome).join(', ')}</p>
@@ -49,17 +49,17 @@ const Pedidos = () => {
                                     <div className="order-footer">
                                         <p className="order-total">Total: R$ {order.total ? order.total.toFixed(2) : '0.00'}</p>
                                         <button className="btn" onClick={handleCloseDetails}>Fechar</button>
-                                        </div>
+                                    </div>
                                 </>
                             ) : (
                                 <>
                                     <div className="order-header">
                                         <h2 className="order-title">Pedido #{order.id}</h2>
-                                        <span><h2 className="order-date">{new Date(order.date).toLocaleDateString('pt-BR')}</h2></span>
+                                        <span className="order-date">{new Date(order.date).toLocaleDateString('pt-BR')}</span>
                                     </div>
                                     <ul className="order-details">
                                         {order.items.map((item, idx) => (
-                                            <li key={idx} className="order-detail">
+                                            <li key={`${order.id}-${item.nome}-${idx}`} className="order-detail">
                                                 {item.quantity}x {item.nome}
                                             </li>
                                         ))}

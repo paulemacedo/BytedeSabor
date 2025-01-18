@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addProduct, updateProduct, deleteProduct, selectAllProducts } from '../redux/productsSlice';
-import '../Styles/Management.css';
+import '../Styles/AdminProduto.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const Management = () => {
@@ -42,27 +42,27 @@ const Management = () => {
     const filteredProducts = filter ? products.filter(item => item.tipo === filter) : products;
 
     return (
-        <div className="management-container">
+        <div className="admin-produto-container">
             <h1>Gerenciamento de Produtos</h1>
-            <div className="filter-bar">
+            <div className="admin-produto-filter-bar">
                 <select onChange={(e) => setFilter(e.target.value)} value={filter}>
                     <option value="">Todos</option>
                     <option value="açai">Açaí</option>
                     <option value="picole">Picolé</option>
                     <option value="topping">Acompanhamento</option>
                 </select>
-                <div className="filter-buttons">
+                <div className="admin-produto-filter-buttons">
                     <button className="btn" onClick={() => setMode('add')}>
                         <i className="bi bi-plus-circle"></i> Adicionar
                     </button>
-                    <button className="btn" onClick={() => setMode('view')}>
-                        <i className="bi bi-eye"></i> Visualizar
+                    <button className="btn" onClick={() => setMode('manage')}>
+                        <i className="bi bi-gear"></i> Gerenciar                    
                     </button>
                 </div>
             </div>
             {mode === 'add' && (
-                <div className="form-container">
-                    <div className="form-row">
+                <div className="admin-produto-form-container">
+                    <div className="admin-produto-form-row">
                         <input
                             type="text"
                             name="nome"
@@ -101,19 +101,19 @@ const Management = () => {
                     <button className="btn" onClick={handleAddItem}>Adicionar</button>
                 </div>
             )}
-            {mode === 'view' && (
-                <div className="items-list">
+            {mode === 'manage' && (
+                <div className="admin-produto-items-list">
                     {filteredProducts.map(item => (
-                        <div key={item.id} className="item-card">
-                            <div className="item-card-actions">
-                                <button className="btn edit-btn" onClick={() => handleEditItem(item)}>
+                        <div key={item.id} className="admin-produto-item-card">
+                            <div className="admin-produto-item-card-actions">
+                                <button className="btn admin-produto-edit-btn" onClick={() => handleEditItem(item)}>
                                     <i className="bi bi-pencil"></i>
                                 </button>
-                                <button className="btn delete-btn" onClick={() => handleDeleteItem(item.id)}>
+                                <button className="btn admin-produto-delete-btn" onClick={() => handleDeleteItem(item.id)}>
                                     <i className="bi bi-trash"></i>
                                 </button>
                             </div>
-                            <div className="item-card-content">
+                            <div className="admin-produto-item-card-content">
                                 <p><strong>Tipo:</strong> {item.tipo}</p>
                                 <p><strong>Nome:</strong> {item.nome}</p>
                                 <p><strong>Descrição:</strong> {item.descricao}</p>
@@ -124,8 +124,8 @@ const Management = () => {
                 </div>
             )}
             {mode === 'edit' && (
-                <div className="form-container">
-                    <div className="form-row">
+                <div className="admin-produto-form-container">
+                    <div className="admin-produto-form-row">
                         <input
                             type="text"
                             name="nome"

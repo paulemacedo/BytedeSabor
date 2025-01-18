@@ -28,6 +28,7 @@ nav {
     display: flex;
     gap: 1rem;
     margin-left: auto;
+    align-items: center;
 }
 
 nav a {
@@ -60,6 +61,19 @@ nav a {
     height: 36px;
     border-radius: 50%;
     object-fit: cover;
+    margin-right: 10px;
+}
+
+.header-user-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #bd93c1;
+}
+
+.header-user-info span {
+    font-size: 1.6rem;
+    font-family: 'VT323', monospace;
 }
 
 #Register {
@@ -122,6 +136,4 @@ nav a {
     .header-login #Register {
         margin-left: 0;
     }
-
-
 }
