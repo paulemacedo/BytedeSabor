@@ -1,11 +1,11 @@
 import express from 'express'
-import { criarProduto, verProduto, atualizarProduto, deletarProduto } from '../controllers/produto.controller.js'
+import { criarProduto, verProdutoPorId, atualizarProdutoPorId, deletarProdutoPorId } from '../controllers/produto.controller.js'
 
 const router = express.Router();
 
 router.post('/', criarProduto);
-router.get('/', verProduto);
-router.patch('/', atualizarProduto);
-router.delete('/', deletarProduto);
+router.get('/', verProdutoPorId);
+router.patch('/', atualizarProdutoPorId);
+router.delete('/', deletarProdutoPorId);
 
 export default router;

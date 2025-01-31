@@ -1,5 +1,6 @@
 import Produto from '../models/produto.model.js'
 
+// CRUD PRODUTO
 export const criarProduto = async (req, res) => {
     const produto = req.body;
     if(!produto.id || !produto.tipo || !produto.imagem || !produto.nome || !produto.preco){
@@ -8,9 +9,9 @@ export const criarProduto = async (req, res) => {
             message: 'Faltando dados.'
         })
     }
-    const newProduto = new Produto(produto);
+    const novoProduto = new Produto(produto);
     try {
-        await newProduto.save();
+        await novoProduto.save();
         res.status(201).json({
             success: true,
             message: 'Produto adicionado.'
@@ -21,17 +22,20 @@ export const criarProduto = async (req, res) => {
     }
 };
 
-export const verProduto = async (req, res) => {
+export const verProdutoPorId = async (req, res) => {
+    const { id } = req.params;
     console.log('READ ainda não implementado.');
     return res.json({
         message: 'ainda nao implementado'
     })
 };
 
-export const atualizarProduto = async (req, res) => {
+export const atualizarProdutoPorId = async (req, res) => {
+    const { id } = req.params;
     console.log('UPDATE ainda não implementado.')
 };
 
-export const deletarProduto = async (req, res) => {
+export const deletarProdutoPorId = async (req, res) => {
+    const { id } = req.params;
     console.log('DELETE ainda não implementado.')
 };
