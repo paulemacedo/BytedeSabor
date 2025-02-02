@@ -35,7 +35,19 @@ export const atualizarProdutoPorId = async (req, res) => {
     const produtoAtualizado = req.body;
 };
 
+// DELETAR PRODUTO POR ID, OK
 export const deletarProdutoPorId = async (req, res) => {
     const { id } = req.params;
-    console.log('DELETE ainda não implementado.')
-};
+
+    try {
+        await Produto.findByIdAndDelete(id);
+        res.status(201).json({ success: true, message: 'produto deletado'})
+    } catch (error) {
+        console.error("Erro: ", error.message);
+        res.status(401).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
