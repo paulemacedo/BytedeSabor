@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import { connectDB } from './config/db.js';
 import produtoRoutes from './routes/produto.route.js'
 import pedidoRoutes from './routes/pedidos.route.js'
-import Produto from './models/produto.model.js';
+import usuarioRoutes from './routes/usuario.route.js'
 
 dotenv.config();
 
@@ -14,6 +14,7 @@ app.use(express.json());
 
 app.use('/api/pedidos', pedidoRoutes);
 app.use('/api/produtos', produtoRoutes);
+app.use('/api/usuarios', usuarioRoutes);
 
 app.listen(PORT, () => {
     connectDB();

@@ -22,6 +22,7 @@ export const verPedidoPorId = async (req, res) => {
 
 export const atualizarPedidoPorId = async (req, res) => {
     const { id } = req.params;
+    const pedidoAtualizado = req.body;
 }
 
 export const deletarPedidoPorId = async (req, res) => {

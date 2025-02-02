@@ -4,8 +4,8 @@ import { criarPedido, verPedidoPorId, atualizarPedidoPorId, deletarPedidoPorId }
 const router = express.Router();
 
 router.post('/', criarPedido);
-router.get('/', verPedidoPorId);
-router.patch('/', atualizarPedidoPorId);
-router.delete('/', deletarPedidoPorId);
+router.get('/:id', verPedidoPorId);
+router.patch('/:id', atualizarPedidoPorId);
+router.delete('/:id', deletarPedidoPorId);
 
 export default router;
