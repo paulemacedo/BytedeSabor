@@ -32,7 +32,7 @@ export const verProdutoPorId = async (req, res) => {
 
 export const atualizarProdutoPorId = async (req, res) => {
     const { id } = req.params;
-    console.log('UPDATE ainda não implementado.')
+    const produtoAtualizado = req.body;
 };
 
 export const deletarProdutoPorId = async (req, res) => {
