@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess, loginFailure } from '../redux/loginSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import '../Styles/LoginForms.css';
-import profPicture from '../Assets/Img/profilePicture.jpg';
+import profPicture from '../assets/Img/profilePicture.jpg';
 
 const Login = () => {
     const [email, setEmail] = useState('');
