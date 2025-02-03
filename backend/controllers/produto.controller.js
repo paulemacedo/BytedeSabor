@@ -26,27 +26,46 @@ export const criarProduto = async (req, res) => {
     }
 };
 
+export const listarProdutos = async (req, res) => {
+  try {
+    const produtos = await Produto.find();
+    console.log('Produtos encontrados:', produtos); // Adicione este log
+    res.status(200).json({
+      success: true,
+      produtos
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+
 export const verProdutoPorId = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const produto = await Produto.findById(id);
-        if (!produto) {
-            return res.status(404).json({
-                success: false,
-                message: 'Produto não encontrado.'
-            });
-        }
-        res.status(200).json({
-            success: true,
-            produto
-        });
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
+  const { id } = req.params;
+  try {
+    const produto = await Produto.findById(id);
+    if (!produto) {
+      return res.status(404).json({
+        success: false,
+        message: 'Produto não encontrado.'
+      });
     }
+    console.log('Produto encontrado:', produto); // Adicione este log
+    res.status(200).json({
+      success: true,
+      produto
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
 };
 
 export const atualizarProdutoPorId = async (req, res) => {

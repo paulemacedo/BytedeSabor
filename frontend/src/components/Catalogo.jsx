@@ -23,6 +23,10 @@ const Catalogo = () => {
     dispatch(fetchProdutos());
     dispatch(fetchAcompanhamentos());
   }, [dispatch]);
+  
+  useEffect(() => {
+    console.log('Products:', products); // Adicione este log
+  }, [products]);
 
   const handleAddToCart = (product) => {
     if (product.tipo === 'açai') {

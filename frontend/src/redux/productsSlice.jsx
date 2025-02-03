@@ -3,12 +3,13 @@ import axios from 'axios';
 
 // Thunks para buscar dados do backend
 export const fetchProdutos = createAsyncThunk('products/fetchProdutos', async () => {
-  const response = await axios.get('/api/produtos');
-  return response.data;
+  const response = await axios.get('http://localhost:3001/api/produtos');
+  console.log('API Response:', response.data);
+  return response.data.produtos;
 });
 
 export const fetchAcompanhamentos = createAsyncThunk('products/fetchAcompanhamentos', async () => {
-  const response = await axios.get('/api/acompanhamentos');
+  const response = await axios.get('http://localhost:3001/api/acompanhamentos');
   return response.data;
 });
 
@@ -35,6 +36,7 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchProdutos.fulfilled, (state, action) => {
+        console.log('Redux State:', action.payload); // Adicione este log
         state.produtos = action.payload;
       })
       .addCase(fetchAcompanhamentos.fulfilled, (state, action) => {
