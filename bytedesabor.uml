@@ -1,0 +1,47 @@
+@startuml
+!theme plain
+title Byte de Sabor UML Diagram
+
+class User {
+  - id: int
+  - name: String
+  - email: String
+  - password: String
+}
+
+class Client {
+  - address: String
+}
+
+class Administrator {
+  - permissions: List<String>
+}
+
+class Product {
+  - id: int
+  - tipo: String
+  - nome: String
+  - descricao: String
+  - preco: float
+  - status: String
+}
+
+class Order {
+  - id: int
+  - user: User
+  - totalPrice: float
+}
+
+class Topping {
+  - id: int
+  - nome: String
+  - preco: float
+}
+
+User <|-- Client
+User <|-- Administrator
+User "1" --> "*" Order
+Order "*" --> "*" Product
+Product "*" --> "*" Topping
+
+@enduml

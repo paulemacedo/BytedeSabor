@@ -1,13 +1,13 @@
-import acai300 from "../Assets/Img/produtos/acai300.png";
-import acai500 from "../Assets/Img/produtos/acai500.png";
-import acai700 from "../Assets/Img/produtos/acai700.png";
-import acai1000 from "../Assets/Img/produtos/acai1000.png";
-import picoleBanana from "../Assets/Img/produtos/picole-banana.jpg";
-import picoleChocolate from "../Assets/Img/produtos/picole-chocolate.jpg";
-import picoleCoco from "../Assets/Img/produtos/picole-coco.jpg";
-import picoleFramboesa from "../Assets/Img/produtos/picole-framboesa.jpg";
-import picoleMorango from "../Assets/Img/produtos/picole-morango.jpg";
-import picoleTrufado from "../Assets/Img/produtos/picole-trufado.jpg";
+import acai300 from "../assets/Img/produtos/acai300.png";
+import acai500 from "../assets/Img/produtos/acai500.png";
+import acai700 from "../assets/Img/produtos/acai700.png";
+import acai1000 from "../assets/Img/produtos/acai1000.png";
+import picoleBanana from "../assets/Img/produtos/picole-banana.jpg";
+import picoleChocolate from "../assets/Img/produtos/picole-chocolate.jpg";
+import picoleCoco from "../assets/Img/produtos/picole-coco.jpg";
+import picoleFramboesa from "../assets/Img/produtos/picole-framboesa.jpg";
+import picoleMorango from "../assets/Img/produtos/picole-morango.jpg";
+import picoleTrufado from "../assets/Img/produtos/picole-trufado.jpg";
 
 const Produtos = [
   {

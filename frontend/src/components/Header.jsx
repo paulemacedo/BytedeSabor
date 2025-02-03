@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Logo from '../Assets/Img/icon.svg';
+import Logo from '../assets/Img/icon.svg';
 import '../Styles/Header.css';
 
 const Header = () => {
