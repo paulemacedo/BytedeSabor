@@ -90,7 +90,7 @@ const Catalogo = () => {
             {groupedProducts[tipo].map((item, index) => (
               <SwiperSlide key={index}>
                 <div className="card-container">
-                  <img className="card-image" src={item.imagem} alt={item.nome} />
+                <img className="card-image" src={`../src/assets/Img/produtos/${item.imagem}`} alt={item.nome} />
                   <div className="card-content">
                     <h2 className="card-title">{item.nome}</h2>
                     <p className="card-description">{item.descricao}</p>

@@ -26,6 +26,22 @@ export const criarAcompanhamento = async (req, res) => {
     }
 };
 
+export const listarAcompanhamentos = async (req, res) => {
+    try {
+      const acompanhamentos = await Acompanhamento.find();
+      res.status(200).json({
+        success: true,
+        acompanhamentos
+      });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).json({
+        success: false,
+        message: error.message
+      });
+    }
+  };
+
 export const verAcompanhamentoPorId = async (req, res) => {
     const { id } = req.params;
     try {
