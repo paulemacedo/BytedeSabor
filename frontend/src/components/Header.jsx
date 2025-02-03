@@ -25,15 +25,14 @@ const Header = () => {
                 <i className={isOpen ? "bi bi-x" : "bi bi-list"}></i>
             </div>
             <nav className={isOpen ? "active" : ""}>
+                <Link to="/" onClick={toggleMenu}>Home</Link>
                 {isAdmin ? (
                     <>
-                        <Link to="/admin" onClick={toggleMenu}>Home</Link>
                         <Link to="/adminproduto" onClick={toggleMenu}>Produtos</Link>
                         <Link to="/adminpedidos" onClick={toggleMenu}>Pedidos</Link>
                     </>
                 ) : (
                     <>
-                        <Link to="/" onClick={toggleMenu}>Home</Link>
                         <Link to="/pedidos" onClick={toggleMenu}>Pedidos</Link>
                     </>
                 )}
