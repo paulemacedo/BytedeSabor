@@ -1,11 +1,10 @@
 .welcome-message {
-  margin-top: 1rem;
+  margin-top: 10rem;
   margin-bottom: 1rem;
   justify-content: center;
   text-align: center;
   display: flex;
   align-items: center;
-  height: 100vh;
   flex-direction: column;
 }
 
