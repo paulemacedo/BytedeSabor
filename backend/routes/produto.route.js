@@ -1,5 +1,6 @@
 import express from 'express'
 import { criarProduto, verProdutoPorId, atualizarProdutoPorId, deletarProdutoPorId } from '../controllers/produto.controller.js'
+import { verifyToken } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
