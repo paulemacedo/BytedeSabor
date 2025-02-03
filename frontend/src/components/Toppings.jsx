@@ -1,63 +1,85 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import { useSelector } from 'react-redux';
-import { selectAllAcompanhamentos } from '../redux/productsSlice';
+import { useSelector, useDispatch } from 'react-redux';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../Styles/Toppings.css';
 
 // Defina o elemento do aplicativo para o modal
 Modal.setAppElement('#root');
 
-const Toppings = ({ isOpen, onRequestClose, onSelectTopping, onConfirm }) => {
-  const acompanhamentos = useSelector(selectAllAcompanhamentos) || [];
+const Toppings = ({
+  isOpen,
+  onRequestClose,
+  acompanhamentos = [],
+  onSelectTopping,
+  onConfirm
+}) => {
   const [selectedToppings, setSelectedToppings] = useState([]);
 
   useEffect(() => {
-    if (!isOpen) {
-      setSelectedToppings([]);
-    }
-  }, [isOpen]);
+    console.log('Acompanhamentos:', acompanhamentos);
+  }, [acompanhamentos]);
 
   const handleSelectTopping = (topping) => {
     const isSelected = selectedToppings.includes(topping);
     if (isSelected) {
-      setSelectedToppings(selectedToppings.filter(t => t.nome !== topping.nome));
+      setSelectedToppings(selectedToppings.filter(t => t._id !== topping._id));
     } else {
       setSelectedToppings([...selectedToppings, topping]);
     }
     onSelectTopping(topping, !isSelected);
   };
 
-  const gratuitos = Array.isArray(acompanhamentos) ? acompanhamentos.filter(topping => topping.preco === 0) : [];
-  const comAcrescimo = Array.isArray(acompanhamentos) ? acompanhamentos.filter(topping => topping.preco > 0) : [];
+  const gratuitos = Array.isArray(acompanhamentos)
+    ? acompanhamentos.filter(t => t.preco === 0)
+    : [];
+  const comAcrescimo = Array.isArray(acompanhamentos)
+    ? acompanhamentos.filter(t => t.preco > 0)
+    : [];
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="modal">
-      <h2>Selecione os Toppings</h2>
-      <div className="toppings-container">
-        <h3>Gratuitos</h3>
-        {gratuitos.map((topping) => (
-          <div key={topping.id} className="topping-item">
-            <img src={topping.imagem} alt={topping.nome} />
-            <p>{topping.nome}</p>
-            <button onClick={() => handleSelectTopping(topping)}>
-              {selectedToppings.includes(topping) ? 'Remover' : 'Adicionar'}
-            </button>
-          </div>
-        ))}
-        <h3>Com Acréscimo</h3>
-        {comAcrescimo.map((topping) => (
-          <div key={topping.id} className="topping-item">
-            <img src={topping.imagem} alt={topping.nome} />
-            <p>{topping.nome}</p>
-            <p>R$ {topping.preco.toFixed(2)}</p>
-            <button onClick={() => handleSelectTopping(topping)}>
-              {selectedToppings.includes(topping) ? 'Remover' : 'Adicionar'}
-            </button>
-          </div>
-        ))}
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      contentLabel="Select Toppings"
+      className="modal-content"
+      overlayClassName="modal-overlay"
+    >
+      <div className="modal-header">
+        <h2>Selecione os acompanhamentos</h2>
+        <button onClick={onRequestClose}><i className="bi bi-x"></i></button>
       </div>
-      <button onClick={() => onConfirm(selectedToppings)}>Confirmar</button>
+      <div className="modal-body">
+        <ul>
+          {gratuitos.map((topping) => (
+            <li key={topping._id}>
+              <label className="topping-label">
+                {topping.nome}
+                <i
+                  className={`bi ${selectedToppings.includes(topping) ? 'bi-dash-circle' : 'bi-plus-circle'}`}
+                  style={{ marginLeft: 'auto', cursor: 'pointer' }}
+                  onClick={() => handleSelectTopping(topping)}
+                ></i>
+              </label>
+            </li>
+          ))}
+          {comAcrescimo.map((topping) => (
+            <li key={topping._id}>
+              <label className="topping-label">
+                {topping.nome} (R$ {topping.preco})
+                <i
+                  className={`bi ${selectedToppings.includes(topping) ? 'bi-dash-circle' : 'bi-plus-circle'}`}
+                  style={{ marginLeft: 'auto', cursor: 'pointer' }}
+                  onClick={() => handleSelectTopping(topping)}
+                ></i>
+              </label>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="modal-footer">
+        <button onClick={() => onConfirm(selectedToppings)} className="btn">Confirmar</button>
+      </div>
     </Modal>
   );
 };

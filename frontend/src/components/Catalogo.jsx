@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProdutos, fetchAcompanhamentos, selectAllProducts } from '../redux/productsSlice';
+import { fetchProdutos, fetchAcompanhamentos, selectAllProducts, selectAllAcompanhamentos } from '../redux/productsSlice';
 import { addToCart } from '../redux/cartSlice';
-import Toppings from './Toppings'; 
+import Toppings from './Toppings';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -15,6 +15,7 @@ import '../Styles/Catalogo.css';
 const Catalogo = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts) || [];
+  const acompanhamentos = useSelector(selectAllAcompanhamentos) || [];
   const [isToppingsModalOpen, setIsToppingsModalOpen] = useState(false);
   const [selectedToppings, setSelectedToppings] = useState([]);
   const [currentProduct, setCurrentProduct] = useState(null);
@@ -46,10 +47,16 @@ const Catalogo = () => {
   };
 
   const handleConfirmToppings = () => {
+    // Calculate total price including toppings
+    const toppingsTotal = selectedToppings.reduce((sum, topping) => sum + (topping.preco || 0), 0);
+    
     const productWithToppings = {
       ...currentProduct,
-      toppings: selectedToppings
+      toppings: selectedToppings,
+      // Add the toppings price to the base product price
+      preco: currentProduct.preco + toppingsTotal
     };
+    
     dispatch(addToCart(productWithToppings));
     setIsToppingsModalOpen(false);
     setSelectedToppings([]);
@@ -112,6 +119,7 @@ const Catalogo = () => {
       <Toppings
         isOpen={isToppingsModalOpen}
         onRequestClose={() => setIsToppingsModalOpen(false)}
+        acompanhamentos={acompanhamentos}
         onSelectTopping={handleSelectTopping}
         onConfirm={handleConfirmToppings}
       />

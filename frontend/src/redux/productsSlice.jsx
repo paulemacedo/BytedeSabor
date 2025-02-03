@@ -10,7 +10,8 @@ export const fetchProdutos = createAsyncThunk('products/fetchProdutos', async ()
 
 export const fetchAcompanhamentos = createAsyncThunk('products/fetchAcompanhamentos', async () => {
   const response = await axios.get('http://localhost:3001/api/acompanhamentos');
-  return response.data;
+  console.log('Fetched acompanhamentos:', response.data.acompanhamentos);
+  return response.data.acompanhamentos; // Return the array directly
 });
 
 const productsSlice = createSlice({
