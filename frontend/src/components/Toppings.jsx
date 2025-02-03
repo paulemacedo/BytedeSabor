@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import { useSelector } from 'react-redux';
+import { selectAllAcompanhamentos } from '../redux/productsSlice';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../Styles/Toppings.css';
-import Acompanhamentos from '../back-end/Acompanhamentos';
 
 // Defina o elemento do aplicativo para o modal
 Modal.setAppElement('#root');
 
 const Toppings = ({ isOpen, onRequestClose, onSelectTopping, onConfirm }) => {
+  const acompanhamentos = useSelector(selectAllAcompanhamentos) || [];
   const [selectedToppings, setSelectedToppings] = useState([]);
 
   useEffect(() => {
@@ -26,54 +28,36 @@ const Toppings = ({ isOpen, onRequestClose, onSelectTopping, onConfirm }) => {
     onSelectTopping(topping, !isSelected);
   };
 
-  const gratuitos = Acompanhamentos.filter(topping => topping.preco === 0);
-  const comAcrescimo = Acompanhamentos.filter(topping => topping.preco > 0);
+  const gratuitos = Array.isArray(acompanhamentos) ? acompanhamentos.filter(topping => topping.preco === 0) : [];
+  const comAcrescimo = Array.isArray(acompanhamentos) ? acompanhamentos.filter(topping => topping.preco > 0) : [];
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      contentLabel="Select Toppings"
-      className="modal-content"
-      overlayClassName="modal-overlay"
-    >
-      <div className="modal-header">
-        <h2>Selecione os acompanhamentos</h2>
-        <button onClick={onRequestClose}><i className="bi bi-x"></i></button>
+    <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="modal">
+      <h2>Selecione os Toppings</h2>
+      <div className="toppings-container">
+        <h3>Gratuitos</h3>
+        {gratuitos.map((topping) => (
+          <div key={topping.id} className="topping-item">
+            <img src={topping.imagem} alt={topping.nome} />
+            <p>{topping.nome}</p>
+            <button onClick={() => handleSelectTopping(topping)}>
+              {selectedToppings.includes(topping) ? 'Remover' : 'Adicionar'}
+            </button>
+          </div>
+        ))}
+        <h3>Com Acréscimo</h3>
+        {comAcrescimo.map((topping) => (
+          <div key={topping.id} className="topping-item">
+            <img src={topping.imagem} alt={topping.nome} />
+            <p>{topping.nome}</p>
+            <p>R$ {topping.preco.toFixed(2)}</p>
+            <button onClick={() => handleSelectTopping(topping)}>
+              {selectedToppings.includes(topping) ? 'Remover' : 'Adicionar'}
+            </button>
+          </div>
+        ))}
       </div>
-      <div className="modal-body">
-        <ul>
-          {gratuitos.map((topping) => (
-            <li key={topping.nome}>
-              <label className="topping-label">
-                {topping.nome}
-                <i
-                  className={`bi ${selectedToppings.includes(topping) ? 'bi-dash-circle' : 'bi-plus-circle'}`}
-                  style={{ marginLeft: 'auto', cursor: 'pointer' }}
-                  onClick={() => handleSelectTopping(topping)}
-                ></i>
-              </label>
-            </li>
-          ))}
-        </ul>
-        <ul>
-          {comAcrescimo.map((topping) => (
-            <li key={topping.nome}>
-              <label className="topping-label">
-                {topping.nome} - R$ {topping.preco.toFixed(2)}
-                <i
-                  className={`bi ${selectedToppings.includes(topping) ? 'bi-dash-circle' : 'bi-plus-circle'}`}
-                  style={{ marginLeft: 'auto', cursor: 'pointer' }}
-                  onClick={() => handleSelectTopping(topping)}
-                ></i>
-              </label>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="modal-footer">
-        <button onClick={() => { onConfirm(selectedToppings); setSelectedToppings([]); }} className="btn">Confirmar</button>
-      </div>
+      <button onClick={() => onConfirm(selectedToppings)}>Confirmar</button>
     </Modal>
   );
 };

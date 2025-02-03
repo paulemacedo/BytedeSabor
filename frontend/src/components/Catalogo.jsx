@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProdutos, fetchAcompanhamentos, selectAllProducts } from '../redux/productsSlice';
 import { addToCart } from '../redux/cartSlice';
-import Produtos from '../back-end/Produtos.jsx';
 import Toppings from './Toppings'; 
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'swiper/css';
@@ -14,9 +14,15 @@ import '../Styles/Catalogo.css';
 
 const Catalogo = () => {
   const dispatch = useDispatch();
+  const products = useSelector(selectAllProducts) || [];
   const [isToppingsModalOpen, setIsToppingsModalOpen] = useState(false);
   const [selectedToppings, setSelectedToppings] = useState([]);
   const [currentProduct, setCurrentProduct] = useState(null);
+
+  useEffect(() => {
+    dispatch(fetchProdutos());
+    dispatch(fetchAcompanhamentos());
+  }, [dispatch]);
 
   const handleAddToCart = (product) => {
     if (product.tipo === 'açai') {
@@ -31,15 +37,13 @@ const Catalogo = () => {
     if (isSelected) {
       setSelectedToppings([...selectedToppings, topping]);
     } else {
-      setSelectedToppings(selectedToppings.filter(t => t.nome !== topping.nome));
+      setSelectedToppings(selectedToppings.filter(item => item.id !== topping.id));
     }
   };
 
-  const handleConfirmToppings = (selectedToppings) => {
-    const totalToppingsPrice = selectedToppings.reduce((sum, topping) => sum + topping.preco, 0);
+  const handleConfirmToppings = () => {
     const productWithToppings = {
       ...currentProduct,
-      preco: currentProduct.preco + totalToppingsPrice,
       toppings: selectedToppings
     };
     dispatch(addToCart(productWithToppings));
@@ -47,13 +51,13 @@ const Catalogo = () => {
     setSelectedToppings([]);
   };
 
-  const groupedProducts = Produtos.reduce((acc, product) => {
+  const groupedProducts = Array.isArray(products) ? products.reduce((acc, product) => {
     if (!acc[product.tipo]) {
       acc[product.tipo] = [];
     }
     acc[product.tipo].push(product);
     return acc;
-  }, {});
+  }, {}) : {};
 
   return (
     <div className="catalogo-container">

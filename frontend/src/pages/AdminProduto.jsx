@@ -6,7 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const AdminProduto = () => {
     const dispatch = useDispatch();
-    const products = useSelector(selectAllProducts);
+    const products = useSelector(selectAllProducts) || [];
     const [editingItem, setEditingItem] = useState(null);
     const [form, setForm] = useState({ tipo: '', nome: '', descricao: '', preco: 0, imagem: '', status: 'Em stock' });
     const [filter, setFilter] = useState('');
@@ -76,7 +76,7 @@ const AdminProduto = () => {
                             type="text"
                             name="preco"
                             placeholder="Preço"
-                            value={isNaN(form.preco) ? '' : `R$ ${form.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                            value={isNaN(form.preco) ? '' : form.preco}
                             onChange={handleInputChange}
                             className="price-field"
                         />
@@ -160,7 +160,7 @@ const AdminProduto = () => {
                             type="text"
                             name="preco"
                             placeholder="Preço"
-                            value={isNaN(form.preco) ? '' : `R$ ${form.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                            value={isNaN(form.preco) ? '' : form.preco}
                             onChange={handleInputChange}
                             className="price-field"
                         />
