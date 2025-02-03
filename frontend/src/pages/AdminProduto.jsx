@@ -41,6 +41,12 @@ const AdminProduto = () => {
 
     const filteredProducts = filter ? products.filter(item => item.tipo === filter) : products;
 
+    const isAdmin = useSelector((state) => state.login.isAdmin);
+    
+    if (!isAdmin) {
+        return <p className="admin-pedidos-no-access">Acesso não autorizado</p>;
+    }
+
     return (
         <div className="admin-produto-container">
             <h1>Gerenciamento de Produtos</h1>

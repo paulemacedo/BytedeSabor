@@ -13,17 +13,20 @@ const Home = () => {
         <>
             {isAdmin ? (
                 <AdminHome />
-            ) : null}
-            {user ? (
-                <>
-                    <CartButton />
-                    <Catalogo />
-                </>
             ) : (
-                <div className="welcome-message">
-                    <h2>Bem-vindo ao Byte de Sabor</h2>
-                    <p>Faça login para ver nosso catálogo</p>
-                </div>
+                <>
+                    {user ? (
+                        <>
+                            <CartButton />
+                            <Catalogo />
+                        </>
+                    ) : (
+                        <div className="welcome-message">
+                            <h2>Bem-vindo ao Byte de Sabor</h2>
+                            <p>Faça login para ver nosso catálogo</p>
+                        </div>
+                    )}
+                </>
             )}
         </>
     );

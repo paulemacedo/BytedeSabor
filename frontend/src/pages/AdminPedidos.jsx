@@ -18,6 +18,14 @@ const AdminPedidos = () => {
 
     const filteredOrders = filter ? orders.filter(order => order.status === filter) : orders;
 
+
+    const isAdmin = useSelector((state) => state.login.isAdmin);
+
+
+    if (!isAdmin) {
+        return <p className="admin-pedidos-no-access">Acesso não autorizado</p>;
+    }
+
     return (
         <div className="admin-pedidos-container">
             <h1 className="admin-pedidos-title">Administração de Pedidos</h1>
