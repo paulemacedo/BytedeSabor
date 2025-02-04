@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 const AcompanhamentoSchema = new mongoose.Schema({
+    _id: { type: String }, // Defina explicitamente o _id como String
     tipo: {type: String},
     nome: {type: String, required: true},
     imagem: {type: String},

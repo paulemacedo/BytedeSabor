@@ -49,13 +49,11 @@ export const verAcompanhamentoPorId = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("Buscando acompanhamento com ID:", id);
-        // Converta para ObjectId caso o banco utilize esse tipo
-        // const objectId = mongoose.Types.ObjectId(id);
-        // const acompanhamento = await Acompanhamento.findOne({ _id: objectId });
-        
         const acompanhamento = await Acompanhamento.findOne({ _id: id });
         if (!acompanhamento) {
             console.log("Nenhum acompanhamento encontrado para o ID:", id);
+            console.log("ID recebido:", id);
+            console.log("Tipo do ID:", typeof id); // Deve ser 'string'
             return res.status(404).json({
                 success: false,
                 message: `Acompanhamento não encontrado com identificador: ${id}`
