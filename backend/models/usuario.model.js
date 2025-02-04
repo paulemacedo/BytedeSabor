@@ -4,6 +4,7 @@ const UsuarioSchema = new mongoose.Schema({
     _id: { type: String }, // Defina explicitamente o _id como String
     nome: {type: String, required: true},
     email: {type: String, required: true, unique: true},
+    foto: {type: String, required: false, default: 'profilePicture.jpg'},
     senha: {type: String},
     isAdmin: {type: Boolean, required: true}
 });

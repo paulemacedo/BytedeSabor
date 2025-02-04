@@ -20,6 +20,7 @@ const initialState = {
     user: null,
     isAdmin: false,
     error: null,
+    profileImage: null,
 };
 
 const loginSlice = createSlice({
@@ -31,19 +32,23 @@ const loginSlice = createSlice({
             state.user = null;
             state.isAdmin = false;
             state.error = null;
+            state.profileImage = null;
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             localStorage.removeItem('isAdmin');
+            localStorage.removeItem('profileImage');
         },
         loadUserFromStorage: (state) => {
             const token = localStorage.getItem('token');
             const user = JSON.parse(localStorage.getItem('user'));
             const isAdmin = JSON.parse(localStorage.getItem('isAdmin'));
+            const profileImage = localStorage.getItem('profileImage');
             if (token && user) {
                 state.isLoggedIn = true;
                 state.user = user;
                 state.isAdmin = isAdmin;
                 state.error = null;
+                state.profileImage = profileImage;
             }
         },
     },
@@ -53,19 +58,24 @@ const loginSlice = createSlice({
                 state.error = null;
             })
             .addCase(loginUser.fulfilled, (state, action) => {
+                console.log('Login successful:', action.payload); // Adicione este log
                 state.isLoggedIn = true;
                 state.user = action.payload.user;
                 state.isAdmin = action.payload.user.isAdmin;
                 state.error = null;
+                const profileImage = `src/assets/Img/${action.payload.user.foto}`;
+                state.profileImage = profileImage;
                 localStorage.setItem('token', action.payload.token);
                 localStorage.setItem('user', JSON.stringify(action.payload.user));
                 localStorage.setItem('isAdmin', JSON.stringify(action.payload.user.isAdmin));
+                localStorage.setItem('profileImage', profileImage);
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.isLoggedIn = false;
                 state.user = null;
                 state.isAdmin = false;
                 state.error = action.payload;
+                state.profileImage = null;
             });
     },
 });

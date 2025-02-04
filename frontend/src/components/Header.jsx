@@ -12,6 +12,7 @@ const Header = () => {
     };
 
     const user = useSelector((state) => state.login.user);
+    const profileImage = useSelector((state) => state.login.profileImage);
     const isAdmin = useSelector((state) => state.login.isAdmin);
 
     return (
@@ -39,7 +40,7 @@ const Header = () => {
                 )}
                 {user ? (
                     <Link to="/user" className="header-user-info" onClick={toggleMenu}>
-                        <img src={user.profilePicture} alt="Profile" className="header-profile-picture" />
+                        <img src={profileImage} alt="Profile" className="header-profile-picture" />
                         <span>{user.name}</span>
                     </Link>
                 ) : (
