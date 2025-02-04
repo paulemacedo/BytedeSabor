@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserProfile, deleteUserProfile, logout } from '../redux/loginSlice';
 import Modal from 'react-modal';
@@ -8,11 +8,22 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.login.user);
     const [formData, setFormData] = useState({
-        nome: user.nome,
-        email: user.email,
-        foto: user.foto,
-        endereco: user.endereco,
+        nome: '',
+        email: '',
+        foto: '',
+        endereco: '',
     });
+
+    useEffect(() => {
+        if (user) {
+            setFormData({
+                nome: user.nome || '',
+                email: user.email || '',
+                foto: user.foto || '',
+                endereco: user.endereco || '',
+            });
+        }
+    }, [user]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,7 +32,7 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const result = await dispatch(updateUserProfile(formData));
+        const result = await dispatch(updateUserProfile({ ...user, ...formData }));
         if (updateUserProfile.fulfilled.match(result)) {
             onRequestClose();
         }

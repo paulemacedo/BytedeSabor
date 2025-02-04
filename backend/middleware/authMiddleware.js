@@ -4,7 +4,7 @@ import Usuario from '../models/usuario.model.js';
 const secretKey = process.env.JWT_SECRET;
 
 export const verifyToken = (req, res, next) => {
-    const token = req.header('Authorization');
+    const token = req.header('Authorization')?.split(' ')[1];
     if (!token) return res.status(401).json({ success: false, message: 'Access Denied' });
 
     try {
