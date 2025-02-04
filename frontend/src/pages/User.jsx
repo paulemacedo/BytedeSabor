@@ -14,7 +14,7 @@ const User = () => {
     };
 
     if (!user) {
-        return <div>Usuario não esta logado.</div>;
+        return <div id="not-logged-in">Usuario não esta logado.</div>;
     }
     console.log('User data:', user); // Adicione este log
     console.log('Profile image:', profileImage); // Adicione este log

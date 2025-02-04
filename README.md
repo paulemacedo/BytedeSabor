@@ -27,20 +27,24 @@ Byte de Sabor é um projeto fictício de uma loja de açaí, onde o usuário pod
 ```bash
   git clone https://github.com/paulemacedo/bytedeSabor
 ```
-
-2. Instale as dependências:
-```bash
-npm i
+2. Crie um arquivo `.env` no diretório `backend` com o seguinte conteúdo:
+```properties
+MONGO_URI=mongodb+srv://Dev:SenhaDev123@cluster0.jwrcf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+PORT=3001
+JWT_SECRET=your_secret_key
 ```
-
-3. Inicie o servidor de desenvolvimento:
+3. Instale as dependências do backend:
 ```bash
+cd backend
+npm i
+npm run devStart```
+
+4. Em outro terminal, instale as dependências do frontend:
+```bash
+cd frontend
+npm i
 npm run dev
 ```
-
-## 👥 Entre como cliente
-- **Email:** user@example.com
-- **Senha:** password
 
 ## 👤 Entre como administrador
 - **Email:** admin@byte.com

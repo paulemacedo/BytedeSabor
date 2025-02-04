@@ -21,7 +21,7 @@ const Login = () => {
         dispatch(loginUser({ email, senha: password }))
             .unwrap()
             .then((data) => {
-                navigate(data.user.isAdmin ? '/admin' : '/user');
+                navigate('/');
             })
             .catch((error) => {
                 console.error('Login failed:', error);
