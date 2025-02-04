@@ -23,11 +23,15 @@ export const addAcompanhamentoAsync = createAsyncThunk(
   'acompanhamentos/addAcompanhamento',
   async (acompanhamento, { rejectWithValue }) => {
     try {
-      product._id = generateHexId(); // Automatically add an ID
+      acompanhamento._id = generateHexId();
       const response = await axios.post(`${API_URL}/acompanhamentos`, acompanhamento);
       return response.data.acompanhamento;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      if (error.response) {
+        return rejectWithValue(error.response.data);
+      } else {
+        return rejectWithValue({ message: error.message });
+      }
     }
   }
 );

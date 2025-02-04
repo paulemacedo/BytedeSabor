@@ -17,7 +17,7 @@ const AdminAcompanhamento = () => {
     const acompanhamentosStatus = useSelector(selectAcompanhamentosStatus);
     
     const [editingItem, setEditingItem] = useState(null);
-    const [form, setForm] = useState({ tipo: 'acompanhamento', nome: '', descricao: '', preco: 0, imagem: '', emEstoque: true });
+    const [form, setForm] = useState({ nome: '', descricao: '', preco: 0, imagem: '', emEstoque: true });
     const [filter, setFilter] = useState('');
     const [mode, setMode] = useState('add');
 
@@ -34,15 +34,16 @@ const AdminAcompanhamento = () => {
 
     const handleAddItem = async () => {
         try {
-            const itemData = {
-                ...form,
-                emEstoque: form.emEstoque
-            };
+            const { nome, descricao, preco, imagem, emEstoque } = form;
+            if (!nome || preco === null || preco === '') {
+                throw new Error('Nome e preço são campos obrigatórios.');
+            }
+            const itemData = { nome, descricao, preco, imagem, emEstoque };
             await dispatch(addAcompanhamentoAsync(itemData)).unwrap();
-            setForm({ tipo: 'acompanhamento', nome: '', descricao: '', preco: 0, imagem: '', emEstoque: true });
+            setForm({ nome: '', descricao: '', preco: 0, imagem: '', emEstoque: true });
             setMode('manage');
         } catch (error) {
-            console.error('Failed to add item:', error);
+            console.error('Failed to add item:', error.message);
         }
     };
 
@@ -58,19 +59,15 @@ const AdminAcompanhamento = () => {
     const handleUpdateItem = async () => {
         try {
             const updateData = {
+                id: editingItem._id, // Adicione o ID do item que está sendo editado
                 ...form,
-                _id: editingItem._id,
                 emEstoque: form.emEstoque,
             };
-            const result = await dispatch(updateAcompanhamentoAsync(updateData)).unwrap();
 
-            if (result.success) {
-                setEditingItem(null);
-                setMode('manage');
-                setForm({ tipo: 'acompanhamento', nome: '', descricao: '', preco: 0, imagem: '', emEstoque: true });
-            } else {
-                throw new Error(result.message);
-            }
+            await dispatch(updateAcompanhamentoAsync(updateData)).unwrap();
+            setForm({ nome: '', descricao: '', preco: 0, imagem: '', emEstoque: true });
+            setEditingItem(null);
+            setMode('manage');
         } catch (error) {
             console.error('Failed to update item:', error);
             alert('Erro ao atualizar item: ' + error.message);
@@ -114,11 +111,9 @@ const AdminAcompanhamento = () => {
                     </div>
                 </div>
                 <div className="admin-produto-item-card-content">
-                    <p><strong>Tipo:</strong> {item.tipo}</p>
                     <p><strong>Preço:</strong> R$ {item.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                     <p><strong>Status:</strong> {item.emEstoque ? 'Em stock' : 'Fora de stock'}</p>
                     <p><strong>Descrição:</strong> {item.descricao}</p>
-                    <img src={item.imagem} alt={item.nome} className="admin-produto-item-image" />
                 </div>
             </div>
         ));
