@@ -39,7 +39,8 @@ JWT_SECRET=your_secret_key
 ```bash
 cd backend
 npm i
-npm run devStart```
+npm run devStart
+```
 
 4. Em outro terminal, instale as dependências do frontend:
 ```bash
