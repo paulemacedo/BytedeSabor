@@ -1,0 +1,19 @@
+.welcome-message {
+  margin-top: 10rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.welcome-message h2 {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+.welcome-message p {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }

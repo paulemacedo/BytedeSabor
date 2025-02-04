@@ -1,0 +1,111 @@
+.pedidos-container {
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #FFF;
+}
+
+.pedidos-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+
+.order-status {
+    font-size: 18px;
+    margin-top: 10px; /* Adiciona um espaço entre o status e a descrição */
+}
+
+.order-details-section {
+    margin-top: 10px; /* Adiciona um espaço entre o status e os detalhes do pedido */
+}
+
+.pedidos-description {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #CCC;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-item {
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    background-color: #2c0a31;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.order-date {
+    font-size: 1rem;
+    color: #CCC;
+}
+
+.order-details {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.order-detail {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #CCC;
+}
+
+.order-total {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #FFF;
+}
+
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.order-detail-item {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #CCC;
+}
+
+@media (max-width: 768px) {
+    .order-header {
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .pedidos-container {
+        padding: 10px;
+    }
+
+    .order-item {
+        padding: 10px;
+    }
+
+    .order-date {
+        font-size: 0.9rem;
+    }
+
+    .order-detail {
+        font-size: 0.9rem;
+    }
+
+    .order-total {
+        font-size: 1rem;
+    }
+}
