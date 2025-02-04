@@ -15,10 +15,15 @@ export const fetchAcompanhamentos = createAsyncThunk(
   }
 );
 
+const generateHexId = () => {
+  return [...Array(24)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+};
+
 export const addAcompanhamentoAsync = createAsyncThunk(
   'acompanhamentos/addAcompanhamento',
   async (acompanhamento, { rejectWithValue }) => {
     try {
+      product._id = generateHexId(); // Automatically add an ID
       const response = await axios.post(`${API_URL}/acompanhamentos`, acompanhamento);
       return response.data.acompanhamento;
     } catch (error) {

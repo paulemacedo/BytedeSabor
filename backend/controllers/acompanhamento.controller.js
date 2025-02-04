@@ -75,20 +75,23 @@ export const verAcompanhamentoPorId = async (req, res) => {
 
 
 export const atualizarAcompanhamentoPorId = async (req, res) => {
-    const { id } = req.params;
-    const acompanhamentoAtualizado = req.body;
     try {
-        const acompanhamento = await Acompanhamento.findByIdAndUpdate(id, acompanhamentoAtualizado, { new: true });
-        if (!acompanhamento) {
+        const { id } = req.params;
+        const dadosAtualizacao = req.body;
+        const acompanhamentoAtualizado = await Acompanhamento.findOneAndUpdate(
+            { _id: id },
+            dadosAtualizacao,
+            { new: true }
+        );
+        if (!acompanhamentoAtualizado) {
             return res.status(404).json({
                 success: false,
-                message: 'Acompanhamento não encontrado.'
+                message: `Acompanhamento não encontrado com identificador: ${id}`
             });
         }
         res.status(200).json({
             success: true,
-            message: 'Acompanhamento atualizado.',
-            acompanhamento
+            acompanhamento: acompanhamentoAtualizado
         });
     } catch (error) {
         console.error(error.message);
@@ -100,18 +103,18 @@ export const atualizarAcompanhamentoPorId = async (req, res) => {
 };
 
 export const deletarAcompanhamentoPorId = async (req, res) => {
-    const { id } = req.params;
     try {
-        const acompanhamento = await Acompanhamento.findByIdAndDelete(id);
-        if (!acompanhamento) {
+        const { id } = req.params;
+        const acompanhamentoDeletado = await Acompanhamento.findOneAndDelete({ _id: id });
+        if (!acompanhamentoDeletado) {
             return res.status(404).json({
                 success: false,
-                message: 'Acompanhamento não encontrado.'
+                message: `Acompanhamento não encontrado com identificador: ${id}`
             });
         }
         res.status(200).json({
             success: true,
-            message: 'Acompanhamento deletado.'
+            message: 'Acompanhamento deletado com sucesso.'
         });
     } catch (error) {
         console.error(error.message);

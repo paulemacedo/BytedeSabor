@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home"; 
 import AdminProduto from './pages/AdminProduto.jsx';
 import AdminPedidos from './pages/AdminPedidos';
+import AdminAcompanhamento from './pages/AdminAcompanhamentos.jsx';
 import './Styles/App.css'; 
 
 
@@ -32,6 +33,7 @@ const App = () => {
               <Route path="/user" element={<User />} />
               <Route path="/adminproduto" element={<AdminProduto />} />
               <Route path="/adminpedidos" element={<AdminPedidos />} />
+              <Route path="/adminacompanhamento" element={<AdminAcompanhamento />} />
             </Routes>
           </main>
           <Footer />

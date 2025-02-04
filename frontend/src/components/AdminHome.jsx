@@ -13,6 +13,9 @@ const AdminHome = () => {
                 <Link to="/adminpedidos" className="admin-home-link">
                     Gerenciar Pedidos
                 </Link>
+                <Link to="/adminacompanhamento" className="admin-home-link">
+                    Gerenciar Acompanhamentos
+                </Link>
             </div>
         </div>
     );

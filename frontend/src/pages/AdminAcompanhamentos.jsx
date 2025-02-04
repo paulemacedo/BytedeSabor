@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { 
-    fetchProdutos,
-    addProductAsync, 
-    updateProductAsync, 
-    deleteProductAsync,
-    selectAllProducts,
-    selectProductsStatus
-} from '../redux/productsSlice';
+    fetchAcompanhamentos,
+    addAcompanhamentoAsync,
+    updateAcompanhamentoAsync,
+    deleteAcompanhamentoAsync,
+    selectAllAcompanhamentos,
+    selectAcompanhamentosStatus
+} from '../redux/acompanhamentosSlice';
 import '../Styles/AdminProduto.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-const AdminProduto = () => {
+const AdminAcompanhamento = () => {
     const dispatch = useDispatch();
-    const products = useSelector(selectAllProducts);
-    const productsStatus = useSelector(selectProductsStatus);
+    const acompanhamentos = useSelector(selectAllAcompanhamentos);
+    const acompanhamentosStatus = useSelector(selectAcompanhamentosStatus);
     
     const [editingItem, setEditingItem] = useState(null);
-    const [form, setForm] = useState({ tipo: '', nome: '', descricao: '', preco: 0, imagem: '', emEstoque: true });
+    const [form, setForm] = useState({ tipo: 'acompanhamento', nome: '', descricao: '', preco: 0, imagem: '', emEstoque: true });
     const [filter, setFilter] = useState('');
     const [mode, setMode] = useState('add');
 
     useEffect(() => {
-        if (productsStatus === 'idle') {
-            dispatch(fetchProdutos());
+        if (acompanhamentosStatus === 'idle') {
+            dispatch(fetchAcompanhamentos());
         }
-    }, [dispatch, productsStatus]);
+    }, [dispatch, acompanhamentosStatus]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -34,9 +34,12 @@ const AdminProduto = () => {
 
     const handleAddItem = async () => {
         try {
-            const { _id, ...itemData } = form; // Remove o campo _id
-            await dispatch(addProductAsync(itemData)).unwrap();
-            setForm({ tipo: '', nome: '', descricao: '', preco: 0, imagem: '', emEstoque: true });
+            const itemData = {
+                ...form,
+                emEstoque: form.emEstoque
+            };
+            await dispatch(addAcompanhamentoAsync(itemData)).unwrap();
+            setForm({ tipo: 'acompanhamento', nome: '', descricao: '', preco: 0, imagem: '', emEstoque: true });
             setMode('manage');
         } catch (error) {
             console.error('Failed to add item:', error);
@@ -54,16 +57,23 @@ const AdminProduto = () => {
 
     const handleUpdateItem = async () => {
         try {
-            const itemData = {
+            const updateData = {
                 ...form,
-                emEstoque: form.emEstoque
+                _id: editingItem._id,
+                emEstoque: form.emEstoque,
             };
-            await dispatch(updateProductAsync(itemData)).unwrap();
-            setForm({ tipo: '', nome: '', descricao: '', preco: 0, imagem: '', emEstoque: true });
-            setEditingItem(null);
-            setMode('manage');
+            const result = await dispatch(updateAcompanhamentoAsync(updateData)).unwrap();
+
+            if (result.success) {
+                setEditingItem(null);
+                setMode('manage');
+                setForm({ tipo: 'acompanhamento', nome: '', descricao: '', preco: 0, imagem: '', emEstoque: true });
+            } else {
+                throw new Error(result.message);
+            }
         } catch (error) {
-            console.error('Erro ao atualizar item:', error);
+            console.error('Failed to update item:', error);
+            alert('Erro ao atualizar item: ' + error.message);
         }
     };
 
@@ -71,16 +81,16 @@ const AdminProduto = () => {
         if (!window.confirm('Tem certeza que deseja excluir este item?')) return;
         
         try {
-            await dispatch(deleteProductAsync(id)).unwrap();
+            await dispatch(deleteAcompanhamentoAsync(id)).unwrap();
         } catch (error) {
             console.error('Failed to delete item:', error);
         }
     };
 
     const filteredItems = () => {
-        return filter ? products.filter(item => 
+        return filter ? acompanhamentos.filter(item => 
             item.nome.toLowerCase().includes(filter.toLowerCase())
-        ) : products;
+        ) : acompanhamentos;
     };
 
     const isAdmin = useSelector((state) => state.login.isAdmin);
@@ -116,7 +126,7 @@ const AdminProduto = () => {
 
     return (
         <div className="admin-produto-container">
-            <h1>Gerenciamento de Produtos</h1>
+            <h1>Gerenciamento de Acompanhamentos</h1>
             <div className="admin-produto-filter-bar">
                 <input
                     type="text"
@@ -163,16 +173,6 @@ const AdminProduto = () => {
                         />
                     </div>
                     <div className="admin-produto-form-row">
-                        <select
-                            name="tipo"
-                            value={form.tipo}
-                            onChange={handleInputChange}
-                            className="type-selector"
-                        >
-                            <option value="">Selecione o tipo</option>
-                            <option value="açai">Açaí</option>
-                            <option value="picole">Picolé</option>
-                        </select>
                         <select
                             name="emEstoque"
                             value={form.emEstoque ? 'Em stock' : 'Fora de stock'}
@@ -227,15 +227,6 @@ const AdminProduto = () => {
                     </div>
                     <div className="admin-produto-form-row">
                         <select
-                            name="tipo"
-                            value={form.tipo}
-                            onChange={handleInputChange}
-                            className="type-selector"
-                        >
-                            <option value="açai">Açaí</option>
-                            <option value="picole">Picolé</option>
-                        </select>
-                        <select
                             name="emEstoque"
                             value={form.emEstoque ? 'Em stock' : 'Fora de stock'}
                             onChange={(e) => setForm({ ...form, emEstoque: e.target.value === 'Em stock' })}
@@ -258,4 +249,4 @@ const AdminProduto = () => {
     );
 };
 
-export default AdminProduto;
+export default AdminAcompanhamento;

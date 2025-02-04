@@ -15,10 +15,16 @@ export const fetchProdutos = createAsyncThunk(
   }
 );
 
+// Função para gerar um ID de 24 caracteres hexadecimais
+const generateHexId = () => {
+  return [...Array(24)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+};
+
 export const addProductAsync = createAsyncThunk(
   'products/addProduct',
   async (product, { rejectWithValue }) => {
     try {
+      product._id = generateHexId(); // Automatically add an ID
       const response = await axios.post(`${API_URL}/produtos`, product);
       return response.data.produto;
     } catch (error) {
