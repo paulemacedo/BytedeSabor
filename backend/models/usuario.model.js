@@ -5,6 +5,7 @@ const UsuarioSchema = new mongoose.Schema({
     nome: {type: String, required: true},
     email: {type: String, required: true, unique: true},
     foto: {type: String, required: false, default: 'profilePicture.jpg'},
+    endereco: {type: String, required: false},
     senha: {type: String},
     isAdmin: {type: Boolean, required: true}
 });
