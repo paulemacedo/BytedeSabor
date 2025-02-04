@@ -36,16 +36,19 @@ const Pedidos = () => {
                                         <h2 className="order-title">Pedido #{order._id}</h2>
                                         <span className="order-date">{new Date(order.date).toLocaleDateString('pt-BR')}</span>
                                     </div>
-                                    <ul className="order-details">
-                                        {selectedOrder.items && selectedOrder.items.map((item, idx) => (
-                                            <li key={`${order._id}-${item.nome}-${idx}`} className="order-detail-item">
-                                                <p>{item.quantity}x {item.nome}</p>
-                                                {item.toppings && item.toppings.length > 0 && (
-                                                    <p>Acompanhamentos: {item.toppings.map(t => t.nome).join(', ')}</p>
-                                                )}
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    <div className="order-details-section">
+                                        <span className="order-status">Status: {order.status}</span>
+                                        <ul className="order-details">
+                                            {selectedOrder.items && selectedOrder.items.map((item, idx) => (
+                                                <li key={`${order._id}-${item.nome}-${idx}`} className="order-detail-item">
+                                                    <p>{item.quantity}x {item.nome}</p>
+                                                    {item.toppings && item.toppings.length > 0 && (
+                                                        <p>Acompanhamentos: {item.toppings.map(t => t.nome).join(', ')}</p>
+                                                    )}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
                                     <div className="order-footer">
                                         <p className="order-total">Total: R$ {order.preco ? order.preco.toFixed(2) : '0.00'}</p>
                                         <button className="btn" onClick={handleCloseDetails}>Fechar</button>
@@ -57,6 +60,7 @@ const Pedidos = () => {
                                         <h2 className="order-title">Pedido #{order._id}</h2>
                                         <span className="order-date">{new Date(order.date).toLocaleDateString('pt-BR')}</span>
                                     </div>
+                                    <span className="order-status">Status: {order.status}</span>
                                     <ul className="order-details">
                                         {order.items && order.items.map((item, idx) => (
                                             <li key={`${order._id}-${item.nome}-${idx}`} className="order-detail">
