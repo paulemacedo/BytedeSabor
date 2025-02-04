@@ -12,7 +12,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/website-up-down-green-red/http/bytedesabor.vercel.app.svg?style=for-the-badge" alt="Site Status" />
-  <img src="https://img.shields.io/badge/Made%20with%20-❤️-000000?style=for-the-badge&logoColor=white" alt="Love" />
+  <img src="https://img.shields.io/badge/Made%20with%20-🤍-000?style=for-the-badge&logoColor=white" alt="Love" />
 </p>
 
 ## 📖 Sobre
