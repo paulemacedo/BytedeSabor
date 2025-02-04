@@ -1,10 +1,14 @@
 import mongoose from 'mongoose'
 
 const PedidoSchema = new mongoose.Schema({
-    id: {type: Number, required: true, unique: true},
     preco: {type: Number, required: true},
     pago: {type: Boolean},
-    finalizado: {type: Boolean}
+    usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario', required: true },
+    status: {
+        type: String,
+        enum: ['em preparo', 'pronto para retirada', 'A caminho', 'Concluido', 'Cancelado', 'aguardando confirmação'],
+        required: true
+    },
 });
 
 const Pedido = mongoose.model('Pedido', PedidoSchema);

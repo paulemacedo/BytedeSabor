@@ -5,6 +5,7 @@ import loginReducer from './loginSlice';
 import registerReducer from './registerSlice';
 import passwordRecoveryReducer from './RecoverySlice.jsx';
 import productsReducer from './productsSlice.jsx';
+import acompanhamentosReducer from './acompanhamentosSlice.jsx';
 
 const store = configureStore({
     reducer: {
@@ -14,6 +15,8 @@ const store = configureStore({
         register: registerReducer,
         passwordRecovery: passwordRecoveryReducer,
         products: productsReducer,
+        acompanhamentos: acompanhamentosReducer,
+        
     },
 });
 

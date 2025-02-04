@@ -3,10 +3,10 @@ import Produto from '../models/produto.model.js';
 // CRUD PRODUTO
 export const criarProduto = async (req, res) => {
     const produto = req.body;
-    if (!produto.id || !produto.tipo || !produto.imagem || !produto.nome || !produto.preco) {
+    if (!produto.tipo || !produto.imagem || !produto.nome || !produto.preco) {
         return res.status(400).json({
             success: false,
-            message: 'Faltando dados.'
+            message: 'Faltando dados obrigatórios'
         });
     }
     const novoProduto = new Produto(produto);
@@ -14,7 +14,7 @@ export const criarProduto = async (req, res) => {
         await novoProduto.save();
         res.status(201).json({
             success: true,
-            message: 'Produto adicionado.',
+            message: 'Produto adicionado',
             produto: novoProduto
         });
     } catch (error) {

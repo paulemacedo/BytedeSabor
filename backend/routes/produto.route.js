@@ -4,10 +4,10 @@ import { verifyToken } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.get('/', listarProdutos); // Adicione esta linha
+router.get('/', listarProdutos);
 router.post('/', criarProduto);
 router.get('/:id', verProdutoPorId);
-router.patch('/:id', atualizarProdutoPorId);
+router.put('/:id', atualizarProdutoPorId); // Changed from patch to put
 router.delete('/:id', deletarProdutoPorId);
 
 export default router;

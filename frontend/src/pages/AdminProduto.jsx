@@ -1,45 +1,130 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addProduct, updateProduct, deleteProduct, selectAllProducts } from '../redux/productsSlice';
+import { 
+    fetchProdutos,
+    addProductAsync, 
+    updateProductAsync, 
+    deleteProductAsync,
+    selectAllProducts,
+    selectProductsStatus,
+    selectProductsError
+} from '../redux/productsSlice';
+import {
+    fetchAcompanhamentos,
+    addAcompanhamentoAsync,
+    updateAcompanhamentoAsync,
+    deleteAcompanhamentoAsync,
+    selectAllAcompanhamentos,
+    selectAcompanhamentosStatus
+} from '../redux/acompanhamentosSlice';
 import '../Styles/AdminProduto.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const AdminProduto = () => {
     const dispatch = useDispatch();
-    const products = useSelector(selectAllProducts) || [];
+    const products = useSelector(selectAllProducts);
+    const acompanhamentos = useSelector(selectAllAcompanhamentos);
+    const productsStatus = useSelector(selectProductsStatus);
+    const acompanhamentosStatus = useSelector(selectAcompanhamentosStatus);
+    
     const [editingItem, setEditingItem] = useState(null);
     const [form, setForm] = useState({ tipo: '', nome: '', descricao: '', preco: 0, imagem: '', status: 'Em stock' });
     const [filter, setFilter] = useState('');
-    const [mode, setMode] = useState('add'); // Default mode set to 'add'
+    const [mode, setMode] = useState('add');
+    const [itemType, setItemType] = useState('produto'); // 'produto' or 'acompanhamento'
+
+    useEffect(() => {
+        if (productsStatus === 'idle') {
+            dispatch(fetchProdutos());
+        }
+        if (acompanhamentosStatus === 'idle') {
+            dispatch(fetchAcompanhamentos());
+        }
+    }, [dispatch, productsStatus, acompanhamentosStatus]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: name === 'preco' ? parseFloat(value) : value });
     };
 
-    const handleAddItem = () => {
-        dispatch(addProduct({ ...form, id: products.length + 100 }));
-        setForm({ tipo: '', nome: '', descricao: '', preco: 0, imagem: '', status: 'Em stock' });
+    const handleAddItem = async () => {
+        try {
+            const itemData = {
+                ...form,
+                tipo: itemType,
+                emEstoque: form.status === 'Em stock'
+            };
+            
+            if (itemType === 'produto') {
+                await dispatch(addProductAsync(itemData)).unwrap();
+            } else {
+                await dispatch(addAcompanhamentoAsync(itemData)).unwrap();
+            }
+            setForm({ tipo: '', nome: '', descricao: '', preco: 0, imagem: '', status: 'Em stock' });
+            setMode('manage');
+        } catch (error) {
+            console.error('Failed to add item:', error);
+        }
     };
 
+    // Prepares item for editing
     const handleEditItem = (item) => {
         setEditingItem(item);
-        setForm(item);
+        setForm({
+            ...item,
+            status: item.emEstoque ? 'Em stock' : 'Fora de stock'
+        });
         setMode('edit');
+        setItemType(item.tipo === 'acompanhamento' ? 'acompanhamento' : 'produto');
     };
 
-    const handleUpdateItem = () => {
-        dispatch(updateProduct({ ...form, preco: parseFloat(form.preco) }));
-        setEditingItem(null);
-        setForm({ tipo: '', nome: '', descricao: '', preco: 0, imagem: '', status: 'Em stock' });
-        setMode('add'); // Reset to 'add' mode after updating
+
+    const handleUpdateItem = async () => {
+        try {
+            const updateData = {
+                ...form,
+                _id: editingItem._id,
+                emEstoque: form.status === 'Em stock',
+                tipo: itemType
+            };
+            
+            const result = itemType === 'produto' 
+                ? await dispatch(updateProductAsync(updateData)).unwrap()
+                : await dispatch(updateAcompanhamentoAsync(updateData)).unwrap();
+    
+            if (result.success) {
+                setEditingItem(null);
+                setMode('manage');
+                setForm({ tipo: '', nome: '', descricao: '', preco: 0, imagem: '', status: 'Em stock' });
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error('Failed to update item:', error);
+            alert('Erro ao atualizar item: ' + error.message);
+        }
     };
 
-    const handleDeleteItem = (id) => {
-        dispatch(deleteProduct(id));
+    const handleDeleteItem = async (id, type) => {
+        if (!window.confirm('Tem certeza que deseja excluir este item?')) return;
+        
+        try {
+            if (type === 'produto') {
+                await dispatch(deleteProductAsync(id)).unwrap();
+            } else {
+                await dispatch(deleteAcompanhamentoAsync(id)).unwrap();
+            }
+        } catch (error) {
+            console.error('Failed to delete item:', error);
+        }
     };
 
-    const filteredProducts = filter ? products.filter(item => item.tipo === filter) : products;
+    const filteredItems = () => {
+        const items = itemType === 'produto' ? products : acompanhamentos;
+        return filter ? items.filter(item => 
+            item.nome.toLowerCase().includes(filter.toLowerCase())
+        ) : items;
+    };
 
     const isAdmin = useSelector((state) => state.login.isAdmin);
     
@@ -47,16 +132,50 @@ const AdminProduto = () => {
         return <p className="admin-pedidos-no-access">Acesso não autorizado</p>;
     }
 
+    const renderItems = () => {
+        return filteredItems().map(item => (
+            <div key={item._id} className="admin-produto-item-card">
+                <div className="admin-produto-item-card-header">
+                    <h2 className="admin-produto-item-title">{item.nome}</h2>
+                    <div className="admin-produto-item-card-actions">
+                        <button className="btn admin-produto-edit-btn" onClick={() => handleEditItem(item)}>
+                            <i className="bi bi-pencil"></i>
+                        </button>
+                        <button className="btn admin-produto-delete-btn" onClick={() => handleDeleteItem(item._id, item.tipo)}>
+                            <i className="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div className="admin-produto-item-card-content">
+                    <p><strong>Tipo:</strong> {item.tipo}</p>
+                    <p><strong>Preço:</strong> R$ {item.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                    <p><strong>Status:</strong> {item.emEstoque ? 'Em stock' : 'Fora de stock'}</p>
+                    <p><strong>Descrição:</strong> {item.descricao}</p>
+                    <img src={item.imagem} alt={item.nome} className="admin-produto-item-image" />
+                </div>
+            </div>
+        ));
+    };
+
     return (
         <div className="admin-produto-container">
             <h1>Gerenciamento de Produtos</h1>
             <div className="admin-produto-filter-bar">
-                <select onChange={(e) => setFilter(e.target.value)} value={filter}>
-                    <option value="">Todos</option>
-                    <option value="açai">Açaí</option>
-                    <option value="picole">Picolé</option>
-                    <option value="acompanhamento">Acompanhamento</option>
+                <select 
+                    value={itemType} 
+                    onChange={(e) => setItemType(e.target.value)}
+                    className="type-selector"
+                >
+                    <option value="produto">Produtos</option>
+                    <option value="acompanhamento">Acompanhamentos</option>
                 </select>
+                <input
+                    type="text"
+                    placeholder="Filtrar por nome..."
+                    value={filter}
+                    onChange={(e) => setFilter(e.target.value)}
+                    className="filter-input"
+                />
                 <div className="admin-produto-filter-buttons">
                     <button className="btn" onClick={() => setMode('add')}>
                         <i className="bi bi-plus-circle"></i> Adicionar
@@ -126,28 +245,7 @@ const AdminProduto = () => {
             )}
             {mode === 'manage' && (
                 <div className="admin-produto-items-list">
-                    {filteredProducts.map(item => (
-                        <div key={item.id} className="admin-produto-item-card">
-                            <div className="admin-produto-item-card-header">
-                                <h2 className="admin-produto-item-title">{item.nome}</h2>
-                                <div className="admin-produto-item-card-actions">
-                                    <button className="btn admin-produto-edit-btn" onClick={() => handleEditItem(item)}>
-                                        <i className="bi bi-pencil"></i>
-                                    </button>
-                                    <button className="btn admin-produto-delete-btn" onClick={() => handleDeleteItem(item.id)}>
-                                        <i className="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="admin-produto-item-card-content">
-                                <p><strong>Tipo:</strong> {item.tipo}</p>
-                                <p><strong>Preço:</strong> R$ {typeof item.preco === 'number' && !isNaN(item.preco) ? item.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 'N/A'}</p>
-                                <p><strong>Status:</strong> {item.status}</p>
-                                <p><strong>Descrição:</strong> {item.descricao}</p>
-                                <img src={item.imagem} alt={item.nome} className="admin-produto-item-image" />
-                            </div>
-                        </div>
-                    ))}
+                    {renderItems()}
                 </div>
             )}
             {mode === 'edit' && (

@@ -1,30 +1,7 @@
+import mongoose from 'mongoose';
 import Acompanhamento from "../models/acompanhamento.model.js";
 
 // CRUD ACOMPANHAMENTO
-export const criarAcompanhamento = async (req, res) => {
-    const acompanhamento = req.body;
-    if (!acompanhamento.id || !acompanhamento.tipo || !acompanhamento.imagem || !acompanhamento.nome || !acompanhamento.preco) {
-        return res.status(400).json({
-            success: false,
-            message: 'Faltando dados.'
-        });
-    }
-    const novoAcompanhamento = new Acompanhamento(acompanhamento);
-    try {
-        await novoAcompanhamento.save();
-        res.status(201).json({
-            success: true,
-            message: 'Acompanhamento adicionado.',
-            acompanhamento: novoAcompanhamento
-        });
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
 
 export const listarAcompanhamentos = async (req, res) => {
     try {
@@ -42,16 +19,49 @@ export const listarAcompanhamentos = async (req, res) => {
     }
   };
 
-export const verAcompanhamentoPorId = async (req, res) => {
-    const { id } = req.params;
+export const criarAcompanhamento = async (req, res) => {
+    const acompanhamento = req.body;
+    if (!acompanhamento.tipo || !acompanhamento.nome || !acompanhamento.preco) {
+        return res.status(400).json({
+            success: false,
+            message: 'Faltando dados obrigatórios'
+        });
+    }
+    const novoAcompanhamento = new Acompanhamento(acompanhamento);
     try {
-        const acompanhamento = await Acompanhamento.findById(id);
+        await novoAcompanhamento.save();
+        res.status(201).json({
+            success: true,
+            message: 'Acompanhamento adicionado',
+            acompanhamento: novoAcompanhamento
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+
+export const verAcompanhamentoPorId = async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log("Buscando acompanhamento com ID:", id);
+        // Converta para ObjectId caso o banco utilize esse tipo
+        // const objectId = mongoose.Types.ObjectId(id);
+        // const acompanhamento = await Acompanhamento.findOne({ _id: objectId });
+        
+        const acompanhamento = await Acompanhamento.findOne({ _id: id });
         if (!acompanhamento) {
+            console.log("Nenhum acompanhamento encontrado para o ID:", id);
             return res.status(404).json({
                 success: false,
-                message: 'Acompanhamento não encontrado.'
+                message: `Acompanhamento não encontrado com identificador: ${id}`
             });
         }
+        console.log("Acompanhamento encontrado:", acompanhamento);
         res.status(200).json({
             success: true,
             acompanhamento
@@ -64,6 +74,7 @@ export const verAcompanhamentoPorId = async (req, res) => {
         });
     }
 };
+
 
 export const atualizarAcompanhamentoPorId = async (req, res) => {
     const { id } = req.params;
