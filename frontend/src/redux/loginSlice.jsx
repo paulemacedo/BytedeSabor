@@ -81,4 +81,5 @@ const loginSlice = createSlice({
 });
 
 export const { logout, loadUserFromStorage } = loginSlice.actions;
+export const selectUser = (state) => state.login.user; // Adiciona o seletor de usuário
 export default loginSlice.reducer;

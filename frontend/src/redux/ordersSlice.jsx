@@ -1,43 +1,78 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { selectUser } from './loginSlice'; // Importa o seletor de usuário
+
+const API_URL = 'http://localhost:3001/api';
+
+export const loadOrders = createAsyncThunk('orders/loadOrders', async () => {
+    const response = await axios.get(`${API_URL}/pedidos`);
+    return response.data.pedidos;
+});
+
+export const loadOrdersByUser = createAsyncThunk('orders/loadOrdersByUser', async (_, { getState }) => {
+    const state = getState();
+    const user = selectUser(state); // Obtém o usuário autenticado do estado
+    const response = await axios.get(`${API_URL}/pedidos/usuario/${user._id}`);
+    return response.data.pedidos;
+});
+
+export const addOrder = createAsyncThunk('orders/addOrder', async (order, { getState }) => {
+    const state = getState();
+    const user = selectUser(state); // Obtém o usuário autenticado do estado
+    const orderWithUser = { ...order, usuario: user._id }; // Adiciona o ID do usuário ao pedido
+    console.log('Dados do pedido a serem enviados:', orderWithUser); // Adiciona log para verificar os dados do pedido
+    const response = await axios.post(`${API_URL}/pedidos`, orderWithUser);
+    return response.data.pedido;
+});
+
+export const updateOrderStatus = createAsyncThunk('orders/updateOrderStatus', async ({ orderId, status }) => {
+    const response = await axios.put(`${API_URL}/pedidos/${orderId}`, { status });
+    return response.data.pedido;
+});
 
 const ordersSlice = createSlice({
     name: 'orders',
     initialState: {
         items: [],
+        status: 'idle',
+        error: null
     },
-    reducers: {
-        addOrder: (state, action) => {
-            const newOrder = {
-                id: uuidv4(),
-                status: 'Aguardando Confirmação',
-                ...action.payload,
-            };
-            state.items.push(newOrder);
-        },
-        syncToStorage: (state) => {
-            localStorage.setItem('orders', JSON.stringify(state.items));
-        },
-        clearOrders: (state) => {
-            state.items = [];
-            localStorage.setItem('orders', JSON.stringify(state.items));
-        },
-        loadOrders: (state) => {
-            const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            state.items = orders;
-        },
-        updateOrderStatus: (state, action) => {
-            const { orderId, status } = action.payload;
-            const order = state.items.find(order => order.id === orderId);
-            if (order) {
-                order.status = status;
-                localStorage.setItem('orders', JSON.stringify(state.items));
-            }
-        },
-    },
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(loadOrders.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(loadOrders.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.items = action.payload;
+            })
+            .addCase(loadOrders.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
+            })
+            .addCase(loadOrdersByUser.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(loadOrdersByUser.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.items = action.payload;
+            })
+            .addCase(loadOrdersByUser.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
+            })
+            .addCase(addOrder.fulfilled, (state, action) => {
+                state.items.push(action.payload);
+            })
+            .addCase(updateOrderStatus.fulfilled, (state, action) => {
+                const index = state.items.findIndex(order => order._id === action.payload._id);
+                if (index !== -1) {
+                    state.items[index] = action.payload;
+                }
+            });
+    }
 });
-
-export const { addOrder, clearOrders, loadOrders, updateOrderStatus } = ordersSlice.actions;
 
 export const selectAllOrders = (state) => state.orders.items;
 

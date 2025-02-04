@@ -70,7 +70,7 @@
 }
 
 .admin-pedidos-order-total {
-    font-size: 16px;
+    font-size: 26px;
     font-weight: bold;
 }
 
@@ -90,11 +90,45 @@
     color: #888;
 }
 
+.admin-pedidos-order-actions {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.admin-pedidos-order-cancelled {
+    color: #eb3131;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+
 /* Responsiveness */
 @media (max-width: 768px) {
     .admin-pedidos-orders-grid {
         grid-template-columns: 1fr;
+        justify-content: center;   
     }
+    .admin-pedidos-order-card {
+        max-width: 300px;
+    }
+    .admin-pedidos-order-header {
+        flex-direction: column;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .admin-pedidos-order-date {
+        align-self: flex-start;
+    }
+    /* .admin-pedidos-order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }               */
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {

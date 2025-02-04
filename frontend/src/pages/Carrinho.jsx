@@ -26,16 +26,15 @@ const Carrinho = () => {
         }
 
         const order = {
-            id: new Date().getTime(),
-            date: new Date().toLocaleString(),
+            preco: parseFloat(totalPrice),
+            pago: false,
+            usuario: user._id,
+            status: 'aguardando confirmação',
             items: cart,
-            total: parseFloat(totalPrice),
-            user: {
-                name: user.name,
-                address: user.address || 'user@example.com',
-            },
+            date: new Date().toLocaleString(),
         };
 
+        console.log('Criando pedido com dados:', order); // Adiciona log para verificar os dados do pedido
         dispatch(addOrder(order));
         localStorage.setItem('orders', JSON.stringify([...JSON.parse(localStorage.getItem('orders') || '[]'), order]));
 
