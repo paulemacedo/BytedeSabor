@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors'
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import produtoRoutes from './routes/produto.route.js';
@@ -11,6 +12,16 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3001; // Adicione um valor padrão para a porta
 const app = express();
+
+app.use(cors());
+
+// OR specify allowed origins
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        methods: "GET,POST,PUT,DELETE"
+    })
+);
 
 app.use(express.json());
 

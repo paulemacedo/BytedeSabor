@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
+    "axios": "^1.7.9",
     "bootstrap-icons": "^1.11.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
