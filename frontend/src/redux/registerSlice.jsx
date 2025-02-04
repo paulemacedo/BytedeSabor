@@ -1,4 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:3001/api';
+
+
+const generateHexId = () => {
+    return [...Array(24)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+};
+
+export const registerUser = createAsyncThunk(
+    'register/registerUser',
+    async (userData, { rejectWithValue }) => {
+        try {
+            userData._id = generateHexId();
+            const response = await axios.post(`${API_URL}/usuarios`, userData);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 
 const registerSlice = createSlice({
     name: 'register',
@@ -8,26 +29,29 @@ const registerSlice = createSlice({
         error: null,
     },
     reducers: {
-        registerRequest: (state) => {
-            state.loading = true;
-            state.error = null;
-        },
-        registerSuccess: (state, action) => {
-            state.loading = false;
-            state.user = action.payload;
-        },
-        registerFailure: (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        },
         clearRegisterState: (state) => {
             state.user = null;
             state.loading = false;
             state.error = null;
         },
     },
+    extraReducers: (builder) => {
+        builder
+            .addCase(registerUser.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(registerUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(registerUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
+    },
 });
 
-export const { registerRequest, registerSuccess, registerFailure, clearRegisterState } = registerSlice.actions;
+export const { clearRegisterState } = registerSlice.actions;
 
 export default registerSlice.reducer;

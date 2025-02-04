@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginSuccess, loginFailure } from '../redux/loginSlice';
 import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../redux/loginSlice';
 import '../Styles/LoginForms.css';
-import profPicture from '../assets/Img/profilePicture.jpg';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -11,18 +10,22 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        if (name === 'email') setEmail(value);
+        if (name === 'password') setPassword(value);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Simulação de login
-        if (email === 'user@example.com' && password === 'password') {
-            dispatch(loginSuccess({ user: { email, name: 'Anonimo', profilePicture: profPicture, address: 'Rua Ficticia' }, isAdmin: false }));
-            navigate('/user');
-        } else if (email === 'admin@byte.com' && password === 'admin') {
-            dispatch(loginSuccess({ user: { email, name: 'Admin', profilePicture: profPicture, address: 'Admin Address' }, isAdmin: true }));
-            navigate('/admin');
-        } else {
-            dispatch(loginFailure('Invalid credentials'));
-        }
+        dispatch(loginUser({ email, senha: password }))
+            .unwrap()
+            .then((data) => {
+                navigate(data.user.isAdmin ? '/admin' : '/user');
+            })
+            .catch((error) => {
+                console.error('Login failed:', error);
+            });
     };
 
     return (
@@ -35,9 +38,10 @@ const Login = () => {
                         type="email" 
                         className="form-input" 
                         id="email" 
+                        name="email"
                         placeholder="Digite seu e-mail"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -47,9 +51,10 @@ const Login = () => {
                         type="password" 
                         className="form-input" 
                         id="password" 
+                        name="password"
                         placeholder="Digite sua senha"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={handleChange}
                         required
                     />
                 </div>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { registerRequest, registerSuccess, registerFailure } from '../redux/registerSlice';
+import { registerUser } from '../redux/registerSlice';
 import '../Styles/LoginForms.css';
+
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -21,13 +22,15 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (formData.password === formData.confirmPassword) {
-            dispatch(registerRequest());
-            // Simulação de registro
-            setTimeout(() => {
-                dispatch(registerSuccess(formData));
-            }, 1000);
+            dispatch(registerUser({
+                nome: formData.name,
+                email: formData.email,
+                senha: formData.password,
+                isAdmin: false
+            }));
         } else {
-            dispatch(registerFailure('Passwords do not match'));
+            // Handle password mismatch error
+            
         }
     };
 
