@@ -14,7 +14,6 @@ export const listarUsuarios = async (req, res) => {
     }
 };
 
-// CRIAR USER, OK
 export const criarUsuario = async (req, res) => {
     const { nome, email, senha } = req.body;
     if (!nome || !email || !senha) {
@@ -58,7 +57,6 @@ export const atualizarUsuarioPorId = async (req, res) => {
     }
 };
 
-// DELETAR USER, OK
 export const deletarUsuarioPorId = async (req, res) => {
     const { id } = req.params;
     try {
@@ -70,5 +68,39 @@ export const deletarUsuarioPorId = async (req, res) => {
             success: false,
             message: error.message
         });
+    }
+};
+
+export const checkEmailExists = async (req, res) => {
+    const { email } = req.body;
+    try {
+        const user = await Usuario.findOne({ email });
+        if (user) {
+            return res.status(200).json({ success: true, message: "Email exists." });
+        } else {
+            return res.status(404).json({ success: false, message: "Email not found." });
+        }
+    } catch (error) {
+        console.error("Error during email check:", error.message);
+        res.status(500).json({ success: false, message: "Server Error." });
+    }
+};
+
+export const updatePassword = async (req, res) => {
+    const { email, newPassword } = req.body;
+    try {
+        const user = await Usuario.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Email not found." });
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.senha = hashedPassword;
+        await user.save();
+
+        res.status(200).json({ success: true, message: "Password updated successfully." });
+    } catch (error) {
+        console.error("Error during password update:", error.message);
+        res.status(500).json({ success: false, message: "Server Error." });
     }
 };

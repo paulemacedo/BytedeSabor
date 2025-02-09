@@ -1,71 +1,84 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../redux/loginSlice';
 import '../Styles/LoginForms.css';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+    const [localError, setLocalError] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { loading, error, user } = useSelector((state) => state.login);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === 'email') setEmail(value);
-        if (name === 'password') setPassword(value);
+        setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(loginUser({ email, senha: password }))
-            .unwrap()
-            .then((data) => {
-                navigate('/');
-            })
-            .catch((error) => {
-                console.error('Login failed:', error);
-            });
+        dispatch(loginUser({
+            email: formData.email,
+            senha: formData.password
+        }));
     };
+
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    }, [user, navigate]);
+
+    useEffect(() => {
+        if (error) {
+            setLocalError(error);
+            const timer = setTimeout(() => {
+                setLocalError(null);
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [error]);
 
     return (
         <div className="container">
             <h2 id="form-title">Login</h2>
-            <form id="forrm" onSubmit={handleSubmit}>
-                <label htmlFor="email" className="form-label">E-mail</label>
+            <form onSubmit={handleSubmit}>
                 <div className="mb-3">
+                    <label htmlFor="email" className="form-label">Email</label>
                     <input 
                         type="email" 
                         className="form-input" 
-                        id="email" 
+                        id="email"
                         name="email"
-                        placeholder="Digite seu e-mail"
-                        value={email}
+                        value={formData.email}
                         onChange={handleChange}
+                        placeholder="Enter your email"
                         required
                     />
                 </div>
-                <label htmlFor="password" className="form-label">Senha</label>
                 <div className="mb-3">
+                    <label htmlFor="password" className="form-label">Password</label>
                     <input 
                         type="password" 
                         className="form-input" 
-                        id="password" 
+                        id="password"
                         name="password"
-                        placeholder="Digite sua senha"
-                        value={password}
+                        value={formData.password}
                         onChange={handleChange}
+                        placeholder="Enter your password"
                         required
                     />
                 </div>
-                <div className="link-container">
-                    <Link to="/password-recovery">Esqueci minha senha</Link>
-                </div>
+                {localError && <p className="error-message">{localError}</p>}
                 <div className="center-btn">
-                    <button type="submit" className="btn form-btn">Entrar</button>
+                    <button type="submit" className="btn form-btn" disabled={loading}>Login</button>
                 </div>
                 <div className="link-container">
-                    Não tem uma conta? <Link to="/register">Cadastre-se</Link>
+                    Don't have an account? <Link to="/register">Register</Link>
                 </div>
             </form>
         </div>

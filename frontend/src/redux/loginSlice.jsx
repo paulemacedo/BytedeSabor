@@ -1,15 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { loginUser as apiLoginUser } from '../api/authApi';
+import { fetchUser as apiFetchUser, updateUserProfile as apiUpdateUserProfile, deleteUserProfile as apiDeleteUserProfile } from '../api/userApi';
 
-const API_URL = 'http://localhost:3001/api';
 const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 semana em milissegundos
 
 export const loginUser = createAsyncThunk(
     'login/loginUser',
     async (userData, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`${API_URL}/auth/login`, userData);
-            return response.data;
+            const response = await apiLoginUser(userData);
+            return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -20,8 +20,8 @@ export const updateUserProfile = createAsyncThunk(
     'login/updateUserProfile',
     async (userData, { rejectWithValue }) => {
         try {
-            const response = await axios.put(`${API_URL}/usuarios/${userData._id}`, userData);
-            return response.data;
+            const response = await apiUpdateUserProfile(userData);
+            return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -34,12 +34,8 @@ export const deleteUserProfile = createAsyncThunk(
         const state = getState();
         const token = state.login.token;
         try {
-            const response = await axios.delete(`${API_URL}/usuarios/${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            return response.data;
+            const response = await apiDeleteUserProfile(userId, token);
+            return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -50,8 +46,8 @@ export const fetchUser = createAsyncThunk(
     'login/fetchUser',
     async (userId, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}/usuarios/${userId}`);
-            return response.data;
+            const response = await apiFetchUser(userId);
+            return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -126,7 +122,7 @@ const loginSlice = createSlice({
                 state.isLoggedIn = false;
                 state.user = null;
                 state.isAdmin = false;
-                state.error = action.payload;
+                state.error = action.payload.message || 'Login failed';
                 state.profileImage = null;
                 state.token = null;
             })
@@ -141,6 +137,9 @@ const loginSlice = createSlice({
                     localStorage.setItem('userTimestamp', now);
                 }
             })
+            .addCase(updateUserProfile.rejected, (state, action) => {
+                state.error = action.payload.message || 'Failed to update user profile';
+            })
             .addCase(deleteUserProfile.fulfilled, (state) => {
                 state.isLoggedIn = false;
                 state.user = null;
@@ -154,6 +153,9 @@ const loginSlice = createSlice({
                 localStorage.removeItem('profileImage');
                 localStorage.removeItem('userTimestamp');
             })
+            .addCase(deleteUserProfile.rejected, (state, action) => {
+                state.error = action.payload.message || 'Failed to delete user profile';
+            })
             .addCase(fetchUser.fulfilled, (state, action) => {
                 if (action.payload && action.payload.data) {
                     state.user = action.payload.data;
@@ -164,6 +166,9 @@ const loginSlice = createSlice({
                     localStorage.setItem('profileImage', profileImage);
                     localStorage.setItem('userTimestamp', now);
                 }
+            })
+            .addCase(fetchUser.rejected, (state, action) => {
+                state.error = action.payload.message || 'Failed to fetch user';
             });
     },
 });

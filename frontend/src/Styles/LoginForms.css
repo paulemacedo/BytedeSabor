@@ -90,6 +90,12 @@ a:hover {
     margin-top: 1rem;
 }
 
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
     .container {

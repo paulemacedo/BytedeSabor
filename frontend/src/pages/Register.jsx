@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../redux/registerSlice';
 import '../Styles/LoginForms.css';
-
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -13,6 +12,8 @@ const Register = () => {
         confirmPassword: ''
     });
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { loading, error, user } = useSelector((state) => state.register);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,24 +31,29 @@ const Register = () => {
             }));
         } else {
             // Handle password mismatch error
-            
+            alert('Passwords do not match');
         }
     };
 
+    // Redirecionar para a página de login após o registro bem-sucedido
+    if (user) {
+        navigate('/login');
+    }
+
     return (
         <div className="container">
-            <h2 id="form-title">Cadastre-se</h2>
+            <h2 id="form-title">Register</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Nome</label>
+                    <label htmlFor="name" className="form-label">Name</label>
                     <input 
                         type="text" 
                         className="form-input" 
-                        id="name" 
+                        id="name"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="Digite seu nome"
+                        placeholder="Enter your name"
                         required
                     />
                 </div>
@@ -56,46 +62,47 @@ const Register = () => {
                     <input 
                         type="email" 
                         className="form-input" 
-                        id="email" 
+                        id="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="Digite seu email"
+                        placeholder="Enter your email"
                         required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Senha</label>
+                    <label htmlFor="password" className="form-label">Password</label>
                     <input 
                         type="password" 
                         className="form-input" 
-                        id="password" 
+                        id="password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        placeholder="Digite sua senha"
+                        placeholder="Enter your password"
                         required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="confirmPassword" className="form-label">Confirme a Senha</label>
+                    <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
                     <input 
                         type="password" 
                         className="form-input" 
-                        id="confirmPassword" 
+                        id="confirmPassword"
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleChange}
-                        placeholder="Confirme sua senha"
+                        placeholder="Confirm your password"
                         required
                     />
                 </div>
                 <div className="center-btn">
-                    <button type="submit" className="btn form-btn">Cadastrar</button>
+                    <button type="submit" className="btn form-btn" disabled={loading}>Register</button>
                 </div>
                 <div className="link-container">
-                   Já possui uma conta? <Link to="/login">Faça login</Link>
+                    Already have an account? <Link to="/login">Login</Link>
                 </div>
+                {error && <p className="error">{error}</p>}
             </form>
         </div>
     );

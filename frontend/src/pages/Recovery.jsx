@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEmail, requestRecovery, recoverySuccess, recoveryFailure, resetState } from '../redux/RecoverySlice.jsx';
+import { setEmail, requestRecovery, recoverySuccess, recoveryFailure, resetState, verifyEmailAsync, updatePasswordAsync } from '../redux/RecoverySlice.jsx';
 import '../Styles/LoginForms.css';
 
 const Recovery = () => {
@@ -16,15 +16,15 @@ const Recovery = () => {
         e.preventDefault();
         dispatch(setEmail(email));
         dispatch(requestRecovery());
-        // Simulação de envio de código de verificação
-        setTimeout(() => {
-            if (email === 'user@example.com') {
+        dispatch(verifyEmailAsync(email))
+            .unwrap()
+            .then(() => {
                 setStep(2);
                 dispatch(recoverySuccess());
-            } else {
+            })
+            .catch((error) => {
                 dispatch(recoveryFailure('Email não encontrado'));
-            }
-        }, 1000);
+            });
     };
 
     const handleCodeSubmit = (e) => {
@@ -43,13 +43,16 @@ const Recovery = () => {
     const handlePasswordSubmit = (e) => {
         e.preventDefault();
         if (newPassword === confirmNewPassword) {
-            // Simulação de alteração de senha
-            setTimeout(() => {
-                dispatch(recoverySuccess());
-                alert('Senha alterada com sucesso!');
-                dispatch(resetState());
-                setStep(1);
-            }, 1000);
+            dispatch(updatePasswordAsync({ email, newPassword: 'açaidobom' }))
+                .unwrap()
+                .then(() => {
+                    alert('Senha alterada com sucesso!');
+                    dispatch(resetState());
+                    setStep(1);
+                })
+                .catch((error) => {
+                    dispatch(recoveryFailure('Erro ao alterar a senha'));
+                });
         } else {
             dispatch(recoveryFailure('As senhas não coincidem'));
         }
