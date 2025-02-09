@@ -1,32 +1,24 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { fetchProdutos, addProduct, updateProduct, deleteProduct } from '../api/productApi';
 
-const API_URL = 'http://localhost:3001/api';
-
-export const fetchProdutos = createAsyncThunk(
+export const fetchProdutosAsync = createAsyncThunk(
   'products/fetchProdutos',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/produtos`);
-      return response.data.produtos;
+      const produtos = await fetchProdutos();
+      return produtos;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
 );
 
-// Função para gerar um ID de 24 caracteres hexadecimais
-const generateHexId = () => {
-  return [...Array(24)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
-};
-
 export const addProductAsync = createAsyncThunk(
   'products/addProduct',
   async (product, { rejectWithValue }) => {
     try {
-      product._id = generateHexId(); // Automatically add an ID
-      const response = await axios.post(`${API_URL}/produtos`, product);
-      return response.data.produto;
+      const novoProduto = await addProduct(product);
+      return novoProduto;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -37,8 +29,8 @@ export const updateProductAsync = createAsyncThunk(
   'products/updateProduct',
   async (product, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${API_URL}/produtos/${product._id}`, product);
-      return response.data.produto;
+      const produtoAtualizado = await updateProduct(product);
+      return produtoAtualizado;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -49,7 +41,7 @@ export const deleteProductAsync = createAsyncThunk(
   'products/deleteProduct',
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`${API_URL}/produtos/${id}`);
+      await deleteProduct(id);
       return id;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -69,14 +61,14 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Fetch produtos
-      .addCase(fetchProdutos.pending, (state) => {
+      .addCase(fetchProdutosAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchProdutos.fulfilled, (state, action) => {
+      .addCase(fetchProdutosAsync.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.produtos = action.payload;
       })
-      .addCase(fetchProdutos.rejected, (state, action) => {
+      .addCase(fetchProdutosAsync.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       })
@@ -90,7 +82,6 @@ const productsSlice = createSlice({
           state.produtos[index] = action.payload;
         }
       })
-      
       .addCase(deleteProductAsync.fulfilled, (state, action) => {
         state.produtos = state.produtos.filter(p => p._id !== action.payload);
       });

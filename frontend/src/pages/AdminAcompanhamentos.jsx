@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { 
-    fetchAcompanhamentos,
+    fetchAcompanhamentosAsync,
     addAcompanhamentoAsync,
     updateAcompanhamentoAsync,
     deleteAcompanhamentoAsync,
@@ -23,7 +23,7 @@ const AdminAcompanhamento = () => {
 
     useEffect(() => {
         if (acompanhamentosStatus === 'idle') {
-            dispatch(fetchAcompanhamentos());
+            dispatch(fetchAcompanhamentosAsync());
         }
     }, [dispatch, acompanhamentosStatus]);
 

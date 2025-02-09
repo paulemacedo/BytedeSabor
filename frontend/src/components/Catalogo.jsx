@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProdutos, selectAllProducts } from '../redux/productsSlice';
-import { fetchAcompanhamentos, selectAllAcompanhamentos } from '../redux/acompanhamentosSlice';
+import { fetchProdutosAsync, selectAllProducts } from '../redux/productsSlice';
+import { fetchAcompanhamentosAsync, selectAllAcompanhamentos } from '../redux/acompanhamentosSlice';
 import { addToCart } from '../redux/cartSlice';
 import Toppings from './Toppings';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -22,8 +22,8 @@ const Catalogo = () => {
   const [currentProduct, setCurrentProduct] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchProdutos());
-    dispatch(fetchAcompanhamentos());
+    dispatch(fetchProdutosAsync());
+    dispatch(fetchAcompanhamentosAsync());
   }, [dispatch]);
   
   useEffect(() => {

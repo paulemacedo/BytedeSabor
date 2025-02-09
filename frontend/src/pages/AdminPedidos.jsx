@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllOrders, loadOrders, updateOrderStatus } from '../redux/ordersSlice';
+import { selectAllOrders, loadOrdersAsync, updateOrderStatusAsync } from '../redux/ordersSlice';
 import '../Styles/AdminPedidos.css';
 
 const AdminPedidos = () => {
@@ -10,16 +10,16 @@ const AdminPedidos = () => {
     const [cancelMessage, setCancelMessage] = useState('');
 
     useEffect(() => {
-        dispatch(loadOrders());
+        dispatch(loadOrdersAsync());
     }, [dispatch]);
 
     const handleStatusChange = (orderId, status) => {
-        dispatch(updateOrderStatus({ orderId, status }));
+        dispatch(updateOrderStatusAsync({ orderId, status }));
     };
 
     const handleCancelOrder = (orderId) => {
         if (window.confirm('Tem certeza de que deseja cancelar este pedido?')) {
-            dispatch(updateOrderStatus({ orderId, status: 'Cancelado' }));
+            dispatch(updateOrderStatusAsync({ orderId, status: 'Cancelado' }));
             setCancelMessage(`Pedido #${orderId} foi cancelado.`);
         }
     };

@@ -1,31 +1,24 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { fetchAcompanhamentos, addAcompanhamento, updateAcompanhamento, deleteAcompanhamento } from '../api/acompanhamentoApi';
 
-const API_URL = 'http://localhost:3001/api';
-
-export const fetchAcompanhamentos = createAsyncThunk(
+export const fetchAcompanhamentosAsync = createAsyncThunk(
   'acompanhamentos/fetchAcompanhamentos',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/acompanhamentos`);
-      return response.data.acompanhamentos;
+      const acompanhamentos = await fetchAcompanhamentos();
+      return acompanhamentos;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
 );
 
-const generateHexId = () => {
-  return [...Array(24)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
-};
-
 export const addAcompanhamentoAsync = createAsyncThunk(
   'acompanhamentos/addAcompanhamento',
   async (acompanhamento, { rejectWithValue }) => {
     try {
-      acompanhamento._id = generateHexId();
-      const response = await axios.post(`${API_URL}/acompanhamentos`, acompanhamento);
-      return response.data.acompanhamento;
+      const novoAcompanhamento = await addAcompanhamento(acompanhamento);
+      return novoAcompanhamento;
     } catch (error) {
       if (error.response) {
         return rejectWithValue(error.response.data);
@@ -40,8 +33,8 @@ export const updateAcompanhamentoAsync = createAsyncThunk(
   'acompanhamentos/updateAcompanhamento',
   async (acompanhamento, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${API_URL}/acompanhamentos/${acompanhamento.id}`, acompanhamento);
-      return response.data.acompanhamento;
+      const acompanhamentoAtualizado = await updateAcompanhamento(acompanhamento);
+      return acompanhamentoAtualizado;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -52,7 +45,7 @@ export const deleteAcompanhamentoAsync = createAsyncThunk(
   'acompanhamentos/deleteAcompanhamento',
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`${API_URL}/acompanhamentos/${id}`);
+      await deleteAcompanhamento(id);
       return id;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -70,14 +63,14 @@ const acompanhamentosSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAcompanhamentos.pending, (state) => {
+      .addCase(fetchAcompanhamentosAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchAcompanhamentos.fulfilled, (state, action) => {
+      .addCase(fetchAcompanhamentosAsync.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.items = action.payload;
       })
-      .addCase(fetchAcompanhamentos.rejected, (state, action) => {
+      .addCase(fetchAcompanhamentosAsync.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       })
