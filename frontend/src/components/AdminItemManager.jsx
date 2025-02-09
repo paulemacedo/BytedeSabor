@@ -96,7 +96,7 @@ const AdminItemManager = ({
                     type="text"
                     name="preco"
                     placeholder="Preço"
-                    value={isNaN(form.preco) ? '' : form.preco}
+                    value={isNaN(form.preco) ? '' : `R$ ${form.preco.toFixed(2)}`}
                     onChange={handleInputChange}
                     className="price-field"
                 />
@@ -108,12 +108,12 @@ const AdminItemManager = ({
                     onChange={handleInputChange}
                 />
             </div>
-            {extraFields.map((field) => (
-                <div key={field.name} className="admin-produto-form-row">
-                    {field.component({ form, handleInputChange })}
-                </div>
-            ))}
             <div className="admin-produto-form-row">
+                {extraFields.map((field) => (
+                    <div key={field.name} className="admin-produto-form-row">
+                        {field.component({ form, handleInputChange })}
+                    </div>
+                ))}
                 <select
                     name="emEstoque"
                     value={form.emEstoque ? 'Em stock' : 'Fora de stock'}
