@@ -31,7 +31,6 @@ const Header = () => {
                     <>
                         <Link to="/adminproduto" onClick={toggleMenu}>Produtos</Link>
                         <Link to="/adminpedidos" onClick={toggleMenu}>Pedidos</Link>
-                        <Link to="/adminacompanhamento" onClick={toggleMenu}>Acompanhamentos</Link>
                     </>
                 ) : (
                     <>
