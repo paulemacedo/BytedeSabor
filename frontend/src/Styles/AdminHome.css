@@ -10,15 +10,8 @@
     margin-top: 20px;
 }
 
-.admin-home-link {
-    padding: 10px 20px;
-    background-color: #2C0A31;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.admin-home-link:hover {
-    background-color: #4A0A4A;
+@media screen and (max-width: 768px) {
+    .admin-home-links {
+        flex-direction: column;
+    }
 }

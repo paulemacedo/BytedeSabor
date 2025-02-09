@@ -41,7 +41,10 @@ const Header = () => {
                 {user ? (
                     <Link to="/user" className="header-user-info" onClick={toggleMenu}>
                         <img src={profileImage} alt="Profile" className="header-profile-picture" />
-                        <span>{user.nome}</span>
+                        <div className="header-user-info-text">
+                            <p>Bem vindo,</p>
+                            <span>{user.nome}</span>
+                        </div>
                     </Link>
                 ) : (
                     <Link to="/login" onClick={toggleMenu}>Login</Link>

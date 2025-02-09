@@ -17,3 +17,14 @@
     font-size: 1.5rem;
     font-weight: 400;
   }
+
+
+  @media screen and (max-width: 768px) {
+    .welcome-message h2 {
+      font-size: 2rem;
+    }
+    .welcome-message p {
+      font-size: 1rem;
+    }
+  }
+

@@ -2,7 +2,7 @@ import Usuario from '../models/usuario.model.js';
 import bcrypt from 'bcrypt';
 
 const generateHexId = () => {
-    return [...Array(24)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+    return [...Array(8)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 };
 
 export const listarUsuarios = async (req, res) => {

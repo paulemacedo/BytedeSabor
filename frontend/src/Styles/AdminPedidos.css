@@ -123,6 +123,12 @@
     .admin-pedidos-order-date {
         align-self: flex-start;
     }
+    .admin-pedidos-order-footer {
+        flex-direction: column;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
     /* .admin-pedidos-order-header {
         display: flex;
         justify-content: space-between;
@@ -135,4 +141,6 @@
     .admin-pedidos-orders-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+    
+
 }

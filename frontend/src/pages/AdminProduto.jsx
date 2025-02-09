@@ -108,7 +108,6 @@ const AdminProduto = () => {
                     <p><strong>Preço:</strong> R$ {item.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                     <p><strong>Status:</strong> {item.emEstoque ? 'Em stock' : 'Fora de stock'}</p>
                     <p><strong>Descrição:</strong> {item.descricao}</p>
-                    <img src={item.imagem} alt={item.nome} className="admin-produto-item-image" />
                 </div>
             </div>
         ));

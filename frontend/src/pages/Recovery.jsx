@@ -75,6 +75,10 @@ const Recovery = () => {
                     <div className="center-btn">
                         <button type="submit" className="btn form-btn">Enviar Código de Verificação</button>
                     </div>
+                    <div className="link-container">
+                        Voltar para <a href="/login">Login</a>
+                    </div>
+                    
                     {status === 'failed' && <p className="error">{error}</p>}
                 </form>
             )}

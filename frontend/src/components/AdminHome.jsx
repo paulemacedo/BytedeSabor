@@ -7,13 +7,13 @@ const AdminHome = () => {
         <div className="admin-home-container">
             <h1>Bem-vindo ao Painel Administrativo</h1>
             <div className="admin-home-links">
-                <Link to="/adminproduto" className="admin-home-link">
+                <Link to="/adminproduto" className="btn">
                     Gerenciar Produtos
                 </Link>
-                <Link to="/adminpedidos" className="admin-home-link">
+                <Link to="/adminpedidos" className="btn">
                     Gerenciar Pedidos
                 </Link>
-                <Link to="/adminacompanhamento" className="admin-home-link">
+                <Link to="/adminacompanhamento" className="btn">
                     Gerenciar Acompanhamentos
                 </Link>
             </div>
