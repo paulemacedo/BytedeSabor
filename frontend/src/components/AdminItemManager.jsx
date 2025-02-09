@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import '../Styles/AdminProduto.css';
+import '../Styles/AdminItemManager.css';
 
 const AdminItemManager = ({
   title,
@@ -16,8 +16,8 @@ const AdminItemManager = ({
     const [editingItem, setEditingItem] = useState(null);
     const [form, setForm] = useState(initialFormState);
     const [filter, setFilter] = useState('');
-    const [mode, setMode] = useState('add');
-
+    const [mode, setMode] = useState('manage'); 
+    
     useEffect(() => {
         if (status === 'idle') {
             onFetch();
