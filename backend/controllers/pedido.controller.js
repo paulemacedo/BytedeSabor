@@ -1,7 +1,7 @@
 import Pedido from '../models/pedido.model.js';
 
 const generateHexId = () => {
-    return [...Array(8)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+    return [...Array(24)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 };
 
 // CRIAR PEDIDO, OK
