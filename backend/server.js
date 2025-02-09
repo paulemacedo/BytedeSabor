@@ -7,6 +7,7 @@ import pedidoRoutes from './routes/pedidos.route.js';
 import usuarioRoutes from './routes/usuario.route.js';
 import acompanhamentoRoutes from './routes/acompanhamento.route.js';
 import authRoutes from './routes/auth.route.js';
+import swaggerRoutes from './config/swagger.js';
 
 dotenv.config();
 
@@ -24,6 +25,8 @@ app.use(
 );
 
 app.use(express.json());
+
+app.use('/api-docs', swaggerRoutes);
 
 // middleware
 app.use('/api/pedidos', pedidoRoutes);
