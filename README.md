@@ -19,10 +19,14 @@
 Byte de Sabor é um projeto fictício de uma loja de açaí, onde o usuário pode escolher o tamanho do açaí, adicionar complementos e finalizar o pedido.
 
 ## 🚀 Tecnologias
-- [React](https://reactjs.org/)
 - [Vite](https://vitejs.dev/)
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
 - [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
-- [bootstrap icons](https://icons.getbootstrap.com/)
+- [Bootstrap Icons](https://icons.getbootstrap.com/)
+- [Node.js](https://nodejs.org/)
+- [Express](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
 
 ## 🛠️ Instalação
 1. Clone o repositório:
@@ -31,7 +35,7 @@ Byte de Sabor é um projeto fictício de uma loja de açaí, onde o usuário pod
 ```
 2. Crie um arquivo `.env` no diretório `backend` com o seguinte conteúdo:
 ```properties
-MONGO_URI=mongodb+srv://Dev:SenhaDev123@cluster0.jwrcf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.jwrcf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 PORT=3001
 JWT_SECRET=your_secret_key
 ```
