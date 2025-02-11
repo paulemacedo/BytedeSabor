@@ -1,20 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { registerUser as apiRegisterUser } from '../api/userApi';
 
-const API_URL = 'http://localhost:3001/api';
-
-
-const generateHexId = () => {
-    return [...Array(24)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
-};
 
 export const registerUser = createAsyncThunk(
     'register/registerUser',
     async (userData, { rejectWithValue }) => {
         try {
-            userData._id = generateHexId();
-            const response = await axios.post(`${API_URL}/usuarios`, userData);
-            return response.data;
+            const response = await apiRegisterUser(userData);
+            return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }

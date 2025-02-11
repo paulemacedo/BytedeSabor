@@ -2,46 +2,51 @@
 !theme plain
 title Byte de Sabor UML Diagram
 
-class User {
-  - id: int
-  - name: String
+class Usuario {
+  - _id: String
+  - nome: String
   - email: String
-  - password: String
+  - foto: String
+  - endereco: String
+  - senha: String
+  - isAdmin: Boolean
 }
 
-class Client {
-  - address: String
-}
-
-class Administrator {
-  - permissions: List<String>
-}
-
-class Product {
-  - id: int
+class Produto {
+  - _id: String
   - tipo: String
   - nome: String
   - descricao: String
   - preco: float
+  - emEstoque: Boolean
+}
+
+class Pedido {
+  - _id: String
+  - preco: float
+  - pago: Boolean
+  - usuario: Usuario
   - status: String
+  - date: Date
+  - items: List<Item>
 }
 
-class Order {
-  - id: int
-  - user: User
-  - totalPrice: float
+class Item {
+  - nome: String
+  - quantity: int
+  - toppings: List<Acompanhamento>
 }
 
-class Topping {
-  - id: int
+class Acompanhamento {
+  - _id: String
   - nome: String
   - preco: float
 }
 
-User <|-- Client
-User <|-- Administrator
-User "1" --> "*" Order
-Order "*" --> "*" Product
-Product "*" --> "*" Topping
+Usuario "1" --> "*" Pedido
+Pedido "*" --> "*" Produto
+Produto "*" --> "*" Acompanhamento
+Pedido "*" --> "*" Item
+Item "*" --> "*" Acompanhamento
 
 @enduml

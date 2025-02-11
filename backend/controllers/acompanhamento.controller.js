@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 import Acompanhamento from "../models/acompanhamento.model.js";
 
+// Função para gerar um ID de 24 caracteres hexadecimais
+const generateHexId = () => {
+  return [...Array(24)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+};
+
 // CRUD ACOMPANHAMENTO
 
 export const listarAcompanhamentos = async (req, res) => {
@@ -20,7 +25,7 @@ export const listarAcompanhamentos = async (req, res) => {
     }
   };
 
-export const criarAcompanhamento = async (req, res) => {
+  export const criarAcompanhamento = async (req, res) => {
     const acompanhamento = req.body;
     if (!acompanhamento.nome || acompanhamento.preco === undefined) { // Permitir que o preço seja 0
         return res.status(400).json({
@@ -30,6 +35,7 @@ export const criarAcompanhamento = async (req, res) => {
     }
 
     try {
+        acompanhamento._id = generateHexId(); // Adiciona o ID aqui
         const novoAcompanhamento = new Acompanhamento(acompanhamento);
         await novoAcompanhamento.save();
         

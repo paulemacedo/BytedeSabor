@@ -1,5 +1,10 @@
 import Produto from '../models/produto.model.js';
 
+// Função para gerar um ID de 24 caracteres hexadecimais
+const generateHexId = () => {
+  return [...Array(24)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+};
+
 // CRUD PRODUTO
 export const criarProduto = async (req, res) => {
   const produto = req.body;
@@ -9,6 +14,7 @@ export const criarProduto = async (req, res) => {
           message: 'Faltando dados.'
       });
   }
+  produto._id = generateHexId(); // Automatically add an ID
   const novoProduto = new Produto(produto);
   try {
       await novoProduto.save();

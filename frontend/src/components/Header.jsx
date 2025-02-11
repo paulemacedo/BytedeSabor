@@ -18,7 +18,7 @@ const Header = () => {
     return (
         <header>
             <div className="logo">
-                <Link to="/" onClick={() => setIsOpen(false)}>
+                <Link to="/" className="nav-link" onClick={() => setIsOpen(false)}>
                     <img src={Logo} alt="Logo" />
                 </Link>
             </div>
@@ -26,25 +26,27 @@ const Header = () => {
                 <i className={isOpen ? "bi bi-x" : "bi bi-list"}></i>
             </div>
             <nav className={isOpen ? "active" : ""}>
-                <Link to="/" onClick={toggleMenu}>Home</Link>
+                <Link to="/" className="nav-link" onClick={toggleMenu}>Home</Link>
                 {isAdmin ? (
                     <>
-                        <Link to="/adminproduto" onClick={toggleMenu}>Produtos</Link>
-                        <Link to="/adminpedidos" onClick={toggleMenu}>Pedidos</Link>
-                        <Link to="/adminacompanhamento" onClick={toggleMenu}>Acompanhamentos</Link>
+                        <Link to="/adminproduto" className="nav-link" onClick={toggleMenu}>Produtos</Link>
+                        <Link to="/adminpedidos" className="nav-link" onClick={toggleMenu}>Pedidos</Link>
                     </>
                 ) : (
                     <>
-                        <Link to="/pedidos" onClick={toggleMenu}>Pedidos</Link>
+                        <Link to="/pedidos" className="nav-link" onClick={toggleMenu}>Pedidos</Link>
                     </>
                 )}
                 {user ? (
-                    <Link to="/user" className="header-user-info" onClick={toggleMenu}>
+                    <Link to="/user" className="header-user-info nav-link" onClick={toggleMenu}>
                         <img src={profileImage} alt="Profile" className="header-profile-picture" />
-                        <span>{user.nome}</span>
+                        <div className="header-user-info-text">
+                            <p>Bem vindo,</p>
+                            <span>{user.nome}</span>
+                        </div>
                     </Link>
                 ) : (
-                    <Link to="/login" onClick={toggleMenu}>Login</Link>
+                    <Link to="/login" className="nav-link" onClick={toggleMenu}>Login</Link>
                 )}
             </nav>
         </header>

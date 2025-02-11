@@ -30,11 +30,15 @@ const Toppings = ({
     onSelectTopping(topping, !isSelected);
   };
 
-  const gratuitos = Array.isArray(acompanhamentos)
-    ? acompanhamentos.filter(t => t.preco === 0)
+  const acompanhamentosInStock = Array.isArray(acompanhamentos)
+    ? acompanhamentos.filter(t => t.emEstoque)
     : [];
-  const comAcrescimo = Array.isArray(acompanhamentos)
-    ? acompanhamentos.filter(t => t.preco > 0)
+
+  const gratuitos = Array.isArray(acompanhamentosInStock)
+    ? acompanhamentosInStock.filter(t => t.preco === 0)
+    : [];
+  const comAcrescimo = Array.isArray(acompanhamentosInStock)
+    ? acompanhamentosInStock.filter(t => t.preco > 0)
     : [];
 
   return (

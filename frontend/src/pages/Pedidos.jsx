@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllOrders, loadOrdersByUser } from '../redux/ordersSlice';
+import { selectAllOrders, loadOrdersByUserAsync } from '../redux/ordersSlice';
 import '../Styles/Pedidos.css';
 
 const Pedidos = () => {
@@ -9,7 +9,7 @@ const Pedidos = () => {
     const [selectedOrder, setSelectedOrder] = useState(null);
 
     useEffect(() => {
-        dispatch(loadOrdersByUser());
+        dispatch(loadOrdersByUserAsync());
     }, [dispatch]);
 
     const handleViewDetails = (order) => {

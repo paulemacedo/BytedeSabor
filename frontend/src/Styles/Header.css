@@ -11,16 +11,17 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 30px;
+    height: 25px;
     padding-left: 100px;
     padding-right: 100px;
     background-color: #2c0a31;
-    position: relative; 
+    position: relative;
+
 }
 
 .logo img {
-    width: 36px;
-    height: auto;
+    width: 40px;
+    object-fit: cover;
     filter: invert(66%) sepia(14%) saturate(1000%) hue-rotate(240deg) brightness(95%) contrast(85%);
 }
 
@@ -29,6 +30,7 @@ nav {
     gap: 1rem;
     margin-left: auto;
     align-items: center;
+    justify-content: center;
 }
 
 nav a {
@@ -38,6 +40,11 @@ nav a {
     text-decoration: none;
     padding-left: 20px;
     color: #bd93c1;
+}
+
+nav a:hover {
+    transform: scale(1.05);
+    text-decoration: none;
 }
 
 .hamburger {
@@ -77,6 +84,12 @@ nav a {
     font-family: 'VT323', monospace;
 }
 
+.header-user-info-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.7;
+}
+
 #Register {
     background-color: #A082AE;
     color: #282a36;
@@ -91,7 +104,7 @@ nav a {
         padding-right: 20px;
     }
 
-    nav {
+    header nav {
         display: none;
         flex-direction: column;
         gap: 0;
@@ -107,18 +120,18 @@ nav a {
         z-index: 10;
     }
 
-    nav.active {
+    header nav.active {
         display: flex;
     }
 
-    nav a {
+    header nav a {
         color: #bd93c1;
         font-size: 3rem;
         padding: 1rem;
         transition: color 0.3s ease;
     }
 
-    nav a:hover {
+    header nav a:hover {
         color: #ddd;
     }
 

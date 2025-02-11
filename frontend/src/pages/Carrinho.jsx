@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCart, loadCart, getTotalPrice, addToCart, removeFromCart } from '../redux/cartSlice';
-import { addOrder } from '../redux/ordersSlice';
+import { addOrderAsync } from '../redux/ordersSlice';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../Styles/Carrinho.css';
 
@@ -35,7 +35,7 @@ const Carrinho = () => {
         };
 
         console.log('Criando pedido com dados:', order); // Adiciona log para verificar os dados do pedido
-        dispatch(addOrder(order));
+        dispatch(addOrderAsync(order));
         localStorage.setItem('orders', JSON.stringify([...JSON.parse(localStorage.getItem('orders') || '[]'), order]));
 
         alert('Pedido finalizado com sucesso!');

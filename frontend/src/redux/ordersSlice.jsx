@@ -1,33 +1,36 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { loadOrders, loadOrdersByUser, addOrder, updateOrderStatus, deleteOrder } from '../api/orderApi';
 import { selectUser } from './loginSlice'; // Importa o seletor de usuário
 
-const API_URL = 'http://localhost:3001/api';
-
-export const loadOrders = createAsyncThunk('orders/loadOrders', async () => {
-    const response = await axios.get(`${API_URL}/pedidos`);
-    return response.data.pedidos;
+export const loadOrdersAsync = createAsyncThunk('orders/loadOrders', async () => {
+    const pedidos = await loadOrders();
+    return pedidos;
 });
 
-export const loadOrdersByUser = createAsyncThunk('orders/loadOrdersByUser', async (_, { getState }) => {
+export const loadOrdersByUserAsync = createAsyncThunk('orders/loadOrdersByUser', async (_, { getState }) => {
     const state = getState();
     const user = selectUser(state); // Obtém o usuário autenticado do estado
-    const response = await axios.get(`${API_URL}/pedidos/usuario/${user._id}`);
-    return response.data.pedidos;
+    const pedidos = await loadOrdersByUser(user._id);
+    return pedidos;
 });
 
-export const addOrder = createAsyncThunk('orders/addOrder', async (order, { getState }) => {
+export const addOrderAsync = createAsyncThunk('orders/addOrder', async (order, { getState }) => {
     const state = getState();
     const user = selectUser(state); // Obtém o usuário autenticado do estado
     const orderWithUser = { ...order, usuario: user._id }; // Adiciona o ID do usuário ao pedido
     console.log('Dados do pedido a serem enviados:', orderWithUser); // Adiciona log para verificar os dados do pedido
-    const response = await axios.post(`${API_URL}/pedidos`, orderWithUser);
-    return response.data.pedido;
+    const pedido = await addOrder(orderWithUser);
+    return pedido;
 });
 
-export const updateOrderStatus = createAsyncThunk('orders/updateOrderStatus', async ({ orderId, status }) => {
-    const response = await axios.put(`${API_URL}/pedidos/${orderId}`, { status });
-    return response.data.pedido;
+export const updateOrderStatusAsync = createAsyncThunk('orders/updateOrderStatus', async ({ orderId, status }) => {
+    const pedido = await updateOrderStatus(orderId, status);
+    return pedido;
+});
+
+export const deleteOrderAsync = createAsyncThunk('orders/deleteOrder', async (orderId) => {
+    await deleteOrder(orderId);
+    return orderId;
 });
 
 const ordersSlice = createSlice({
@@ -37,42 +40,65 @@ const ordersSlice = createSlice({
         status: 'idle',
         error: null
     },
-    reducers: {},
+    reducers: {
+        clearOrders: (state) => {
+            state.items = [];
+            state.status = 'idle';
+            state.error = null;
+        }
+    },
     extraReducers: (builder) => {
         builder
-            .addCase(loadOrders.pending, (state) => {
+            .addCase(loadOrdersAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(loadOrders.fulfilled, (state, action) => {
+            .addCase(loadOrdersAsync.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 state.items = action.payload;
             })
-            .addCase(loadOrders.rejected, (state, action) => {
+            .addCase(loadOrdersAsync.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message;
             })
-            .addCase(loadOrdersByUser.pending, (state) => {
+            .addCase(loadOrdersByUserAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(loadOrdersByUser.fulfilled, (state, action) => {
+            .addCase(loadOrdersByUserAsync.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 state.items = action.payload;
             })
-            .addCase(loadOrdersByUser.rejected, (state, action) => {
+            .addCase(loadOrdersByUserAsync.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message;
             })
-            .addCase(addOrder.fulfilled, (state, action) => {
+            .addCase(addOrderAsync.fulfilled, (state, action) => {
                 state.items.push(action.payload);
             })
-            .addCase(updateOrderStatus.fulfilled, (state, action) => {
+            .addCase(updateOrderStatusAsync.fulfilled, (state, action) => {
                 const index = state.items.findIndex(order => order._id === action.payload._id);
                 if (index !== -1) {
-                    state.items[index] = action.payload;
+                    if (action.payload.status === 'Cancelado' || action.payload.status === 'Concluído') {
+                        state.items.splice(index, 1);
+                    } else {
+                        state.items[index] = { ...state.items[index], status: action.payload.status };
+                    }
                 }
+            })
+            .addCase('login/logout', (state) => {
+                state.items = [];
+                state.status = 'idle';
+                state.error = null;
+            })
+            .addCase('login/loginSuccess', (state, action) => {
+                state.status = 'loading';
+            })
+            .addCase(deleteOrderAsync.fulfilled, (state, action) => {
+                state.items = state.items.filter(order => order._id !== action.payload);
             });
     }
 });
+
+export const { clearOrders } = ordersSlice.actions;
 
 export const selectAllOrders = (state) => state.orders.items;
 

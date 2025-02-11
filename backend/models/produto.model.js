@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const ProdutoSchema = new mongoose.Schema({
-    _id: { type: String }, // Defina explicitamente o _id como String
+    _id: { type: String }, 
     tipo: {type: String, required: true},
     nome: {type: String, required: true},
     imagem: {type: String, required: true},
