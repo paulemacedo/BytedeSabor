@@ -63,7 +63,9 @@ const Catalogo = () => {
     setSelectedToppings([]);
   };
 
-  const groupedProducts = Array.isArray(products) ? products.reduce((acc, product) => {
+  const productsInStock = products.filter(product => product.emEstoque);
+
+  const groupedProducts = Array.isArray(productsInStock) ? productsInStock.reduce((acc, product) => {
     if (!acc[product.tipo]) {
       acc[product.tipo] = [];
     }
