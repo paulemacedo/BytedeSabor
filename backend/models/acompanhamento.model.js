@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const AcompanhamentoSchema = new mongoose.Schema({
-    _id: { type: String }, // Defina explicitamente o _id como String
+    _id: { type: String }, 
     nome: {type: String, required: true},
     imagem: {type: String},
     descricao: {type: String, required: false},

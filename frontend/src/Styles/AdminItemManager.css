@@ -125,24 +125,16 @@
     gap: 10px;
 }
 
-.admin-produto-item-card .btn {
-    padding: 5px 10px;
-}
-
-.admin-produto-edit-btn {
-    border: none;
-}
-
-.admin-produto-edit-btn:hover {
-    background-color: transparent;
-}
-
+.admin-produto-edit-btn,
 .admin-produto-delete-btn {
+    padding: 5px 10px;
     border: none;
 }
 
+.admin-produto-edit-btn:hover,
 .admin-produto-delete-btn:hover {
     background-color: transparent;
+    transform: scale(1.3);
 }
 
 .admin-produto-item-image {

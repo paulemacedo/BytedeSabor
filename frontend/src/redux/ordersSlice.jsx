@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { loadOrders, loadOrdersByUser, addOrder, updateOrderStatus } from '../api/orderApi';
+import { loadOrders, loadOrdersByUser, addOrder, updateOrderStatus, deleteOrder } from '../api/orderApi';
 import { selectUser } from './loginSlice'; // Importa o seletor de usuário
 
 export const loadOrdersAsync = createAsyncThunk('orders/loadOrders', async () => {
@@ -26,6 +26,11 @@ export const addOrderAsync = createAsyncThunk('orders/addOrder', async (order, {
 export const updateOrderStatusAsync = createAsyncThunk('orders/updateOrderStatus', async ({ orderId, status }) => {
     const pedido = await updateOrderStatus(orderId, status);
     return pedido;
+});
+
+export const deleteOrderAsync = createAsyncThunk('orders/deleteOrder', async (orderId) => {
+    await deleteOrder(orderId);
+    return orderId;
 });
 
 const ordersSlice = createSlice({
@@ -72,7 +77,11 @@ const ordersSlice = createSlice({
             .addCase(updateOrderStatusAsync.fulfilled, (state, action) => {
                 const index = state.items.findIndex(order => order._id === action.payload._id);
                 if (index !== -1) {
-                    state.items[index] = action.payload;
+                    if (action.payload.status === 'Cancelado' || action.payload.status === 'Concluído') {
+                        state.items.splice(index, 1);
+                    } else {
+                        state.items[index] = { ...state.items[index], status: action.payload.status };
+                    }
                 }
             })
             .addCase('login/logout', (state) => {
@@ -82,6 +91,9 @@ const ordersSlice = createSlice({
             })
             .addCase('login/loginSuccess', (state, action) => {
                 state.status = 'loading';
+            })
+            .addCase(deleteOrderAsync.fulfilled, (state, action) => {
+                state.items = state.items.filter(order => order._id !== action.payload);
             });
     }
 });

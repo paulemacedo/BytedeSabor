@@ -7,18 +7,17 @@ const ItemSchema = new mongoose.Schema({
 });
 
 const PedidoSchema = new mongoose.Schema({
-    _id: { type: String, required: true }, // Defina explicitamente o _id como String
+    _id: { type: String, required: true }, 
     preco: { type: Number, required: true },
     pago: { type: Boolean, default: false },
     usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario', required: true },
     status: {
         type: String,
-        enum: ['em preparo', 'pronto para retirada', 'A caminho', 'Concluido', 'Cancelado', 'aguardando confirmação'],
-        default: 'aguardando confirmação', // Define o status padrão
-        required: true
+        enum: ['Aguardando Confirmação', 'Em Preparo', 'Pronto para Retirada', 'A caminho', 'Concluído', 'Cancelado'],
+        default: 'Aguardando Confirmação', 
     },
-    date: { type: Date, default: Date.now, required: true }, // Adiciona o campo date
-    items: [ItemSchema] // Adiciona o campo items
+    date: { type: Date, default: Date.now, required: true }, 
+    items: [ItemSchema] 
 });
 
 const Pedido = mongoose.model('Pedido', PedidoSchema);

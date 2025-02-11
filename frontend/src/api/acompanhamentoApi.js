@@ -12,7 +12,7 @@ export const addAcompanhamento = async (acompanhamento) => {
 };
 
 export const updateAcompanhamento = async (acompanhamento) => {
-    const response = await axios.put(`${API_URL}/acompanhamentos/${acompanhamento.id}`, acompanhamento);
+    const response = await axios.put(`${API_URL}/acompanhamentos/${acompanhamento._id}`, acompanhamento); // Changed to acompanhamento._id
     return response.data.acompanhamento;
 };
 

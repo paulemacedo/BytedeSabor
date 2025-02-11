@@ -78,13 +78,13 @@ const acompanhamentosSlice = createSlice({
         state.items.push(action.payload);
       })
       .addCase(updateAcompanhamentoAsync.fulfilled, (state, action) => {
-        const index = state.items.findIndex(a => a.id === action.payload.id);
+        const index = state.items.findIndex(a => a._id === action.payload._id);
         if (index !== -1) {
           state.items[index] = action.payload;
         }
       })
       .addCase(deleteAcompanhamentoAsync.fulfilled, (state, action) => {
-        state.items = state.items.filter(a => a.id !== action.payload);
+        state.items = state.items.filter(a => a._id !== action.payload);
       });
   }
 });

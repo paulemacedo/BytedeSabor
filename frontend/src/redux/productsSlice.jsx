@@ -53,7 +53,6 @@ const productsSlice = createSlice({
   name: 'products',
   initialState: {
     produtos: [],
-    acompanhamentos: [],
     status: 'idle',
     error: null
   },
@@ -76,12 +75,14 @@ const productsSlice = createSlice({
       .addCase(addProductAsync.fulfilled, (state, action) => {
         state.produtos.push(action.payload);
       })
+      // Update produto
       .addCase(updateProductAsync.fulfilled, (state, action) => {
         const index = state.produtos.findIndex(p => p._id === action.payload._id);
         if (index !== -1) {
           state.produtos[index] = action.payload;
         }
       })
+      // Delete produto
       .addCase(deleteProductAsync.fulfilled, (state, action) => {
         state.produtos = state.produtos.filter(p => p._id !== action.payload);
       });

@@ -63,11 +63,7 @@
     margin-bottom: 5px;
 }
 
-.admin-pedidos-order-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+
 
 .admin-pedidos-order-total {
     font-size: 26px;
@@ -92,17 +88,39 @@
 
 .admin-pedidos-order-actions {
     display: flex;
-    flex-direction: column;
+    align-items: flex-end;
     margin-top: 10px;
     gap: 10px;
+    justify-content: space-between;
 }
+
+.admin-pedidos-action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.admin-pedidos-cancel-button,
+.admin-pedidos-delete-button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    padding: 5px 10px;
+    cursor: pointer;
+    
+}
+
+.admin-pedidos-cancel-button:hover,
+.admin-pedidos-delete-button:hover {
+    transform: scale(1.3);
+    background: none;
+ }
+
 
 .admin-pedidos-order-cancelled {
     color: #eb3131;
     font-weight: bold;
     font-size: 20px;
 }
-
 
 
 /* Responsiveness */
@@ -112,12 +130,11 @@
         justify-content: center;   
     }
     .admin-pedidos-order-card {
-        max-width: 300px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
     .admin-pedidos-order-header {
         flex-direction: column;
-        display: flex;
-        justify-content: flex-start;
         align-items: flex-start;
     }
     .admin-pedidos-order-date {
@@ -125,22 +142,23 @@
     }
     .admin-pedidos-order-footer {
         flex-direction: column;
-        display: flex;
-        justify-content: flex-start;
         align-items: flex-start;
     }
-    /* .admin-pedidos-order-header {
-        display: flex;
-        justify-content: space-between;
+    .admin-pedidos-order-actions {
         align-items: center;
-        margin-bottom: 10px;
-    }               */
+        gap: 10px;
+        justify-content: space-between;
+    }
+    .admin-pedidos-action-buttons {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        /* justify-content: center; */
+    }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
     .admin-pedidos-orders-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
-
 }

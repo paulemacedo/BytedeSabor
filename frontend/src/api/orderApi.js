@@ -20,3 +20,8 @@ export const updateOrderStatus = async (orderId, status) => {
     const response = await axios.put(`${API_URL}/pedidos/${orderId}`, { status });
     return response.data.pedido;
 };
+
+export const deleteOrder = async (orderId) => {
+    const response = await axios.delete(`${API_URL}/pedidos/${orderId}`);
+    return response.data;
+};

@@ -93,10 +93,11 @@ const AdminItemManager = ({
             </div>
             <div className="admin-produto-form-row">
                 <input
-                    type="text"
+                    type="number"
+                    step="0.01"
                     name="preco"
                     placeholder="Preço"
-                    value={isNaN(form.preco) ? '' : `R$ ${form.preco.toFixed(2)}`}
+                    value={isNaN(form.preco) ? '' : form.preco}
                     onChange={handleInputChange}
                     className="price-field"
                 />

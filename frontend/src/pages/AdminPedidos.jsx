@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllOrders, loadOrdersAsync, updateOrderStatusAsync } from '../redux/ordersSlice';
+import { selectAllOrders, loadOrdersAsync, updateOrderStatusAsync, deleteOrderAsync } from '../redux/ordersSlice';
 import '../Styles/AdminPedidos.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const AdminPedidos = () => {
     const dispatch = useDispatch();
@@ -24,6 +25,13 @@ const AdminPedidos = () => {
         }
     };
 
+    const handleDeleteOrder = (orderId) => {
+        if (window.confirm('Tem certeza de que deseja excluir este pedido?')) {
+            dispatch(deleteOrderAsync(orderId));
+            setCancelMessage(`Pedido #${orderId} foi excluído.`);
+        }
+    };
+
     const filteredOrders = filter ? orders.filter(order => order.status === filter) : orders;
 
     const isAdmin = useSelector((state) => state.login.isAdmin);
@@ -38,11 +46,11 @@ const AdminPedidos = () => {
             <div className="admin-pedidos-filter-bar">
                 <select onChange={(e) => setFilter(e.target.value)} value={filter}>
                     <option value="">Todos</option>
+                    <option value="Aguardando Confirmação">Aguardando Confirmação</option>
                     <option value="Em Preparo">Em Preparo</option>
                     <option value="Pronto para Retirada">Pronto para Retirada</option>
                     <option value="A caminho">A caminho</option>
                     <option value="Concluído">Concluído</option>
-                    <option value="Aguardando Confirmação">Aguardando Confirmação</option>
                 </select>
             </div>
             {cancelMessage && <p className="admin-pedidos-cancel-message">{cancelMessage}</p>}
@@ -60,6 +68,7 @@ const AdminPedidos = () => {
                                 <div className="admin-pedidos-order-user-info">
                                     <p><strong>Cliente:</strong> {order.usuario.nome}</p>
                                     <p><strong>Email:</strong> {order.usuario.email}</p>
+                                    <p><strong>Endereço:</strong> {order.usuario.endereco}</p>
                                 </div>
                             )}
                             <ul className="admin-pedidos-order-details">
@@ -76,7 +85,14 @@ const AdminPedidos = () => {
                                 <p className="admin-pedidos-order-total">Total: R$ {order.preco ? order.preco.toFixed(2) : '0.00'}</p>
                                 <div className="admin-pedidos-order-actions">
                                     {order.status === 'Cancelado' ? (
-                                        <p className="admin-pedidos-order-cancelled">Cancelado</p>
+                                        <>
+                                            <p className="admin-pedidos-order-cancelled">Cancelado</p>
+                                            <div className="admin-pedidos-action-buttons">
+                                                <button className="admin-pedidos-delete-button btn" onClick={() => handleDeleteOrder(order._id)}>
+                                                    <i className="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </>
                                     ) : (
                                         <>
                                             <select
@@ -90,7 +106,14 @@ const AdminPedidos = () => {
                                                 <option value="A caminho">A caminho</option>
                                                 <option value="Concluído">Concluído</option>
                                             </select>
-                                            <button className="admin-pedidos-cancel-button btn" onClick={() => handleCancelOrder(order._id)}>Cancelar Pedido</button>
+                                            <div className="admin-pedidos-action-buttons">
+                                                <button className="admin-pedidos-cancel-button btn" onClick={() => handleCancelOrder(order._id)}>
+                                                    <i className="bi bi-x-circle"></i>
+                                                </button>
+                                                <button className="admin-pedidos-delete-button btn" onClick={() => handleDeleteOrder(order._id)}>
+                                                    <i className="bi bi-trash"></i>
+                                                </button>
+                                            </div>
                                         </>
                                     )}
                                 </div>
