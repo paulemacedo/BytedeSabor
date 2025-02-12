@@ -29,6 +29,7 @@ const Register = () => {
                 senha: formData.password,
                 isAdmin: false
             }));
+            alert('Registration successful');
         } else {
             // Handle password mismatch error
             alert('Passwords do not match');
@@ -36,10 +37,11 @@ const Register = () => {
     };
 
     // Redirecionar para a página de login após o registro bem-sucedido
-    if (user) {
-        navigate('/login');
-    }
-
+    React.useEffect(() => {
+        if (user) {
+            navigate('/login');
+        }
+    }, [user]);
     return (
         <div className="container">
             <h2 id="form-title">Register</h2>
