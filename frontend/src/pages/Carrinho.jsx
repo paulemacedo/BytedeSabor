@@ -28,6 +28,7 @@ const Carrinho = () => {
         const order = {
             preco: parseFloat(totalPrice),
             pago: false,
+            Status: 'Aguardando Confirmação',
             usuario: user._id,
             items: cart,
             date: new Date().toLocaleString(),
