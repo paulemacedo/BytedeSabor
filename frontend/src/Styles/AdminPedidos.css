@@ -7,18 +7,61 @@
     margin-bottom: 20px;
 }
 
-.admin-pedidos-filter-bar {
+.admin-pedidos-filter-bar-container {
     display: flex;
-    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-.admin-pedidos-filter-bar select {
+.admin-pedidos-filter-bar {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-grow: 1;
+}
+
+.filter-button {
     padding: 10px;
+    margin: 0 5px;
+    cursor: pointer;
     font-size: 16px;
+    border: none;
+    background-color: #4A154B;
+    border-radius: 9px;
+    color: #ffffff;
+}
+
+.filter-button.active {
+    background-color: #2C0A31;
+    color: white;
+}
+
+.scroll-button {
+    background: none;
+    color: #ffffff;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.admin-pedidos-filter-select-container {
+    display: none;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.admin-pedidos-filter-select {
+    padding: 10px;
+    border: 1px solid #2C0A31;
+    border-radius: 9px;
     background-color: #2C0A31;
     color: #ffffff;
-    border-radius: 9px;
+    cursor: pointer;
+}
+
+.admin-pedidos-filter-select option {
+    background-color: #2C0A31 !important;
+    color: #ffffff !important;
 }
 
 .admin-pedidos-orders-grid {
@@ -63,8 +106,6 @@
     margin-bottom: 5px;
 }
 
-
-
 .admin-pedidos-order-total {
     font-size: 26px;
     font-weight: bold;
@@ -106,15 +147,13 @@
     color: #ffffff;
     padding: 5px 10px;
     cursor: pointer;
-    
 }
 
 .admin-pedidos-cancel-button:hover,
 .admin-pedidos-delete-button:hover {
     transform: scale(1.3);
     background: none;
- }
-
+}
 
 .admin-pedidos-order-cancelled {
     color: #eb3131;
@@ -122,9 +161,14 @@
     font-size: 20px;
 }
 
-
 /* Responsiveness */
 @media (max-width: 768px) {
+    .admin-pedidos-filter-bar-container {
+        display: none;
+    }
+    .admin-pedidos-filter-select-container {
+        display: block;
+    }
     .admin-pedidos-orders-grid {
         grid-template-columns: 1fr;
         justify-content: center;   
@@ -153,7 +197,6 @@
         flex-direction: row;
         align-items: center;
         gap: 10px;
-        /* justify-content: center; */
     }
 }
 

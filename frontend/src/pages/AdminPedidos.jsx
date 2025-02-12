@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAllOrders, loadOrdersAsync, updateOrderStatusAsync, deleteOrderAsync } from '../redux/ordersSlice';
 import '../Styles/AdminPedidos.css';
@@ -9,6 +9,7 @@ const AdminPedidos = () => {
     const orders = useSelector(selectAllOrders);
     const [filter, setFilter] = useState('');
     const [cancelMessage, setCancelMessage] = useState('');
+    const filterBarRef = useRef(null);
 
     useEffect(() => {
         dispatch(loadOrdersAsync());
@@ -33,17 +34,39 @@ const AdminPedidos = () => {
     };
 
     const filteredOrders = filter ? orders.filter(order => order.status === filter) : orders;
-
     const isAdmin = useSelector((state) => state.login.isAdmin);
 
     if (!isAdmin) {
         return <p className="admin-pedidos-no-access">Acesso não autorizado</p>;
     }
 
+    const scrollLeft = () => {
+        filterBarRef.current.scrollBy({ left: -100, behavior: 'smooth' });
+    };
+
+    const scrollRight = () => {
+        filterBarRef.current.scrollBy({ left: 100, behavior: 'smooth' });
+    };
+
     return (
         <div className="admin-pedidos-container">
             <h1 className="admin-pedidos-title">Administração de Pedidos</h1>
-            <div className="admin-pedidos-filter-bar">
+            <div className="admin-pedidos-filter-bar-container">
+                <button className="scroll-button" onClick={scrollLeft}>{'<'}</button>
+                <div className="admin-pedidos-filter-bar" ref={filterBarRef}>
+                    {['Todos', 'Aguardando Confirmação', 'Em Preparo', 'Pronto para Retirada', 'A caminho', 'Concluído', 'Cancelado'].map(status => (
+                        <button
+                            key={status}
+                            className={`filter-button ${filter === status || (status === 'Todos' && filter === '') ? 'active' : ''}`}
+                            onClick={() => setFilter(status === 'Todos' ? '' : status)}
+                        >
+                            {status}
+                        </button>
+                    ))}
+                </div>
+                <button className="scroll-button" onClick={scrollRight}>{'>'}</button>
+            </div>
+            <div className="admin-pedidos-filter-select-container">
                 <select onChange={(e) => setFilter(e.target.value)} value={filter}>
                     <option value="">Todos</option>
                     <option value="Aguardando Confirmação">Aguardando Confirmação</option>
@@ -51,6 +74,7 @@ const AdminPedidos = () => {
                     <option value="Pronto para Retirada">Pronto para Retirada</option>
                     <option value="A caminho">A caminho</option>
                     <option value="Concluído">Concluído</option>
+                    <option value="Cancelado">Cancelado</option>
                 </select>
             </div>
             {cancelMessage && <p className="admin-pedidos-cancel-message">{cancelMessage}</p>}
@@ -105,6 +129,7 @@ const AdminPedidos = () => {
                                                 <option value="Pronto para Retirada">Pronto para Retirada</option>
                                                 <option value="A caminho">A caminho</option>
                                                 <option value="Concluído">Concluído</option>
+                                                <option value="Cancelado">Cancelado</option>
                                             </select>
                                             <div className="admin-pedidos-action-buttons">
                                                 <button className="admin-pedidos-cancel-button btn" onClick={() => handleCancelOrder(order._id)}>
