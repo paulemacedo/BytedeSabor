@@ -9,11 +9,24 @@ const AdminPedidos = () => {
     const orders = useSelector(selectAllOrders);
     const [filter, setFilter] = useState('');
     const [cancelMessage, setCancelMessage] = useState('');
+    const [showScrollButtons, setShowScrollButtons] = useState(false);
     const filterBarRef = useRef(null);
 
     useEffect(() => {
         dispatch(loadOrdersAsync());
     }, [dispatch]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (filterBarRef.current) {
+                setShowScrollButtons(filterBarRef.current.scrollWidth > filterBarRef.current.clientWidth);
+            }
+        };
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const handleStatusChange = (orderId, status) => {
         dispatch(updateOrderStatusAsync({ orderId, status }));
@@ -52,7 +65,7 @@ const AdminPedidos = () => {
         <div className="admin-pedidos-container">
             <h1 className="admin-pedidos-title">Administração de Pedidos</h1>
             <div className="admin-pedidos-filter-bar-container">
-                <button className="scroll-button" onClick={scrollLeft}>{'<'}</button>
+                {showScrollButtons && <button className="scroll-button" onClick={scrollLeft}>{'<'}</button>}
                 <div className="admin-pedidos-filter-bar" ref={filterBarRef}>
                     {['Todos', 'Aguardando Confirmação', 'Em Preparo', 'Pronto para Retirada', 'A caminho', 'Concluído', 'Cancelado'].map(status => (
                         <button
@@ -64,10 +77,10 @@ const AdminPedidos = () => {
                         </button>
                     ))}
                 </div>
-                <button className="scroll-button" onClick={scrollRight}>{'>'}</button>
+                {showScrollButtons && <button className="scroll-button" onClick={scrollRight}>{'>'}</button>}
             </div>
             <div className="admin-pedidos-filter-select-container">
-                <select onChange={(e) => setFilter(e.target.value)} value={filter}>
+                <select onChange={(e) => setFilter(e.target.value)} value={filter} className="admin-pedidos-filter-select">
                     <option value="">Todos</option>
                     <option value="Aguardando Confirmação">Aguardando Confirmação</option>
                     <option value="Em Preparo">Em Preparo</option>
