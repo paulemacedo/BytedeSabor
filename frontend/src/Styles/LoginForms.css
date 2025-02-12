@@ -121,8 +121,10 @@ a:hover {
 .error-container {
     background-color: #2C0A31;
     color: #63000a;
-    padding: 0.75rem;
     border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 1rem;
     text-align: center;
 }
