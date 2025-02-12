@@ -18,7 +18,7 @@ export const criarPedido = async (req, res) => {
         preco,
         pago: pago || false,
         usuario,
-        status: status || 'aguardando confirmação', // Define o status padrão se não fornecido
+        status: status || 'Aguardando Confirmação',
         items,
         date: date || new Date() // Define a data atual se não fornecida
     };

@@ -35,7 +35,6 @@ export const criarProduto = async (req, res) => {
 export const listarProdutos = async (req, res) => {
   try {
     const produtos = await Produto.find();
-    console.log('Produtos encontrados:', produtos); // Adicione este log
     res.status(200).json({
       success: true,
       produtos

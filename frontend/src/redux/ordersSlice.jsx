@@ -77,11 +77,7 @@ const ordersSlice = createSlice({
             .addCase(updateOrderStatusAsync.fulfilled, (state, action) => {
                 const index = state.items.findIndex(order => order._id === action.payload._id);
                 if (index !== -1) {
-                    if (action.payload.status === 'Cancelado' || action.payload.status === 'Concluído') {
-                        state.items.splice(index, 1);
-                    } else {
-                        state.items[index] = { ...state.items[index], status: action.payload.status };
-                    }
+                    state.items[index] = { ...state.items[index], status: action.payload.status };
                 }
             })
             .addCase('login/logout', (state) => {

@@ -23,6 +23,6 @@ const options = {
 
 const specs = swaggerJsdoc(options);
 
-router.use('/docs', swaggerUi.serve, swaggerUi.setup(specs));
+router.use('', swaggerUi.serve, swaggerUi.setup(specs));
 
 export default router;
