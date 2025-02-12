@@ -29,7 +29,7 @@ const Carrinho = () => {
             preco: parseFloat(totalPrice),
             pago: false,
             usuario: user._id,
-            status: 'aguardando confirmação',
+            status: 'Aguardando confirmação',
             items: cart,
             date: new Date().toLocaleString(),
         };
