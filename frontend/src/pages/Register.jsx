@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { registerUser } from '../redux/registerSlice';
+import { registerUser, clearRegisterState } from '../redux/registerSlice';
 import '../Styles/LoginForms.css';
 
 const Register = () => {
@@ -29,19 +29,23 @@ const Register = () => {
                 senha: formData.password,
                 isAdmin: false
             }));
-            alert('Registration successful');
         } else {
-            // Handle password mismatch error
             alert('Passwords do not match');
         }
     };
 
-    // Redirecionar para a página de login após o registro bem-sucedido
-    React.useEffect(() => {
+    useEffect(() => {
         if (user) {
             navigate('/login');
         }
-    }, [user]);
+    }, [user, navigate]);
+
+    useEffect(() => {
+        return () => {
+            dispatch(clearRegisterState());
+        };
+    }, [dispatch]);
+
     return (
         <div className="container">
             <h2 id="form-title">Register</h2>
@@ -104,7 +108,13 @@ const Register = () => {
                 <div className="link-container">
                     Already have an account? <Link to="/login">Login</Link>
                 </div>
-                {error && <p className="error">{error}</p>}
+                {error && (
+                    <div className="error-container">
+                        <p className="error-message">
+                            <i className="bi bi-exclamation-circle-fill"></i> {error.message}
+                        </p>
+                    </div>
+                )}
             </form>
         </div>
     );
