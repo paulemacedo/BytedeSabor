@@ -11,7 +11,6 @@ const generateHexId = () => {
 export const listarAcompanhamentos = async (req, res) => {
     try {
       const acompanhamentos = await Acompanhamento.find();
-      console.log('Acompanhamentos encontrados:', acompanhamentos); // Adicione este log
       res.status(200).json({
         success: true,
         acompanhamentos
