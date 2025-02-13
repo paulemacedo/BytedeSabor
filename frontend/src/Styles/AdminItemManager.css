@@ -114,6 +114,9 @@
 .admin-produto-item-title {
     font-size: 1.2rem;
     margin: 0;
+    /* word-wrap: break-word; 
+    overflow-wrap: break-word;  */
+    word-break: break-word;
 }
 
 .admin-produto-item-card-content {

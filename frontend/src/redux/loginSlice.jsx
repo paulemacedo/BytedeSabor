@@ -82,19 +82,24 @@ const loginSlice = createSlice({
         },
         loadUserFromStorage: (state) => {
             const token = localStorage.getItem('token');
-            const user = JSON.parse(localStorage.getItem('user'));
-            const isAdmin = JSON.parse(localStorage.getItem('isAdmin'));
+            const user = localStorage.getItem('user');
+            const isAdmin = localStorage.getItem('isAdmin');
             const profileImage = localStorage.getItem('profileImage');
             const userTimestamp = localStorage.getItem('userTimestamp');
             const now = new Date().getTime();
-
+        
             if (token && user && userTimestamp && (now - userTimestamp < CACHE_DURATION)) {
-                state.isLoggedIn = true;
-                state.user = user;
-                state.isAdmin = isAdmin;
-                state.error = null;
-                state.profileImage = profileImage;
-                state.token = token;
+                try {
+                    state.isLoggedIn = true;
+                    state.user = JSON.parse(user);
+                    state.isAdmin = JSON.parse(isAdmin);
+                    state.error = null;
+                    state.profileImage = profileImage;
+                    state.token = token;
+                } catch (error) {
+                    console.error("Erro ao parsear JSON do usuário:", error);
+                    localStorage.removeItem('user'); // Remove o dado corrompido
+                }
             }
         },
     },
