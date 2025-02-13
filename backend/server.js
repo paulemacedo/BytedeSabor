@@ -14,13 +14,22 @@ dotenv.config();
 const PORT = process.env.PORT || 3001; // Adicione um valor padrão para a porta
 const app = express();
 
-app.use(cors());
-
-// OR specify allowed origins
 app.use(
-    cors({
-        methods: "GET,POST,PUT,DELETE"
-    })
+  cors({
+    origin: [
+      'http://localhost:5173', 
+      'https://bytedesabor.vercel.app', 
+      'https://bytedesabor-git-develop-react-paulemacedos-projects.vercel.app'
+    ],
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+    optionsSuccessStatus: 200,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Content-Type', 'Authorization'],
+    preflightContinue: false,
+    sameSite: 'None',
+    secure: true
+  })
 );
 
 app.use(express.json());

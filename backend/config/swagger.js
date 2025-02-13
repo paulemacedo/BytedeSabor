@@ -16,6 +16,12 @@ const options = {
       {
         url: 'http://localhost:3001/api',
       },
+      {
+        url: 'https://bytedesabor-backend.vercel.app/api',
+      },
+      {
+        url: 'https://bytedesabor-backend-git-develop-react-paulemacedos-projects.vercel.app/api',
+      },
     ],
   },
   apis: ['./routes/*.js'],
