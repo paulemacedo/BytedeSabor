@@ -22,7 +22,13 @@ app.use(
       'https://bytedesabor-git-develop-react-paulemacedos-projects.vercel.app'
     ],
     methods: "GET,POST,PUT,DELETE",
-    credentials: true
+    credentials: true,
+    optionsSuccessStatus: 200,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Content-Type', 'Authorization'],
+    preflightContinue: false,
+    sameSite: 'None',
+    secure: true
   })
 );
 
