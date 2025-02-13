@@ -14,13 +14,11 @@ dotenv.config();
 const PORT = process.env.PORT || 3001; // Adicione um valor padrão para a porta
 const app = express();
 
-app.use(cors());
-
-// OR specify allowed origins
 app.use(
   cors({
     origin: ['http://localhost:5173', 'https://bytedesabor.vercel.app'],
-    methods: "GET,POST,PUT,DELETE"
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true
   })
 );
 
