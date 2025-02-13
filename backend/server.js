@@ -16,7 +16,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://bytedesabor.vercel.app'],
+    origin: [
+      'http://localhost:5173', 
+      'https://bytedesabor.vercel.app', 
+      'https://bytedesabor-git-develop-react-paulemacedos-projects.vercel.app'
+    ],
     methods: "GET,POST,PUT,DELETE",
     credentials: true
   })
