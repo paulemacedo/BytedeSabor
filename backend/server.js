@@ -18,9 +18,10 @@ app.use(cors());
 
 // OR specify allowed origins
 app.use(
-    cors({
-        methods: "GET,POST,PUT,DELETE"
-    })
+  cors({
+    origin: ['http://localhost:5173', 'https://bytedesabor.vercel.app'],
+    methods: "GET,POST,PUT,DELETE"
+  })
 );
 
 app.use(express.json());
