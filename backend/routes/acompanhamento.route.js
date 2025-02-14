@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyToken } from '../middleware/authMiddleware.js';
+import { verifyToken, verifyAdmin } from '../middleware/authMiddleware.js';
 import { 
     criarAcompanhamento, 
     verAcompanhamentoPorId, 
@@ -80,7 +80,7 @@ router.get('/', listarAcompanhamentos);
  *       400:
  *         description: Faltando dados obrigatórios
  */
-router.post('/', criarAcompanhamento);
+router.post('/', verifyToken, verifyAdmin, criarAcompanhamento);
 
 /**
  * @swagger
@@ -136,7 +136,7 @@ router.get('/:id', verAcompanhamentoPorId);
  *       404:
  *         description: Acompanhamento não encontrado
  */
-router.put('/:id', atualizarAcompanhamentoPorId);
+router.put('/:id', verifyToken, verifyAdmin, atualizarAcompanhamentoPorId);
 
 /**
  * @swagger
@@ -157,6 +157,6 @@ router.put('/:id', atualizarAcompanhamentoPorId);
  *       404:
  *         description: Acompanhamento não encontrado
  */
-router.delete('/:id', deletarAcompanhamentoPorId);
+router.delete('/:id', verifyToken, verifyAdmin, deletarAcompanhamentoPorId);
 
 export default router;

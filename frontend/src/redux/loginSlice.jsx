@@ -18,9 +18,12 @@ export const loginUser = createAsyncThunk(
 
 export const updateUserProfile = createAsyncThunk(
     'login/updateUserProfile',
-    async (userData, { rejectWithValue }) => {
+    async (userData, { rejectWithValue, getState }) => {
+        const state = getState();
+        const token = state.login.token;
+
         try {
-            const response = await apiUpdateUserProfile(userData);
+            const response = await apiUpdateUserProfile(userData, token);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);

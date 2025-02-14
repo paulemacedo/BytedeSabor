@@ -1,5 +1,7 @@
 import Pedido from '../models/pedido.model.js';
 
+
+
 const generateHexId = () => {
     return [...Array(24)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 };
@@ -12,7 +14,7 @@ export const criarPedido = async (req, res) => {
         console.error('Campos obrigatórios não fornecidos:', { preco, usuario, items });
         return res.status(400).json({ success: false, message: 'Campos obrigatórios não fornecidos.' });
     }
-
+    
     const pedido = {
         _id: generateHexId(), // Gera o ID manualmente
         preco,
@@ -20,7 +22,7 @@ export const criarPedido = async (req, res) => {
         usuario,
         status: status || 'Aguardando Confirmação',
         items,
-        date: date || new Date() // Define a data atual se não fornecida
+        date: new Date() // Define a data atual se não fornecida
     };
 
     const novoPedido = new Pedido(pedido);
@@ -50,14 +52,18 @@ export const listarPedidos = async (req, res) => {
 
 // LISTAR PEDIDOS POR USUÁRIO
 export const listarPedidosPorUsuario = async (req, res) => {
+    console.log("listarPedidosPorUsuario")
+
     const { usuarioId } = req.params;
     try {
         const pedidos = await Pedido.find({ usuario: usuarioId }).populate('usuario');
+
         res.status(200).json({ success: true, pedidos });
     } catch (error) {
         console.error('Erro ao listar pedidos por usuário:', error.message);
         res.status(500).json({ success: false, message: error.message });
     }
+
 }
 
 export const verPedidoPorId = async (req, res) => {

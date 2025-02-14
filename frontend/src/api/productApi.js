@@ -6,17 +6,29 @@ export const fetchProdutos = async () => {
     return response.data.produtos;
 };
 
-export const addProduct = async (product) => {
-    const response = await axios.post(`${API_URL}/produtos`, product);
+export const addProduct = async (product, token) => {
+    const response = await axios.post(`${API_URL}/produtos`, product, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
     return response.data.produto;
 };
 
-export const updateProduct = async (product) => {
-    const response = await axios.put(`${API_URL}/produtos/${product._id}`, product);
+export const updateProduct = async (product, token) => {
+    const response = await axios.put(`${API_URL}/produtos/${product._id}`, product, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
     return response.data.produto;
 };
 
-export const deleteProduct = async (id) => {
-    const response = await axios.delete(`${API_URL}/produtos/${id}`);
+export const deleteProduct = async (id, token) => {
+    const response = await axios.delete(`${API_URL}/produtos/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
     return response.data;
 };

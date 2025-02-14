@@ -4,6 +4,8 @@ import { listarUsuarios, criarUsuario, verUsuarioPorId, atualizarUsuarioPorId, d
 
 const router = express.Router();
 
+
+
 /**
  * @swagger
  * components:
@@ -56,7 +58,7 @@ const router = express.Router();
  *       400:
  *         description: Campos obrigatórios não fornecidos ou email já em uso
  */
-router.post('/', criarUsuario);
+router.post('/',criarUsuario);
 
 /**
  * @swagger
@@ -126,7 +128,8 @@ router.get('/:id', verUsuarioPorId);
  *       404:
  *         description: Usuário não encontrado
  */
-router.put('/:id', atualizarUsuarioPorId);
+router.put('/:id', verifyToken, atualizarUsuarioPorId);
+
 
 /**
  * @swagger

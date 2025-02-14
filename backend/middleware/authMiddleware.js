@@ -5,6 +5,8 @@ const secretKey = process.env.JWT_SECRET;
 
 export const verifyToken = (req, res, next) => {
     const token = req.header('Authorization')?.split(' ')[1];
+        /* console.log("auth: ", req.header('Authorization'), "\n token: ", token) */
+
     if (!token) return res.status(401).json({ success: false, message: 'Access Denied' });
 
     try {

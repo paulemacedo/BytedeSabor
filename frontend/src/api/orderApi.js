@@ -11,8 +11,12 @@ export const loadOrdersByUser = async (userId) => {
     return response.data.pedidos;
 };
 
-export const addOrder = async (order) => {
-    const response = await axios.post(`${API_URL}/pedidos`, order);
+export const addOrder = async (order, token) => {
+    const response = await axios.post(`${API_URL}/pedidos`, order, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
     return response.data.pedido;
 };
 

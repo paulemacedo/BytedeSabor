@@ -15,9 +15,11 @@ export const fetchProdutosAsync = createAsyncThunk(
 
 export const addProductAsync = createAsyncThunk(
   'products/addProduct',
-  async (product, { rejectWithValue }) => {
+  async (product, { rejectWithValue, getState }) => {
+    const state = getState();
+    const token = state.login.token;
     try {
-      const novoProduto = await addProduct(product);
+      const novoProduto = await addProduct(product, token);
       return novoProduto;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -27,9 +29,11 @@ export const addProductAsync = createAsyncThunk(
 
 export const updateProductAsync = createAsyncThunk(
   'products/updateProduct',
-  async (product, { rejectWithValue }) => {
+  async (product, { rejectWithValue, getState }) => {
+    const state = getState();
+    const token = state.login.token;
     try {
-      const produtoAtualizado = await updateProduct(product);
+      const produtoAtualizado = await updateProduct(product, token);
       return produtoAtualizado;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -39,9 +43,11 @@ export const updateProductAsync = createAsyncThunk(
 
 export const deleteProductAsync = createAsyncThunk(
   'products/deleteProduct',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, getState }) => {
+    const state = getState();
+    const token = state.login.token;
     try {
-      await deleteProduct(id);
+      await deleteProduct(id, token);
       return id;
     } catch (error) {
       return rejectWithValue(error.response.data);

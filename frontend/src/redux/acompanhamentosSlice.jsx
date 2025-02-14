@@ -15,9 +15,11 @@ export const fetchAcompanhamentosAsync = createAsyncThunk(
 
 export const addAcompanhamentoAsync = createAsyncThunk(
   'acompanhamentos/addAcompanhamento',
-  async (acompanhamento, { rejectWithValue }) => {
+  async (acompanhamento, { rejectWithValue, getState }) => {
+    const state = getState();
+    const token = state.login.token;
     try {
-      const novoAcompanhamento = await addAcompanhamento(acompanhamento);
+      const novoAcompanhamento = await addAcompanhamento(acompanhamento, token);
       return novoAcompanhamento;
     } catch (error) {
       if (error.response) {
@@ -31,9 +33,11 @@ export const addAcompanhamentoAsync = createAsyncThunk(
 
 export const updateAcompanhamentoAsync = createAsyncThunk(
   'acompanhamentos/updateAcompanhamento',
-  async (acompanhamento, { rejectWithValue }) => {
+  async (acompanhamento, { rejectWithValue, getState }) => {
+    const state = getState();
+    const token = state.login.token;
     try {
-      const acompanhamentoAtualizado = await updateAcompanhamento(acompanhamento);
+      const acompanhamentoAtualizado = await updateAcompanhamento(acompanhamento, token);
       return acompanhamentoAtualizado;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -43,9 +47,11 @@ export const updateAcompanhamentoAsync = createAsyncThunk(
 
 export const deleteAcompanhamentoAsync = createAsyncThunk(
   'acompanhamentos/deleteAcompanhamento',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, getState }) => {
+    const state = getState();
+    const token = state.login.token;
     try {
-      await deleteAcompanhamento(id);
+      await deleteAcompanhamento(id, token);
       return id;
     } catch (error) {
       return rejectWithValue(error.response.data);

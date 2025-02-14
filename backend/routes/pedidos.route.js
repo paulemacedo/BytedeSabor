@@ -1,5 +1,8 @@
 import express from 'express';
 import { criarPedido, listarPedidos, listarPedidosPorUsuario, verPedidoPorId, atualizarPedidoPorId, deletarPedidoPorId } from '../controllers/pedido.controller.js';
+import { verifyToken } from '../middleware/authMiddleware.js';
+
+
 
 const router = express.Router();
 
@@ -81,7 +84,7 @@ const router = express.Router();
  *       400:
  *         description: Campos obrigatórios não fornecidos
  */
-router.post('/', criarPedido);
+router.post('/', verifyToken, criarPedido);
 
 /**
  * @swagger

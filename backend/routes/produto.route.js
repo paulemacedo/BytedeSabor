@@ -1,6 +1,6 @@
 import express from 'express';
 import { listarProdutos, criarProduto, verProdutoPorId, atualizarProdutoPorId, deletarProdutoPorId } from '../controllers/produto.controller.js';
-import { verifyToken } from '../middleware/authMiddleware.js';
+import { verifyToken, verifyAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -79,7 +79,7 @@ router.get('/', listarProdutos);
  *       400:
  *         description: Faltando dados
  */
-router.post('/', criarProduto);
+router.post('/', verifyToken, verifyAdmin, criarProduto);
 
 /**
  * @swagger
@@ -135,7 +135,7 @@ router.get('/:id', verProdutoPorId);
  *       404:
  *         description: Produto não encontrado
  */
-router.put('/:id', atualizarProdutoPorId);
+router.put('/:id', verifyToken, verifyAdmin, atualizarProdutoPorId);
 
 /**
  * @swagger
@@ -156,6 +156,6 @@ router.put('/:id', atualizarProdutoPorId);
  *       404:
  *         description: Produto não encontrado
  */
-router.delete('/:id', deletarProdutoPorId);
+router.delete('/:id', verifyToken, verifyAdmin, deletarProdutoPorId);
 
 export default router;
