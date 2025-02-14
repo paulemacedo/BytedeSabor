@@ -35,13 +35,23 @@ const Login = () => {
 
     useEffect(() => {
         if (error) {
-            setLocalError(error);
+            setLocalError('Email ou senha inválidos.');
             const timer = setTimeout(() => {
                 setLocalError(null);
-            }, 5000);
+            }, 10000);
             return () => clearTimeout(timer);
         }
     }, [error]);
+
+
+    useEffect(() => {
+        if (error) {
+            const timer = setTimeout(() => {
+                dispatch(clearRegisterState());
+            }, 10000);
+            return () => clearTimeout(timer);
+        }
+    }, [error, dispatch]);
 
     return (
         <div className="container">
@@ -56,12 +66,12 @@ const Login = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="Enter your email"
+                        placeholder="Digite seu email"
                         required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
+                    <label htmlFor="password" className="form-label">Senha</label>
                     <input 
                         type="password" 
                         className="form-input" 
@@ -69,16 +79,22 @@ const Login = () => {
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        placeholder="Enter your password"
+                        placeholder="Digite sua senha"
                         required
                     />
                 </div>
-                {localError && <p className="error-message">{localError}</p>}
+                {localError && (
+                    <div className="error-container">
+                        <p className="error-message">
+                            <i className="bi bi-exclamation-circle-fill"></i> {localError}
+                        </p>
+                    </div>
+                )}
                 <div className="center-btn">
-                    <button type="submit" className="btn form-btn" disabled={loading}>Login</button>
+                    <button type="submit" className="btn form-btn" disabled={loading}>Entrar</button>
                 </div>
                 <div className="link-container">
-                    Don't have an account? <Link to="/register">Register</Link>
+                    Não tem uma conta? <Link to="/register">Registrar</Link>
                 </div>
             </form>
         </div>

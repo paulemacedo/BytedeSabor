@@ -10,29 +10,33 @@ export const listarUsuarios = async (req, res) => {
         const usuarios = await Usuario.find({}, '-senha'); // Exclui o campo 'senha' da resposta
         res.status(200).json({ success: true, data: usuarios });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        res.status(500).json({ success: false, message: "Erro no servidor." });
     }
 };
 
 export const criarUsuario = async (req, res) => {
     const { nome, email, senha } = req.body;
     if (!nome || !email || !senha) {
-        return res.status(400).json({ success: false, message: "Fields missing." });
+        const missingFields = [];
+        if (!nome) missingFields.push('nome');
+        if (!email) missingFields.push('email');
+        if (!senha) missingFields.push('senha');
+        return res.status(400).json({ success: false, message: `Campos faltando: ${missingFields.join(', ')}.` });
     }
 
     try {
         const existingUser = await Usuario.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ success: false, message: "Email already in use." });
+            return res.status(400).json({ success: false, message: "Email já está em uso." });
         }
 
         const hashedPassword = await bcrypt.hash(senha, 10);
         const newUsuario = new Usuario({ _id: generateHexId(), nome, email, senha: hashedPassword, isAdmin: false });
         await newUsuario.save();
-        res.status(201).json({ success: true, message: "Usuario added." });
+        res.status(201).json({ success: true, message: "Usuário adicionado." });
     } catch (error) {
-        console.error("Error: ", error.message);
-        res.status(500).json({ success: false, message: "Server Error." });
+        console.error("Erro: ", error.message);
+        res.status(500).json({ success: false, message: "Erro no servidor." });
     }
 };
 
@@ -42,7 +46,7 @@ export const verUsuarioPorId = async (req, res) => {
         const usuario = await Usuario.findById(id);
         res.status(200).json({ success: true, data: usuario });
     } catch (error) {
-        res.status(404).json({ success: false, message: "Usuario não encontrado" });
+        res.status(404).json({ success: false, message: "Usuário não encontrado." });
     }
 };
 
@@ -53,7 +57,7 @@ export const atualizarUsuarioPorId = async (req, res) => {
         const usuario = await Usuario.findByIdAndUpdate(id, usuarioAtualizado, { new: true });
         res.status(200).json({ success: true, user: usuario });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        res.status(500).json({ success: false, message: "Erro no servidor." });
     }
 };
 
@@ -61,12 +65,12 @@ export const deletarUsuarioPorId = async (req, res) => {
     const { id } = req.params;
     try {
         await Usuario.findByIdAndDelete(id);
-        res.status(201).json({ success: true, message: 'Usuario deletado' });
+        res.status(201).json({ success: true, message: 'Usuário deletado.' });
     } catch (error) {
         console.error("Erro: ", error.message);
         res.status(401).json({
             success: false,
-            message: error.message
+            message: "Erro no servidor."
         });
     }
 };
@@ -76,13 +80,13 @@ export const checkEmailExists = async (req, res) => {
     try {
         const user = await Usuario.findOne({ email });
         if (user) {
-            return res.status(200).json({ success: true, message: "Email exists." });
+            return res.status(200).json({ success: true, message: "Email existe." });
         } else {
-            return res.status(404).json({ success: false, message: "Email not found." });
+            return res.status(404).json({ success: false, message: "Email não encontrado." });
         }
     } catch (error) {
-        console.error("Error during email check:", error.message);
-        res.status(500).json({ success: false, message: "Server Error." });
+        console.error("Erro durante a verificação do email:", error.message);
+        res.status(500).json({ success: false, message: "Erro no servidor." });
     }
 };
 
@@ -91,16 +95,16 @@ export const updatePassword = async (req, res) => {
     try {
         const user = await Usuario.findOne({ email });
         if (!user) {
-            return res.status(404).json({ success: false, message: "Email not found." });
+            return res.status(404).json({ success: false, message: "Email não encontrado." });
         }
 
         const hashedPassword = await bcrypt.hash(newPassword, 10);
         user.senha = hashedPassword;
         await user.save();
 
-        res.status(200).json({ success: true, message: "Password updated successfully." });
+        res.status(200).json({ success: true, message: "Senha atualizada com sucesso." });
     } catch (error) {
-        console.error("Error during password update:", error.message);
-        res.status(500).json({ success: false, message: "Server Error." });
+        console.error("Erro durante a atualização da senha:", error.message);
+        res.status(500).json({ success: false, message: "Erro no servidor." });
     }
 };

@@ -11,7 +11,7 @@ import swaggerRoutes from './config/swagger.js';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3001; // Adicione um valor padrão para a porta
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(
@@ -35,6 +35,10 @@ app.use(
 app.use(express.json());
 
 app.use('/api-docs', swaggerRoutes);
+
+app.get('/', (req, res) => {
+  res.send('Bem vindo ao Byte de Sabor API');
+});
 
 // middleware
 app.use('/api/pedidos', pedidoRoutes);

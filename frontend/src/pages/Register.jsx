@@ -11,6 +11,7 @@ const Register = () => {
         password: '',
         confirmPassword: ''
     });
+    const [localError, setLocalError] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error, user } = useSelector((state) => state.register);
@@ -30,12 +31,26 @@ const Register = () => {
                 isAdmin: false
             }));
         } else {
-            alert('Passwords do not match');
+            setLocalError('As senhas não coincidem');
+            const timer = setTimeout(() => {
+                setLocalError(null);
+            }, 10000);
+            return () => clearTimeout(timer);
         }
     };
 
     useEffect(() => {
+        if (error) {
+            const timer = setTimeout(() => {
+                dispatch(clearRegisterState());
+            }, 10000);
+            return () => clearTimeout(timer);
+        }
+    }, [error, dispatch]);
+    
+    useEffect(() => {
         if (user) {
+            alert('Registro bem-sucedido!');
             navigate('/login');
         }
     }, [user, navigate]);
@@ -48,10 +63,10 @@ const Register = () => {
 
     return (
         <div className="container">
-            <h2 id="form-title">Register</h2>
+            <h2 id="form-title">Cadastre-se</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Name</label>
+                    <label htmlFor="name" className="form-label">Nome</label>
                     <input 
                         type="text" 
                         className="form-input" 
@@ -59,7 +74,7 @@ const Register = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="Enter your name"
+                        placeholder="Digite seu nome"
                         required
                     />
                 </div>
@@ -72,12 +87,12 @@ const Register = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="Enter your email"
+                        placeholder="Digite seu email"
                         required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
+                    <label htmlFor="password" className="form-label">Senha</label>
                     <input 
                         type="password" 
                         className="form-input" 
@@ -85,12 +100,12 @@ const Register = () => {
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        placeholder="Enter your password"
+                        placeholder="Digite sua senha"
                         required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                    <label htmlFor="confirmPassword" className="form-label">Confirmar Senha</label>
                     <input 
                         type="password" 
                         className="form-input" 
@@ -98,23 +113,24 @@ const Register = () => {
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleChange}
-                        placeholder="Confirm your password"
+                        placeholder="Confirme sua senha"
                         required
                     />
                 </div>
-                <div className="center-btn">
-                    <button type="submit" className="btn form-btn" disabled={loading}>Register</button>
-                </div>
-                <div className="link-container">
-                    Already have an account? <Link to="/login">Login</Link>
-                </div>
-                {error && (
+                {(error || localError) && (
                     <div className="error-container">
                         <p className="error-message">
-                            <i className="bi bi-exclamation-circle-fill"></i> {error.message}
+                            <i className="bi bi-exclamation-circle-fill"></i> {error ? error.message : localError}
                         </p>
                     </div>
                 )}
+                <div className="center-btn">
+                    <button type="submit" className="btn form-btn" disabled={loading}>Registrar</button>
+                </div>
+                <div className="link-container">
+                    Já tem uma conta? <Link to="/login">Entrar</Link>
+                </div>
+                
             </form>
         </div>
     );
