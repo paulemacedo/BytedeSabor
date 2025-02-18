@@ -18,6 +18,11 @@ export const addOrderAsync = createAsyncThunk('orders/addOrder', async (order, {
     const state = getState();
     const user = selectUser(state); // Obtém o usuário autenticado do estado
     const orderWithUser = { ...order, usuario: user._id }; // Adiciona o ID do usuário ao pedido
+    
+    if (orderWithUser.date) {
+        orderWithUser.date = new Date(orderWithUser.date);
+    }
+    
     console.log('Dados do pedido a serem enviados:', orderWithUser); // Adiciona log para verificar os dados do pedido
     
     const token = state.login.token;

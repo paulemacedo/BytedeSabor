@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ErrorMessage, SuccessMessage } from '../components/Messages';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUser } from '../redux/loginSlice';
+import { loginUser, clearRegisterState } from '../redux/loginSlice';
 import '../Styles/LoginForms.css';
 
 const Login = () => {
@@ -9,7 +10,7 @@ const Login = () => {
         email: '',
         password: ''
     });
-    const [localError, setLocalError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error, user } = useSelector((state) => state.login);
@@ -35,13 +36,12 @@ const Login = () => {
 
     useEffect(() => {
         if (error) {
-            setLocalError(error);
             const timer = setTimeout(() => {
-                setLocalError(null);
-            }, 5000);
+                dispatch(clearRegisterState());
+            }, 10000);
             return () => clearTimeout(timer);
         }
-    }, [error]);
+    }, [error, dispatch]);
 
     return (
         <div className="container">
@@ -56,12 +56,12 @@ const Login = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="Enter your email"
+                        placeholder="Digite seu email"
                         required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
+                    <label htmlFor="password" className="form-label">Senha</label>
                     <input 
                         type="password" 
                         className="form-input" 
@@ -69,16 +69,17 @@ const Login = () => {
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        placeholder="Enter your password"
+                        placeholder="Digite sua senha"
                         required
                     />
                 </div>
-                {localError && <p className="error-message">{localError}</p>}
+                <ErrorMessage message={error} />
+                <SuccessMessage message={successMessage} />
                 <div className="center-btn">
-                    <button type="submit" className="btn form-btn" disabled={loading}>Login</button>
+                    <button type="submit" className="btn form-btn" disabled={loading}>Entrar</button>
                 </div>
                 <div className="link-container">
-                    Don't have an account? <Link to="/register">Register</Link>
+                    Não tem uma conta? <Link to="/register">Registrar</Link>
                 </div>
             </form>
         </div>

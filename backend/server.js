@@ -11,16 +11,16 @@ import swaggerRoutes from './config/swagger.js';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3001; // Adicione um valor padrão para a porta
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(
   cors({
-    origin: [
-      'http://localhost:5173', 
-      'https://bytedesabor.vercel.app', 
-      'https://bytedesabor-git-develop-react-paulemacedos-projects.vercel.app'
-    ],
+    // origin: [
+    //   'http://localhost:5173', 
+    //   'https://bytedesabor.vercel.app', 
+    //   'https://bytedesabor-git-develop-react-paulemacedos-projects.vercel.app'
+    // ],
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
     optionsSuccessStatus: 200,
@@ -35,6 +35,10 @@ app.use(
 app.use(express.json());
 
 app.use('/api-docs', swaggerRoutes);
+
+app.get('/', (req, res) => {
+  res.send('Bem vindo ao Byte de Sabor API');
+});
 
 // middleware
 app.use('/api/pedidos', pedidoRoutes);

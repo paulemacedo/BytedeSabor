@@ -12,6 +12,12 @@ class Usuario {
   - isAdmin: Boolean
 }
 
+class Cliente {
+}
+
+class Adm {
+}
+
 class Produto {
   - _id: String
   - tipo: String
@@ -40,13 +46,22 @@ class Item {
 class Acompanhamento {
   - _id: String
   - nome: String
+  - imagem: String
+  - descricao: String
   - preco: float
+  - emEstoque: Boolean
 }
 
-Usuario "1" --> "*" Pedido
-Pedido "*" --> "*" Produto
-Produto "*" --> "*" Acompanhamento
-Pedido "*" --> "*" Item
-Item "*" --> "*" Acompanhamento
+Usuario <|-- Cliente
+Usuario <|-- Adm
+
+Cliente "1" --> "*" Pedido : realiza
+Adm "1" --> "*" Pedido : gerencia
+Adm "1" --> "*" Produto : gerencia
+Adm "1" --> "*" Acompanhamento : gerencia
+
+Pedido "*" --> "*" Item : contem
+Item "1" --> "*" Acompanhamento : contem
+Item "*" --> "1" Produto : contem
 
 @enduml

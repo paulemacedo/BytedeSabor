@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ErrorMessage, SuccessMessage } from '../components/Messages';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser, clearRegisterState } from '../redux/registerSlice';
@@ -11,6 +12,8 @@ const Register = () => {
         password: '',
         confirmPassword: ''
     });
+    const [localError, setLocalError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error, user } = useSelector((state) => state.register);
@@ -30,15 +33,49 @@ const Register = () => {
                 isAdmin: false
             }));
         } else {
-            alert('Passwords do not match');
+            setLocalError('As senhas não coincidem');
+            const timer = setTimeout(() => {
+                setLocalError(null);
+            }, 10000);
+            return () => clearTimeout(timer);
         }
     };
 
     useEffect(() => {
+        if (error) {
+            const timer = setTimeout(() => {
+                dispatch(clearRegisterState());
+            }, 10000);
+            return () => clearTimeout(timer);
+        }
+    }, [error, dispatch]);
+    
+    // useEffect(() => {
+    //     if (user) {
+    //         alert('Registro bem-sucedido!');
+    //         navigate('/login');
+    //     }
+    // }, [user, navigate]);
+
+    useEffect(() => {
         if (user) {
-            navigate('/login');
+            setSuccessMessage('Registro bem-sucedido!');
+            const timer = setTimeout(() => {
+                navigate('/login');
+            }, 10000);
+            return () => clearTimeout(timer);
         }
     }, [user, navigate]);
+
+
+    useEffect(() => {
+        if (successMessage) {
+            const timer = setTimeout(() => {
+                setSuccessMessage(null);
+            }, 10000);
+            return () => clearTimeout(timer);
+        }
+    }, [successMessage]);
 
     useEffect(() => {
         return () => {
@@ -48,10 +85,10 @@ const Register = () => {
 
     return (
         <div className="container">
-            <h2 id="form-title">Register</h2>
+            <h2 id="form-title">Cadastre-se</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Name</label>
+                    <label htmlFor="name" className="form-label">Nome</label>
                     <input 
                         type="text" 
                         className="form-input" 
@@ -59,7 +96,7 @@ const Register = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="Enter your name"
+                        placeholder="Digite seu nome"
                         required
                     />
                 </div>
@@ -72,12 +109,12 @@ const Register = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="Enter your email"
+                        placeholder="Digite seu email"
                         required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
+                    <label htmlFor="password" className="form-label">Senha</label>
                     <input 
                         type="password" 
                         className="form-input" 
@@ -85,12 +122,12 @@ const Register = () => {
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        placeholder="Enter your password"
+                        placeholder="Digite sua senha"
                         required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                    <label htmlFor="confirmPassword" className="form-label">Confirmar Senha</label>
                     <input 
                         type="password" 
                         className="form-input" 
@@ -98,23 +135,19 @@ const Register = () => {
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleChange}
-                        placeholder="Confirm your password"
+                        placeholder="Confirme sua senha"
                         required
                     />
                 </div>
+                <ErrorMessage message={error ? error.message : localError} />
+                <SuccessMessage message={successMessage} />
                 <div className="center-btn">
-                    <button type="submit" className="btn form-btn" disabled={loading}>Register</button>
+                    <button type="submit" className="btn form-btn" disabled={loading}>Registrar</button>
                 </div>
                 <div className="link-container">
-                    Already have an account? <Link to="/login">Login</Link>
+                    Já tem uma conta? <Link to="/login">Entrar</Link>
                 </div>
-                {error && (
-                    <div className="error-container">
-                        <p className="error-message">
-                            <i className="bi bi-exclamation-circle-fill"></i> {error.message}
-                        </p>
-                    </div>
-                )}
+                
             </form>
         </div>
     );
