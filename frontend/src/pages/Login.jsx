@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ErrorMessage, SuccessMessage } from '../components/Messages';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUser } from '../redux/loginSlice';
+import { loginUser, clearRegisterState } from '../redux/loginSlice';
 import '../Styles/LoginForms.css';
 
 const Login = () => {
@@ -9,7 +10,7 @@ const Login = () => {
         email: '',
         password: ''
     });
-    const [localError, setLocalError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error, user } = useSelector((state) => state.login);
@@ -32,17 +33,6 @@ const Login = () => {
             navigate('/');
         }
     }, [user, navigate]);
-
-    useEffect(() => {
-        if (error) {
-            setLocalError('Email ou senha inválidos.');
-            const timer = setTimeout(() => {
-                setLocalError(null);
-            }, 10000);
-            return () => clearTimeout(timer);
-        }
-    }, [error]);
-
 
     useEffect(() => {
         if (error) {
@@ -83,13 +73,8 @@ const Login = () => {
                         required
                     />
                 </div>
-                {localError && (
-                    <div className="error-container">
-                        <p className="error-message">
-                            <i className="bi bi-exclamation-circle-fill"></i> {localError}
-                        </p>
-                    </div>
-                )}
+                <ErrorMessage message={error} />
+                <SuccessMessage message={successMessage} />
                 <div className="center-btn">
                     <button type="submit" className="btn form-btn" disabled={loading}>Entrar</button>
                 </div>

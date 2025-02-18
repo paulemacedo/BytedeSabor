@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ErrorMessage, SuccessMessage } from '../components/Messages';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser, clearRegisterState } from '../redux/registerSlice';
@@ -12,6 +13,7 @@ const Register = () => {
         confirmPassword: ''
     });
     const [localError, setLocalError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error, user } = useSelector((state) => state.register);
@@ -48,12 +50,32 @@ const Register = () => {
         }
     }, [error, dispatch]);
     
+    // useEffect(() => {
+    //     if (user) {
+    //         alert('Registro bem-sucedido!');
+    //         navigate('/login');
+    //     }
+    // }, [user, navigate]);
+
     useEffect(() => {
         if (user) {
-            alert('Registro bem-sucedido!');
-            navigate('/login');
+            setSuccessMessage('Registro bem-sucedido!');
+            const timer = setTimeout(() => {
+                navigate('/login');
+            }, 10000);
+            return () => clearTimeout(timer);
         }
     }, [user, navigate]);
+
+
+    useEffect(() => {
+        if (successMessage) {
+            const timer = setTimeout(() => {
+                setSuccessMessage(null);
+            }, 10000);
+            return () => clearTimeout(timer);
+        }
+    }, [successMessage]);
 
     useEffect(() => {
         return () => {
@@ -117,13 +139,8 @@ const Register = () => {
                         required
                     />
                 </div>
-                {(error || localError) && (
-                    <div className="error-container">
-                        <p className="error-message">
-                            <i className="bi bi-exclamation-circle-fill"></i> {error ? error.message : localError}
-                        </p>
-                    </div>
-                )}
+                <ErrorMessage message={error ? error.message : localError} />
+                <SuccessMessage message={successMessage} />
                 <div className="center-btn">
                     <button type="submit" className="btn form-btn" disabled={loading}>Registrar</button>
                 </div>

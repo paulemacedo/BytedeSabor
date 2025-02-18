@@ -70,6 +70,10 @@ const loginSlice = createSlice({
     name: 'login',
     initialState,
     reducers: {
+        clearRegisterState: (state) => {
+            state.error = null;
+            state.loading = false;
+        },
         logout: (state) => {
             state.isLoggedIn = false;
             state.user = null;
@@ -181,6 +185,6 @@ const loginSlice = createSlice({
     },
 });
 
-export const { logout, loadUserFromStorage } = loginSlice.actions;
+export const { logout, loadUserFromStorage, clearRegisterState } = loginSlice.actions;
 export const selectUser = (state) => state.login.user;
 export default loginSlice.reducer;

@@ -39,6 +39,7 @@
     background-color: #2c0a31;
     border-radius: 8px;
     margin-bottom: 1rem;
+    margin: 0.5rem 0;
     transition: transform 0.2s ease;
 }
 
