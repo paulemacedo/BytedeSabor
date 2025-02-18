@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { ErrorMessage, SuccessMessage } from './Messages';
 import '../Styles/AdminItemManager.css';
 
 const AdminItemManager = ({
@@ -16,7 +17,9 @@ const AdminItemManager = ({
     const [editingItem, setEditingItem] = useState(null);
     const [form, setForm] = useState(initialFormState);
     const [filter, setFilter] = useState('');
-    const [mode, setMode] = useState('manage'); 
+    const [mode, setMode] = useState('manage');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     
     useEffect(() => {
         if (status === 'idle') {
@@ -32,10 +35,16 @@ const AdminItemManager = ({
     const handleAddItem = async () => {
         try {
             await onAdd(form);
+            setSuccessMessage('Item adicionado com sucesso!');
             setForm(initialFormState);
             setMode('manage');
         } catch (error) {
-            console.error('Failed to add item:', error);
+            setErrorMessage('Erro ao adicionar item: ' + error.message);
+        } finally {
+            setTimeout(() => {
+                setSuccessMessage('');
+                setErrorMessage('');
+            }, 5000);
         }
     };
 
@@ -51,11 +60,17 @@ const AdminItemManager = ({
     const handleUpdateItem = async () => {
         try {
             await onUpdate(form);
+            setSuccessMessage('Item atualizado com sucesso!');
             setForm(initialFormState);
             setEditingItem(null);
             setMode('manage');
         } catch (error) {
-            console.error('Failed to update item:', error);
+            setErrorMessage('Erro ao atualizar item: ' + error.message);
+        } finally {
+            setTimeout(() => {
+                setSuccessMessage('');
+                setErrorMessage('');
+            }, 5000);
         }
     };
 
@@ -63,8 +78,14 @@ const AdminItemManager = ({
         if (!window.confirm('Tem certeza que deseja excluir este item?')) return;
         try {
             await onDelete(id);
+            setSuccessMessage('Item excluído com sucesso!');
         } catch (error) {
-            console.error('Failed to delete item:', error);
+            setErrorMessage('Erro ao excluir item: ' + error.message);
+        } finally {
+            setTimeout(() => {
+                setSuccessMessage('');
+                setErrorMessage('');
+            }, 5000);
         }
     };
 
@@ -157,6 +178,8 @@ const AdminItemManager = ({
                     </button>
                 </div>
             </div>
+            <ErrorMessage message={errorMessage} />
+            <SuccessMessage message={successMessage} />
             {mode === 'add' && renderForm()}
             {mode === 'manage' && (
                 <div className="admin-produto-items-list">
