@@ -74,23 +74,27 @@ const User = () => {
 
 
     return (
-        <div className="user-container">
-            <h2>Bem vindo, {user.nome}</h2>
-            <img src={profileImage} alt="Profile" className="profile-picture" />
-            <p>{user.email}</p>
-            <p>{user.endereco}</p>
-            <div className="button-group">
-                <button className="btn" onClick={handleEditProfile}>Editar Perfil</button>
-                <button className="btn" onClick={handleLogout}>Deslogar</button>
+        <div>
+            <div className="messages-container">
+                <ErrorMessage message={errorMessage} />
+                <SuccessMessage message={successMessage} />
             </div>
-            <EditProfileModal 
-                isOpen={isModalOpen} 
-                onRequestClose={() => setIsModalOpen(false)}
-                onSuccess={handleEditSuccess}
-                onError={handleEditError}
-            />            
-            <ErrorMessage message={errorMessage} />
-            <SuccessMessage message={successMessage} />
+            <div className="user-container">
+                <h2>Bem vindo, {user.nome}</h2>
+                <img src={profileImage} alt="Profile" className="profile-picture" />
+                <p>{user.email}</p>
+                <p>{user.endereco}</p>
+                <div className="button-group">
+                    <button className="btn" onClick={handleEditProfile}>Editar Perfil</button>
+                    <button className="btn" onClick={handleLogout}>Deslogar</button>
+                </div>
+                <EditProfileModal 
+                    isOpen={isModalOpen} 
+                    onRequestClose={() => setIsModalOpen(false)}
+                    onSuccess={handleEditSuccess}
+                    onError={handleEditError}
+                />            
+            </div>
         </div>
     );
 };
