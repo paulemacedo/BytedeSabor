@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAllOrders, loadOrdersAsync, updateOrderStatusAsync, deleteOrderAsync } from '../redux/ordersSlice';
+import { ErrorMessage, SuccessMessage } from '../components/Messages';
 import '../Styles/AdminPedidos.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -8,7 +9,9 @@ const AdminPedidos = () => {
     const dispatch = useDispatch();
     const orders = useSelector(selectAllOrders);
     const [filter, setFilter] = useState('');
-    const [cancelMessage, setCancelMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    // const [cancelMessage, setCancelMessage] = useState('');
     const [showScrollButtons, setShowScrollButtons] = useState(false);
     const filterBarRef = useRef(null);
 
@@ -28,21 +31,40 @@ const AdminPedidos = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const handleStatusChange = (orderId, status) => {
-        dispatch(updateOrderStatusAsync({ orderId, status }));
-    };
-
-    const handleCancelOrder = (orderId) => {
-        if (window.confirm('Tem certeza de que deseja cancelar este pedido?')) {
-            dispatch(updateOrderStatusAsync({ orderId, status: 'Cancelado' }));
-            setCancelMessage(`Pedido #${orderId} foi cancelado.`);
+    const handleStatusChange = async (orderId, status) => {
+        try {
+            await dispatch(updateOrderStatusAsync({ orderId, status })).unwrap();
+            setSuccessMessage(`Status do pedido #${orderId} atualizado para ${status}`);
+            setTimeout(() => setSuccessMessage(''), 5000);
+        } catch (error) {
+            setErrorMessage(`Erro ao atualizar status do pedido #${orderId}`);
+            setTimeout(() => setErrorMessage(''), 5000);
         }
     };
 
-    const handleDeleteOrder = (orderId) => {
+    const handleCancelOrder = async (orderId) => {
+        if (window.confirm('Tem certeza de que deseja cancelar este pedido?')) {
+            try {
+                await dispatch(updateOrderStatusAsync({ orderId, status: 'Cancelado' })).unwrap();
+                setSuccessMessage(`Pedido #${orderId} foi cancelado.`);
+                setTimeout(() => setSuccessMessage(''), 5000);
+            } catch (error) {
+                setErrorMessage(`Erro ao cancelar pedido #${orderId}`);
+                setTimeout(() => setErrorMessage(''), 5000);
+            }
+        }
+    };
+
+    const handleDeleteOrder = async (orderId) => {
         if (window.confirm('Tem certeza de que deseja excluir este pedido?')) {
-            dispatch(deleteOrderAsync(orderId));
-            setCancelMessage(`Pedido #${orderId} foi excluído.`);
+            try {
+                await dispatch(deleteOrderAsync(orderId)).unwrap();
+                setSuccessMessage(`Pedido #${orderId} foi excluído.`);
+                setTimeout(() => setSuccessMessage(''), 5000);
+            } catch (error) {
+                setErrorMessage(`Erro ao excluir pedido #${orderId}`);
+                setTimeout(() => setErrorMessage(''), 5000);
+            }
         }
     };
 
@@ -79,6 +101,9 @@ const AdminPedidos = () => {
                 </div>
                 {showScrollButtons && <button className="scroll-button" onClick={scrollRight}>{'>'}</button>}
             </div>
+
+            <ErrorMessage message={errorMessage} />
+            <SuccessMessage message={successMessage} />
             <div className="admin-pedidos-filter-select-container">
                 <select onChange={(e) => setFilter(e.target.value)} value={filter} className="admin-pedidos-filter-select">
                     <option value="">Todos</option>
@@ -90,7 +115,7 @@ const AdminPedidos = () => {
                     <option value="Cancelado">Cancelado</option>
                 </select>
             </div>
-            {cancelMessage && <p className="admin-pedidos-cancel-message">{cancelMessage}</p>}
+            {/* {cancelMessage && <p className="admin-pedidos-cancel-message">{cancelMessage}</p>} */}
             <div className="admin-pedidos-orders-grid">
                 {filteredOrders.length === 0 ? (
                     <p className="admin-pedidos-no-orders">Nenhum pedido encontrado.</p>

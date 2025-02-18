@@ -4,7 +4,7 @@ import { updateUserProfile, deleteUserProfile, logout } from '../redux/loginSlic
 import Modal from 'react-modal';
 import '../Styles/EditProfileModal.css';
 
-const EditProfileModal = ({ isOpen, onRequestClose }) => {
+const EditProfileModal = ({ isOpen, onRequestClose, onSuccess, onError }) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.login.user);
     const [formData, setFormData] = useState({
@@ -34,15 +34,21 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
         e.preventDefault();
         const result = await dispatch(updateUserProfile({ ...user, ...formData }));
         if (updateUserProfile.fulfilled.match(result)) {
+            onSuccess('Perfil atualizado com sucesso!');
             onRequestClose();
+        } else {
+            onError('Erro ao atualizar perfil.');
         }
     };
 
     const handleDeleteProfile = async () => {
         const result = await dispatch(deleteUserProfile(user._id));
         if (deleteUserProfile.fulfilled.match(result)) {
+            onSuccess('Perfil excluído com sucesso!');
             dispatch(logout());
             onRequestClose();
+        } else {
+            onError('Erro ao excluir perfil.');
         }
     };
 

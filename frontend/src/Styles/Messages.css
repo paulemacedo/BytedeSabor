@@ -1,46 +1,31 @@
-.error-container {
-  background-color: #2C0A31;
-  color: #63000a;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.error-message {
-  display: flex;
-  align-items: center;
-  color: #721c24;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-}
-
-.error-message i {
-  margin-right: 0.5rem;
-}
-
-
+.error-container,
 .success-container {
   background-color: #2C0A31;
-  color: #006315;
   border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
+  margin: 1rem;
   text-align: center;
 }
 
+.error-message,
 .success-message {
   display: flex;
   align-items: center;
-  color: #155724;
   font-size: 0.9rem;
   margin-top: 0.5rem;
 }
 
+.error-message {
+  color: #721c24;
+}
+
+.success-message {
+  color: #155724;
+}
+
+.error-message i,
 .success-message i {
   margin-right: 0.5rem;
 }
